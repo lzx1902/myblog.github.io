@@ -1941,7 +1941,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #167c8b;
+  background: #7a93ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3246,7 +3246,7 @@ img:hover {
 }
 @media screen and (min-width: 1200px) {
   body {
-    background-image: url("/images/background.jpg");
+    background-image: url("/themes/next/source/images/background.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: 50% 50%;

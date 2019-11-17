@@ -3,11 +3,11 @@
   <title>柠檬与年华</title>
   
   <subtitle>唯有生活和好姑娘不可辜负</subtitle>
-  <link href="/atom.xml" rel="self"/>
+  <link href="/myblog.github.io/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://lzx1902.github.io/myblog.github.io/"/>
   <updated>2019-11-17T06:07:24.711Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://lzx1902.github.io/myblog.github.io/</id>
   
   <author>
     <name>lzx</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Hexo博客Next主题添加DaoVoice在线联系</title>
-    <link href="http://yoursite.com/2019/11/17/Hexo-Daovoice/"/>
-    <id>http://yoursite.com/2019/11/17/Hexo-Daovoice/</id>
+    <link href="https://lzx1902.github.io/myblog.github.io/2019/11/17/Hexo-Daovoice/"/>
+    <id>https://lzx1902.github.io/myblog.github.io/2019/11/17/Hexo-Daovoice/</id>
     <published>2019-11-17T05:29:32.000Z</published>
     <updated>2019-11-17T06:07:24.711Z</updated>
     
@@ -31,17 +31,17 @@
     </summary>
     
     
-      <category term="Next" scheme="http://yoursite.com/categories/Next/"/>
+      <category term="Next" scheme="https://lzx1902.github.io/myblog.github.io/categories/Next/"/>
     
     
-      <category term="Next" scheme="http://yoursite.com/tags/Next/"/>
+      <category term="Next" scheme="https://lzx1902.github.io/myblog.github.io/tags/Next/"/>
     
   </entry>
   
   <entry>
     <title>Markdown基本语法</title>
-    <link href="http://yoursite.com/2019/11/13/Markdown/"/>
-    <id>http://yoursite.com/2019/11/13/Markdown/</id>
+    <link href="https://lzx1902.github.io/myblog.github.io/2019/11/13/Markdown/"/>
+    <id>https://lzx1902.github.io/myblog.github.io/2019/11/13/Markdown/</id>
     <published>2019-11-13T13:54:53.723Z</published>
     <updated>2019-11-17T05:46:04.887Z</updated>
     
@@ -53,17 +53,17 @@
     </summary>
     
     
-      <category term="Markdown" scheme="http://yoursite.com/categories/Markdown/"/>
+      <category term="Markdown" scheme="https://lzx1902.github.io/myblog.github.io/categories/Markdown/"/>
     
     
-      <category term="Markdown" scheme="http://yoursite.com/tags/Markdown/"/>
+      <category term="Markdown" scheme="https://lzx1902.github.io/myblog.github.io/tags/Markdown/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="http://yoursite.com/2019/09/17/hello-world/"/>
-    <id>http://yoursite.com/2019/09/17/hello-world/</id>
+    <link href="https://lzx1902.github.io/myblog.github.io/2019/09/17/hello-world/"/>
+    <id>https://lzx1902.github.io/myblog.github.io/2019/09/17/hello-world/</id>
     <published>2019-09-17T15:54:22.306Z</published>
     <updated>2019-11-17T05:40:56.656Z</updated>
     

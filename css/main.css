@@ -1941,7 +1941,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #7a93ff;
+  background: #a8f5f1;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3246,7 +3246,7 @@ img:hover {
 }
 @media screen and (min-width: 1200px) {
   body {
-    background-image: url("/themes/next/source/images/background.jpg");
+    background-image: url("https://s2.ax1x.com/2019/11/17/MrgpT0.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: 50% 50%;

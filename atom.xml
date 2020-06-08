@@ -6,7 +6,7 @@
   <link href="/myblog.github.io/atom.xml" rel="self"/>
   
   <link href="https://lzx1902.github.io/myblog.github.io/"/>
-  <updated>2020-06-08T13:40:35.137Z</updated>
+  <updated>2020-06-08T13:43:52.594Z</updated>
   <id>https://lzx1902.github.io/myblog.github.io/</id>
   
   <author>
@@ -21,17 +21,13 @@
     <link href="https://lzx1902.github.io/myblog.github.io/2020/06/08/%E8%A7%A3%E6%9E%90Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
     <id>https://lzx1902.github.io/myblog.github.io/2020/06/08/解析Cron表达式/</id>
     <published>2020-06-08T13:40:32.000Z</published>
-    <updated>2020-06-08T13:40:35.137Z</updated>
+    <updated>2020-06-08T13:43:52.594Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;解析Cron表达式，转换为时间&quot;&gt;&lt;a href=&quot;#解析Cron表达式，转换为时间&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;h2 id=&quot;解析Cron表达式，转换为时间&quot;&gt;&lt;a href=&quot;#解析Cron表达式，转换为时间&quot; class=&quot;headerlink&quot; title=&quot;解析Cron表达式，转换为时间&quot;&gt;&lt;/a&gt;解析Cron表达式，转换为时间&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;背景：当需要知道计划任务配置的执行时间，想要清楚的知道下次执行是什么时候，需要解析计划任务的Cron表达式，本次主要介绍quartz.CronExpression提供的解析Cron的方法，注：资源来源网络&lt;/p&gt;
+&lt;/blockquote&gt;
     
     </summary>
     

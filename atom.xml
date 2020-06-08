@@ -6,7 +6,7 @@
   <link href="/myblog.github.io/atom.xml" rel="self"/>
   
   <link href="https://lzx1902.github.io/myblog.github.io/"/>
-  <updated>2020-06-08T14:25:21.030Z</updated>
+  <updated>2020-06-08T14:40:09.969Z</updated>
   <id>https://lzx1902.github.io/myblog.github.io/</id>
   
   <author>
@@ -18,10 +18,31 @@
   
   <entry>
     <title>测试播放视频</title>
+    <link href="https://lzx1902.github.io/myblog.github.io/2020/06/08/%E5%BD%A9%E8%9B%8B/"/>
+    <id>https://lzx1902.github.io/myblog.github.io/2020/06/08/彩蛋/</id>
+    <published>2020-06-08T14:36:18.693Z</published>
+    <updated>2020-06-08T14:40:09.969Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;测试视频链接播放功能&quot;&gt;&lt;a href=&quot;#测试视频链接播放功能&quot; class=&quot;headerlink&quot; title=&quot;测试视频链接播放功能&quot;&gt;&lt;/a&gt;测试视频链接播放功能&lt;/h2&gt;
+    
+    </summary>
+    
+    
+      <category term="video" scheme="https://lzx1902.github.io/myblog.github.io/categories/video/"/>
+    
+    
+      <category term="video" scheme="https://lzx1902.github.io/myblog.github.io/tags/video/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>测试播放视频</title>
     <link href="https://lzx1902.github.io/myblog.github.io/2020/06/08/video/"/>
     <id>https://lzx1902.github.io/myblog.github.io/2020/06/08/video/</id>
     <published>2020-06-08T14:15:42.284Z</published>
-    <updated>2020-06-08T14:25:21.030Z</updated>
+    <updated>2020-06-08T14:41:00.840Z</updated>
     
     <summary type="html">
     

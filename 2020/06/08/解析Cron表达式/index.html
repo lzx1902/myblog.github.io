@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="解析Cron表达式，转换为时间 背景：当需要知道计划任务配置的执行时间，想要清楚的知道下次执行是什么时候，需要解析计划任务的Cron表达式，本次主要介绍quartz.CronExpression提供的解析Cron的方法，注：资源来源网络">
+<meta name="description" content="解析Cron表达式，转换为时间">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="解析Cron表达式">
 <meta property="og:url" content="https://lzx1902.github.io/myblog.github.io/2020/06/08/解析Cron表达式/index.html">
 <meta property="og:site_name" content="柠檬与年华">
-<meta property="og:description" content="解析Cron表达式，转换为时间 背景：当需要知道计划任务配置的执行时间，想要清楚的知道下次执行是什么时候，需要解析计划任务的Cron表达式，本次主要介绍quartz.CronExpression提供的解析Cron的方法，注：资源来源网络">
+<meta property="og:description" content="解析Cron表达式，转换为时间">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-06-08T13:43:52.594Z">
+<meta property="og:updated_time" content="2020-06-08T13:46:02.052Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解析Cron表达式">
-<meta name="twitter:description" content="解析Cron表达式，转换为时间 背景：当需要知道计划任务配置的执行时间，想要清楚的知道下次执行是什么时候，需要解析计划任务的Cron表达式，本次主要介绍quartz.CronExpression提供的解析Cron的方法，注：资源来源网络">
+<meta name="twitter:description" content="解析Cron表达式，转换为时间">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -366,7 +366,7 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-06-08T21:43:52+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2020-06-08T21:46:02+08:00">
                 2020-06-08
               </time>
             
@@ -431,7 +431,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  844 字
+                  843 字
                 </span>
               
 
@@ -468,11 +468,11 @@ daovoice('update');
       
 <!-- 自定义 用于添加摘要图片 文章中不显示-->
       
-        <h2 id="解析Cron表达式，转换为时间"><a href="#解析Cron表达式，转换为时间" class="headerlink" title="解析Cron表达式，转换为时间"></a>解析Cron表达式，转换为时间</h2><blockquote>
+        <h2 id="解析Cron表达式，转换为时间"><a href="#解析Cron表达式，转换为时间" class="headerlink" title="解析Cron表达式，转换为时间"></a>解析Cron表达式，转换为时间</h2><a id="more"></a>
+
+<blockquote>
 <p>背景：当需要知道计划任务配置的执行时间，想要清楚的知道下次执行是什么时候，需要解析计划任务的Cron表达式，本次主要介绍quartz.CronExpression提供的解析Cron的方法，注：资源来源网络</p>
 </blockquote>
-<a id="more"></a>
-
 <h3 id="1、Cron表达式定义"><a href="#1、Cron表达式定义" class="headerlink" title="1、Cron表达式定义"></a>1、Cron表达式定义</h3><ul>
 <li><p>定义：</p>
 <ul>
@@ -492,8 +492,7 @@ daovoice('update');
 </ul>
 <h3 id="3、解析实例"><a href="#3、解析实例" class="headerlink" title="3、解析实例"></a>3、解析实例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CronUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据 Cron表达式和开始时间，得到下次执行时间</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> cron</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> startDate</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Date <span class="title">getNextExecuteTime</span><span class="params">(String cron, Date startDate)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            CronExpression cronExpression = <span class="keyword">new</span> CronExpression(cron);</span><br><span class="line">            <span class="keyword">return</span> cronExpression.getNextValidTimeAfter(startDate == <span class="keyword">null</span> ? <span class="keyword">new</span> Date() : startDate);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ParseException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"无效的cron表达式:"</span> + cron, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如new Date() = 2020-05-30 16:50:00 ，Cron = "0 54 0/1 * * ?",表示每小时的54分钟时会执行一次</span></span><br><span class="line">Date nextExecuteTime = CronUtils.getNextExecuteTime(<span class="string">"0 54 0/1 * * ?"</span>, <span class="keyword">new</span> Date());</span><br><span class="line"><span class="comment">// 设置解析格式为"yyyy-MM-dd HH:mm:ss"</span></span><br><span class="line">DateFormat dateFormat = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);</span><br><span class="line"><span class="keyword">if</span> (nextExecuteTime !=<span class="keyword">null</span> ) &#123;</span><br><span class="line">  String nextRunTime = dateFormat.format(nextExecuteTime);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 则得到下次运行时间： nextRunTime = "2020-05-30 16:54:00"</span></span><br></pre></td></tr></table></figure>
 
-<p>###4、Cron表达式实例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">表达式以及含义 </span><br><span class="line">&quot;0 0 12 * * ?&quot; 每天中午12点触发 </span><br><span class="line">&quot;0 20 20 ? * *&quot; 每天20:20触发 </span><br><span class="line">&quot;0 20 20 * * ?&quot; 每天20:20触发 </span><br><span class="line">&quot;0 20 20 * * ? *&quot; 每天20:20触发 </span><br><span class="line">&quot;0 20 20 * * ? 2020&quot; 2020年的每天20:20触发 </span><br><span class="line">&quot;0 0/5 14 * * ?&quot; 在每天14点到14:55期间的每5分钟触发 </span><br><span class="line">&quot;0 0/5 14,18 * * ?&quot; 在每天14点到14:55期间和18点到18:55期间的每5分钟触发 </span><br><span class="line">&quot;0 0-5 14 * * ?&quot; 在每天每天14点到14点:05期间的每1分钟触发 </span><br><span class="line">&quot;0 10,44 14 ? 3 WED&quot; 每年三月的星期三的14:10和14:44触发 </span><br><span class="line">&quot;0 15 10 ? * MON-FRI&quot; 周一至周五的上午10:15触发 </span><br><span class="line">&quot;0 15 10 15 * ?&quot; 每月15日上午10:15触发 </span><br><span class="line">&quot;0 15 10 L * ?&quot; 每月最后一日的上午10:15触发 </span><br><span class="line">&quot;0 15 10 ? * 6L&quot; 每月的最后一个星期五上午10:15触发 </span><br><span class="line">&quot;0 6 * * *&quot; 每天早上6点 </span><br><span class="line">&quot;0 */2 * * *&quot; 每两个小时 </span><br><span class="line">&quot;0 23-7/2，8 * * * &quot; 晚上11点到早上8点之间每两个小时，早上八点  </span><br><span class="line">&quot;0 11 4 * 1-3 &quot; 每个月的4号和每个礼拜的礼拜一到礼拜三的早上11点 </span><br><span class="line">&quot;0 4 1 1 &quot; 1月1日早上4点</span><br></pre></td></tr></table></figure>
+<h3 id="4、Cron表达式实例"><a href="#4、Cron表达式实例" class="headerlink" title="4、Cron表达式实例"></a>4、Cron表达式实例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">表达式以及含义 </span><br><span class="line">&quot;0 0 12 * * ?&quot; 每天中午12点触发 </span><br><span class="line">&quot;0 20 20 ? * *&quot; 每天20:20触发 </span><br><span class="line">&quot;0 20 20 * * ?&quot; 每天20:20触发 </span><br><span class="line">&quot;0 20 20 * * ? *&quot; 每天20:20触发 </span><br><span class="line">&quot;0 20 20 * * ? 2020&quot; 2020年的每天20:20触发 </span><br><span class="line">&quot;0 0/5 14 * * ?&quot; 在每天14点到14:55期间的每5分钟触发 </span><br><span class="line">&quot;0 0/5 14,18 * * ?&quot; 在每天14点到14:55期间和18点到18:55期间的每5分钟触发 </span><br><span class="line">&quot;0 0-5 14 * * ?&quot; 在每天每天14点到14点:05期间的每1分钟触发 </span><br><span class="line">&quot;0 10,44 14 ? 3 WED&quot; 每年三月的星期三的14:10和14:44触发 </span><br><span class="line">&quot;0 15 10 ? * MON-FRI&quot; 周一至周五的上午10:15触发 </span><br><span class="line">&quot;0 15 10 15 * ?&quot; 每月15日上午10:15触发 </span><br><span class="line">&quot;0 15 10 L * ?&quot; 每月最后一日的上午10:15触发 </span><br><span class="line">&quot;0 15 10 ? * 6L&quot; 每月的最后一个星期五上午10:15触发 </span><br><span class="line">&quot;0 6 * * *&quot; 每天早上6点 </span><br><span class="line">&quot;0 */2 * * *&quot; 每两个小时 </span><br><span class="line">&quot;0 23-7/2，8 * * * &quot; 晚上11点到早上8点之间每两个小时，早上八点  </span><br><span class="line">&quot;0 11 4 * 1-3 &quot; 每个月的4号和每个礼拜的礼拜一到礼拜三的早上11点 </span><br><span class="line">&quot;0 4 1 1 &quot; 1月1日早上4点</span><br></pre></td></tr></table></figure>
 
 
       
@@ -729,7 +728,7 @@ daovoice('update');
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#解析Cron表达式，转换为时间"><span class="nav-text">解析Cron表达式，转换为时间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、Cron表达式定义"><span class="nav-text">1、Cron表达式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、引入quartz-CronExpression解析"><span class="nav-text">2、引入quartz.CronExpression解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、解析实例"><span class="nav-text">3、解析实例</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#解析Cron表达式，转换为时间"><span class="nav-text">解析Cron表达式，转换为时间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、Cron表达式定义"><span class="nav-text">1、Cron表达式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、引入quartz-CronExpression解析"><span class="nav-text">2、引入quartz.CronExpression解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、解析实例"><span class="nav-text">3、解析实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、Cron表达式实例"><span class="nav-text">4、Cron表达式实例</span></a></li></ol></li></ol></div>
             
 
           </div>

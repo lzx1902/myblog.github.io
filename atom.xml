@@ -6,7 +6,7 @@
   <link href="/myblog.github.io/atom.xml" rel="self"/>
   
   <link href="https://lzx1902.github.io/myblog.github.io/"/>
-  <updated>2021-08-15T11:40:28.659Z</updated>
+  <updated>2022-01-03T07:50:47.044Z</updated>
   <id>https://lzx1902.github.io/myblog.github.io/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="https://lzx1902.github.io/myblog.github.io/2021/08/15/Linux%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/"/>
-    <id>https://lzx1902.github.io/myblog.github.io/2021/08/15/Linux系统概述/</id>
-    <published>2021-08-15T11:31:13.002Z</published>
-    <updated>2021-08-15T11:40:28.659Z</updated>
+    <title>生成图片测试</title>
+    <link href="https://lzx1902.github.io/myblog.github.io/2022/01/03/%E7%94%9F%E6%88%90%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/"/>
+    <id>https://lzx1902.github.io/myblog.github.io/2022/01/03/生成图片测试/</id>
+    <published>2022-01-03T07:39:15.000Z</published>
+    <updated>2022-01-03T07:50:47.044Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;生成图片测试&quot;&gt;&lt;a href=&quot;#生成图片测试&quot; class=&quot;headerlink&quot; title=&quot;生成图片测试&quot;&gt;&lt;/a&gt;生成图片测试&lt;/h3&gt;&lt;p&gt;插入一张图片：&lt;/p&gt;
+&lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="图片" scheme="https://lzx1902.github.io/myblog.github.io/tags/%E5%9B%BE%E7%89%87/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 概述</title>
+    <link href="https://lzx1902.github.io/myblog.github.io/2022/01/03/Linux-%E6%A6%82%E8%BF%B0/"/>
+    <id>https://lzx1902.github.io/myblog.github.io/2022/01/03/Linux-概述/</id>
+    <published>2022-01-03T07:24:52.000Z</published>
+    <updated>2022-01-03T07:31:17.988Z</updated>
     
     <summary type="html">
     
@@ -36,15 +62,19 @@
     </summary>
     
     
+      <category term="Linux" scheme="https://lzx1902.github.io/myblog.github.io/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="https://lzx1902.github.io/myblog.github.io/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>测试播放视频</title>
-    <link href="https://lzx1902.github.io/myblog.github.io/2020/06/08/video/"/>
-    <id>https://lzx1902.github.io/myblog.github.io/2020/06/08/video/</id>
-    <published>2020-06-08T14:15:42.284Z</published>
-    <updated>2020-06-10T14:02:55.324Z</updated>
+    <link href="https://lzx1902.github.io/myblog.github.io/2020/06/10/video/"/>
+    <id>https://lzx1902.github.io/myblog.github.io/2020/06/10/video/</id>
+    <published>2020-06-10T14:02:56.000Z</published>
+    <updated>2020-06-10T14:02:56.000Z</updated>
     
     <summary type="html">
     
@@ -65,7 +95,7 @@
     <link href="https://lzx1902.github.io/myblog.github.io/2020/06/08/%E8%A7%A3%E6%9E%90Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
     <id>https://lzx1902.github.io/myblog.github.io/2020/06/08/解析Cron表达式/</id>
     <published>2020-06-08T13:40:32.000Z</published>
-    <updated>2020-06-08T13:46:02.052Z</updated>
+    <updated>2020-06-08T13:46:04.000Z</updated>
     
     <summary type="html">
     
@@ -82,33 +112,11 @@
   </entry>
   
   <entry>
-    <title>Hexo博客Next主题添加DaoVoice在线联系</title>
-    <link href="https://lzx1902.github.io/myblog.github.io/2019/11/17/Hexo-Daovoice/"/>
-    <id>https://lzx1902.github.io/myblog.github.io/2019/11/17/Hexo-Daovoice/</id>
-    <published>2019-11-17T05:29:32.000Z</published>
-    <updated>2019-11-17T06:07:24.711Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;转载自：&lt;/strong&gt; &lt;a href=&quot;http://www.aomanhao.top/2019/05/18/Hexo_Daovoice/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.aomanhao.top/2019/05/18/Hexo_Daovoice/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt; Hexo博客Next主题DaoVoice实现在线联系 &lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Next" scheme="https://lzx1902.github.io/myblog.github.io/categories/Next/"/>
-    
-    
-      <category term="Next" scheme="https://lzx1902.github.io/myblog.github.io/tags/Next/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Markdown基本语法</title>
-    <link href="https://lzx1902.github.io/myblog.github.io/2019/11/13/Markdown/"/>
-    <id>https://lzx1902.github.io/myblog.github.io/2019/11/13/Markdown/</id>
-    <published>2019-11-13T13:54:53.723Z</published>
-    <updated>2019-11-17T05:46:04.887Z</updated>
+    <link href="https://lzx1902.github.io/myblog.github.io/2019/11/17/Markdown/"/>
+    <id>https://lzx1902.github.io/myblog.github.io/2019/11/17/Markdown/</id>
+    <published>2019-11-17T05:46:06.000Z</published>
+    <updated>2019-11-17T05:46:06.000Z</updated>
     
     <summary type="html">
     
@@ -127,10 +135,10 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="https://lzx1902.github.io/myblog.github.io/2019/09/17/hello-world/"/>
-    <id>https://lzx1902.github.io/myblog.github.io/2019/09/17/hello-world/</id>
-    <published>2019-09-17T15:54:22.306Z</published>
-    <updated>2019-11-17T05:40:56.656Z</updated>
+    <link href="https://lzx1902.github.io/myblog.github.io/2019/11/17/hello-world/"/>
+    <id>https://lzx1902.github.io/myblog.github.io/2019/11/17/hello-world/</id>
+    <published>2019-11-17T05:40:58.000Z</published>
+    <updated>2019-11-17T05:40:58.000Z</updated>
     
     <summary type="html">
     
@@ -139,6 +147,28 @@
     </summary>
     
     
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo博客Next主题添加DaoVoice在线联系</title>
+    <link href="https://lzx1902.github.io/myblog.github.io/2019/11/17/Hexo-Daovoice/"/>
+    <id>https://lzx1902.github.io/myblog.github.io/2019/11/17/Hexo-Daovoice/</id>
+    <published>2019-11-17T05:29:32.000Z</published>
+    <updated>2019-11-17T06:07:26.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;转载自：&lt;/strong&gt; &lt;a href=&quot;http://www.aomanhao.top/2019/05/18/Hexo_Daovoice/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.aomanhao.top/2019/05/18/Hexo_Daovoice/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt; Hexo博客Next主题DaoVoice实现在线联系 &lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Next" scheme="https://lzx1902.github.io/myblog.github.io/categories/Next/"/>
+    
+    
+      <category term="Next" scheme="https://lzx1902.github.io/myblog.github.io/tags/Next/"/>
     
   </entry>
   

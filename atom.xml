@@ -6,7 +6,7 @@
   <link href="/myblog.github.io/atom.xml" rel="self"/>
   
   <link href="https://lzx1902.github.io/myblog.github.io/"/>
-  <updated>2022-01-03T09:47:07.764Z</updated>
+  <updated>2022-01-16T15:58:11.440Z</updated>
   <id>https://lzx1902.github.io/myblog.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Springboot加载本地jar包，并配置maven引用</title>
+    <link href="https://lzx1902.github.io/myblog.github.io/2022/01/16/Springboot%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0jar%E5%8C%85%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AEmaven%E5%BC%95%E7%94%A8/"/>
+    <id>https://lzx1902.github.io/myblog.github.io/2022/01/16/Springboot加载本地jar包，并配置maven引用/</id>
+    <published>2022-01-16T15:45:40.000Z</published>
+    <updated>2022-01-16T15:58:11.440Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Springboot加载本地jar包，并配置maven引用&quot;&gt;&lt;a href=&quot;#Springboot加载本地jar包，并配置maven引用&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Markdown" scheme="https://lzx1902.github.io/myblog.github.io/categories/Markdown/"/>
+    
+    
+      <category term="Java" scheme="https://lzx1902.github.io/myblog.github.io/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux 概述</title>

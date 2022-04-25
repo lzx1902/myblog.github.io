@@ -95,19 +95,19 @@
 
 
 
-<meta name="description" content="导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件 未安装Pdfplumber库的要先安装，命令：pip install pdfplumber   专利数据来源与国知局的文件，链接：中国专利奖  PDF数据样式如下：  源码如下： 1234567891011121314151617181920212223242526272829303132import p">
+<meta name="description" content="导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件 未安装Pdfplumber库的要先安装，命令：pip install pdfplumber   专利数据来源与国知局的文件，链接：中国专利奖  PDF数据样式如下：  Python源码如下： 1234567891011121314151617181920212223242526272829303132im">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python解析专利获奖数据">
 <meta property="og:url" content="https://lzx1902.github.io/myblog.github.io/2022/04/25/Python解析专利获奖数据/index.html">
 <meta property="og:site_name" content="柠檬与年华">
-<meta property="og:description" content="导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件 未安装Pdfplumber库的要先安装，命令：pip install pdfplumber   专利数据来源与国知局的文件，链接：中国专利奖  PDF数据样式如下：  源码如下： 1234567891011121314151617181920212223242526272829303132import p">
+<meta property="og:description" content="导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件 未安装Pdfplumber库的要先安装，命令：pip install pdfplumber   专利数据来源与国知局的文件，链接：中国专利奖  PDF数据样式如下：  Python源码如下： 1234567891011121314151617181920212223242526272829303132im">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/20220425172920.png">
-<meta property="og:updated_time" content="2022-04-25T09:32:52.883Z">
+<meta property="og:updated_time" content="2022-04-25T09:45:00.484Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python解析专利获奖数据">
-<meta name="twitter:description" content="导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件 未安装Pdfplumber库的要先安装，命令：pip install pdfplumber   专利数据来源与国知局的文件，链接：中国专利奖  PDF数据样式如下：  源码如下： 1234567891011121314151617181920212223242526272829303132import p">
+<meta name="twitter:description" content="导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件 未安装Pdfplumber库的要先安装，命令：pip install pdfplumber   专利数据来源与国知局的文件，链接：中国专利奖  PDF数据样式如下：  Python源码如下： 1234567891011121314151617181920212223242526272829303132im">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/20220425172920.png">
 
 
@@ -368,7 +368,7 @@ daovoice('update');
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2022-04-25T17:32:52+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2022-04-25T17:45:00+08:00">
                 2022-04-25
               </time>
             
@@ -455,7 +455,7 @@ daovoice('update');
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  273 字
+                  274 字
                 </span>
               
 
@@ -500,7 +500,7 @@ daovoice('update');
 </li>
 <li><p>PDF数据样式如下：<img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/20220425172920.png" alt></p>
 </li>
-<li><p>源码如下：</p>
+<li><p>Python源码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pdfplumber</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_pdf</span><span class="params">(read_path, save_path)</span>:</span></span><br><span class="line">    pdf_2020 = pdfplumber.open(read_path)</span><br><span class="line">    result_df = pd.DataFrame()</span><br><span class="line">    tables = []</span><br><span class="line">    <span class="keyword">for</span> page <span class="keyword">in</span> pdf_2020.pages:</span><br><span class="line">        table = page.extract_table()</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> table :</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">5</span>) :</span><br><span class="line">                item[j] = item[j].replace(<span class="string">'\n'</span>, <span class="string">''</span>).replace(<span class="string">'\r'</span>, <span class="string">''</span>)</span><br><span class="line">            item.insert(<span class="number">5</span>, <span class="string">'22'</span>)</span><br><span class="line">            item.insert(<span class="number">6</span>, <span class="string">'专利优秀奖'</span>)</span><br><span class="line">            item.insert(<span class="number">7</span>, <span class="string">'国家级'</span>)</span><br><span class="line">            item.insert(<span class="number">8</span>, <span class="string">'2021'</span>)</span><br><span class="line">            tables.append(item)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 所有的pdf页数数据</span></span><br><span class="line">    print(tables)</span><br><span class="line">    print(<span class="string">'--------- PDF数据提取完毕 --------'</span>)</span><br><span class="line">    <span class="comment"># df_detail = pd.DataFrame(table[1:], columns=table[0])</span></span><br><span class="line">    df_detail = pd.DataFrame(tables)</span><br><span class="line">    result_df = pd.concat([df_detail, result_df], ignore_index=<span class="literal">True</span>)</span><br><span class="line">    result_df.dropna(axis=<span class="number">1</span>, how=<span class="string">'all'</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">    result_df.columns = [<span class="string">'序号'</span>, <span class="string">'专利申请号'</span>, <span class="string">'专利名称'</span>, <span class="string">'专利权人'</span>, <span class="string">'发明人'</span>, <span class="string">'获奖届数'</span>, <span class="string">'奖项'</span>, <span class="string">'获奖级别'</span>, <span class="string">'获奖年度'</span>]</span><br><span class="line">    result_df.to_excel(excel_writer=save_path, index=<span class="literal">False</span>, encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    read_path = <span class="string">r'/Users/xxx/Downloads/第二十二届中国专利优秀奖项目名单.pdf'</span></span><br><span class="line">    save_path = <span class="string">r'/Users/xxx/Downloads/第二十二届中国专利优秀奖项目名单.xlsx'</span></span><br><span class="line">    read_pdf(read_path, save_path)</span><br></pre></td></tr></table></figure>
 
 

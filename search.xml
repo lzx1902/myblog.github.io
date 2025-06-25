@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Hexo博客Next主题添加DaoVoice在线联系</title>
-    <url>/2019/11/17/Hexo-Daovoice/</url>
+    <url>/myblog.github.io/2019/11/17/Hexo-Daovoice/</url>
     <content><![CDATA[<p><strong>转载自：</strong> <a href="http://www.aomanhao.top/2019/05/18/Hexo_Daovoice/">http://www.aomanhao.top/2019/05/18/Hexo_Daovoice/</a></p>
 <p> Hexo博客Next主题DaoVoice实现在线联系 </p>
 <span id="more"></span>
@@ -47,7 +47,7 @@
   </entry>
   <entry>
     <title>Linux 概述</title>
-    <url>/2022/01/03/Linux-%E6%A6%82%E8%BF%B0/</url>
+    <url>/myblog.github.io/2022/01/03/Linux-%E6%A6%82%E8%BF%B0/</url>
     <content><![CDATA[<h2 id="Linux-概述"><a href="#Linux-概述" class="headerlink" title="Linux 概述"></a>Linux 概述</h2><h3 id="什么是Linux"><a href="#什么是Linux" class="headerlink" title="什么是Linux"></a>什么是Linux</h3><p>Linux是一套免费使用和自由传播的类Unix操作系统，是一个基于POSIX和Unix的多用户、多任务、支持多线程和多CPU的操作系统。它能运行主要的Unix工具软件、应用程序和网络协议。它支持32位和64位硬件。Linux继承了Unix以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。</p>
 <h3 id="Unix和Linux有什么区别？"><a href="#Unix和Linux有什么区别？" class="headerlink" title="Unix和Linux有什么区别？"></a>Unix和Linux有什么区别？</h3><p>Linux和Unix都是功能强大的操作系统，都是应用广泛的服务器操作系统，有很多相似之处，甚至有一部分人错误地认为Unix和Linux操作系统是一样的，然而，事实并非如此，以下是两者的区别。</p>
 <ol>
@@ -1154,7 +1154,7 @@
   </entry>
   <entry>
     <title>Markdown基本语法</title>
-    <url>/2019/11/17/Markdown/</url>
+    <url>/myblog.github.io/2019/11/17/Markdown/</url>
     <content><![CDATA[<p><strong>转载自：</strong> <a href="https://www.mdeditor.com/">https://www.mdeditor.com/</a></p>
 <p>Markdown基本语法解释以及在线Markdown编辑器MdEditor</p>
 <span id="more"></span>
@@ -1185,7 +1185,7 @@
 <blockquote>
 <p>引用：如果想要插入空白换行<code>即&lt;br /&gt;标签</code>，在插入处先键入两个以上的空格然后回车即可，<a href="https://www.mdeditor.com/">普通链接</a>。</p>
 </blockquote>
-<h3 id="锚点与链接-Links"><a href="#锚点与链接-Links" class="headerlink" title="锚点与链接 Links"></a>锚点与链接 Links</h3><p><a href="https://www.mdeditor.com/">普通链接</a><br><a href="https://www.mdeditor.com/" title="普通链接带标题">普通链接带标题</a><br>直接链接：<a href="https://www.mdeditor.com/">https://www.mdeditor.com</a><br>[锚点链接][anchor-id]<br>[anchor-id]: <a href="https://www.mdeditor.com/">https://www.mdeditor.com/</a><br><a href="mailto:&#116;&#x65;&#x73;&#116;&#x2e;&#x74;&#101;&#115;&#x74;&#x40;&#x67;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">mailto:test.test@gmail.com</a><br>GFM a-tail link @pandao<br>邮箱地址自动链接 <a href="mailto:&#x74;&#x65;&#x73;&#116;&#46;&#x74;&#101;&#115;&#x74;&#64;&#103;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">test.test@gmail.com</a>  <a href="mailto:&#119;&#x77;&#x77;&#x40;&#x76;&#105;&#112;&#46;&#113;&#113;&#46;&#99;&#111;&#109;">www@vip.qq.com</a></p>
+<h3 id="锚点与链接-Links"><a href="#锚点与链接-Links" class="headerlink" title="锚点与链接 Links"></a>锚点与链接 Links</h3><p><a href="https://www.mdeditor.com/">普通链接</a><br><a href="https://www.mdeditor.com/" title="普通链接带标题">普通链接带标题</a><br>直接链接：<a href="https://www.mdeditor.com/">https://www.mdeditor.com</a><br>[锚点链接][anchor-id]<br>[anchor-id]: <a href="https://www.mdeditor.com/">https://www.mdeditor.com/</a><br><a href="mailto:&#x74;&#x65;&#x73;&#x74;&#x2e;&#116;&#101;&#115;&#116;&#64;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;">mailto:test.test@gmail.com</a><br>GFM a-tail link @pandao<br>邮箱地址自动链接 <a href="mailto:&#116;&#101;&#115;&#x74;&#46;&#116;&#101;&#115;&#116;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#x6d;">test.test@gmail.com</a>  <a href="mailto:&#x77;&#119;&#x77;&#x40;&#x76;&#x69;&#x70;&#46;&#x71;&#x71;&#46;&#x63;&#111;&#109;">www@vip.qq.com</a></p>
 <blockquote>
 <p>@pandao</p>
 </blockquote>
@@ -1418,8 +1418,29 @@
       </tags>
   </entry>
   <entry>
+    <title>Springboot加载本地jar包，并配置maven引用</title>
+    <url>/myblog.github.io/2022/01/16/Springboot%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0jar%E5%8C%85%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AEmaven%E5%BC%95%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="Springboot加载本地jar包，并配置maven引用"><a href="#Springboot加载本地jar包，并配置maven引用" class="headerlink" title="Springboot加载本地jar包，并配置maven引用"></a>Springboot加载本地jar包，并配置maven引用</h2><h3 id="在idea中放入jar包，如下图，以spire-doc为例子"><a href="#在idea中放入jar包，如下图，以spire-doc为例子" class="headerlink" title="在idea中放入jar包，如下图，以spire.doc为例子"></a>在idea中放入jar包，如下图，以spire.doc为例子</h3><img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/jar.png" style="zoom:75%;" />
+
+<h3 id="在pom文件中引用"><a href="#在pom文件中引用" class="headerlink" title="在pom文件中引用"></a>在pom文件中引用</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;cn.net.xxx&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spire-doc&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;1.0.0&lt;/version&gt;</span><br><span class="line">  &lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">  &lt;systemPath&gt;$&#123;project.basedir&#125;/src/main/resources/jar/Spire.Doc.jar&lt;/systemPath&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效"><a href="#配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效" class="headerlink" title="配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效"></a>配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效</h3><h4 id="打成jar包时"><a href="#打成jar包时" class="headerlink" title="打成jar包时"></a>打成jar包时</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 打成jar包时，jar包在BOOT-INF\lib下</span><br><span class="line">    &lt;plugins&gt;</span><br><span class="line">      &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;$&#123;spring-boot-maven-plugin.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">          &lt;!--使用-Dloader.path需要在打包的时候增加&lt;layout&gt;ZIP&lt;/layout&gt;，不指定的话-Dloader.path不生效--&gt;</span><br><span class="line">          &lt;layout&gt;ZIP&lt;/layout&gt;</span><br><span class="line">          &lt;!-- 指定该jar包启动时的主类[建议] --&gt;</span><br><span class="line">          &lt;mainClass&gt;$&#123;启动类的引用地址&#125;&lt;/mainClass&gt;</span><br><span class="line">          &lt;!-- 加载外部jar包，使用这个命令，可以让maven加载配置了scope为system的jar包 --&gt;</span><br><span class="line">          &lt;includeSystemScope&gt;true&lt;/includeSystemScope&gt;</span><br><span class="line">        &lt;/configuration&gt;</span><br><span class="line">        &lt;executions&gt;</span><br><span class="line">          &lt;execution&gt;</span><br><span class="line">            &lt;goals&gt;</span><br><span class="line">              &lt;goal&gt;repackage&lt;/goal&gt;</span><br><span class="line">            &lt;/goals&gt;</span><br><span class="line">          &lt;/execution&gt;</span><br><span class="line">        &lt;/executions&gt;</span><br><span class="line">      &lt;/plugin&gt;</span><br><span class="line">      &lt;!--测试代码时遇到错误，它会停止编译，使用此插件忽略错误--&gt;</span><br><span class="line">      &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">          &lt;testFailureIgnore&gt;true&lt;/testFailureIgnore&gt;</span><br><span class="line">        &lt;/configuration&gt;</span><br><span class="line">      &lt;/plugin&gt;</span><br><span class="line">    &lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="打成war包"><a href="#打成war包" class="headerlink" title="打成war包"></a>打成war包</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 打成war包时，war包在WEB-INF/lib下</span><br><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.4&lt;/version&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;webResources&gt;</span><br><span class="line">            &lt;resource&gt;</span><br><span class="line">                &lt;directory&gt;src/main/resources/jar/&lt;/directory&gt;</span><br><span class="line">                &lt;targetPath&gt;WEB-INF/lib/&lt;/targetPath&gt;</span><br><span class="line">                &lt;includes&gt;</span><br><span class="line">                    &lt;include&gt;**/*.jar&lt;/include&gt;</span><br><span class="line">                &lt;/includes&gt;</span><br><span class="line">            &lt;/resource&gt;</span><br><span class="line">        &lt;/webResources&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python解析专利获奖数据</title>
-    <url>/2022/04/25/Python%E8%A7%A3%E6%9E%90%E4%B8%93%E5%88%A9%E8%8E%B7%E5%A5%96%E6%95%B0%E6%8D%AE/</url>
+    <url>/myblog.github.io/2022/04/25/Python%E8%A7%A3%E6%9E%90%E4%B8%93%E5%88%A9%E8%8E%B7%E5%A5%96%E6%95%B0%E6%8D%AE/</url>
     <content><![CDATA[<h4 id="导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件"><a href="#导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件" class="headerlink" title="导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件"></a>导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件</h4><blockquote>
 <p>未安装Pdfplumber库的要先安装，命令：pip install pdfplumber</p>
 </blockquote>
@@ -1442,29 +1463,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Springboot加载本地jar包，并配置maven引用</title>
-    <url>/2022/01/16/Springboot%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0jar%E5%8C%85%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AEmaven%E5%BC%95%E7%94%A8/</url>
-    <content><![CDATA[<h2 id="Springboot加载本地jar包，并配置maven引用"><a href="#Springboot加载本地jar包，并配置maven引用" class="headerlink" title="Springboot加载本地jar包，并配置maven引用"></a>Springboot加载本地jar包，并配置maven引用</h2><h3 id="在idea中放入jar包，如下图，以spire-doc为例子"><a href="#在idea中放入jar包，如下图，以spire-doc为例子" class="headerlink" title="在idea中放入jar包，如下图，以spire.doc为例子"></a>在idea中放入jar包，如下图，以spire.doc为例子</h3><img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/jar.png" style="zoom:75%;" />
-
-<h3 id="在pom文件中引用"><a href="#在pom文件中引用" class="headerlink" title="在pom文件中引用"></a>在pom文件中引用</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;cn.net.xxx&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spire-doc&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;1.0.0&lt;/version&gt;</span><br><span class="line">  &lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">  &lt;systemPath&gt;$&#123;project.basedir&#125;/src/main/resources/jar/Spire.Doc.jar&lt;/systemPath&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效"><a href="#配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效" class="headerlink" title="配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效"></a>配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效</h3><h4 id="打成jar包时"><a href="#打成jar包时" class="headerlink" title="打成jar包时"></a>打成jar包时</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 打成jar包时，jar包在BOOT-INF\lib下</span><br><span class="line">    &lt;plugins&gt;</span><br><span class="line">      &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;$&#123;spring-boot-maven-plugin.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">          &lt;!--使用-Dloader.path需要在打包的时候增加&lt;layout&gt;ZIP&lt;/layout&gt;，不指定的话-Dloader.path不生效--&gt;</span><br><span class="line">          &lt;layout&gt;ZIP&lt;/layout&gt;</span><br><span class="line">          &lt;!-- 指定该jar包启动时的主类[建议] --&gt;</span><br><span class="line">          &lt;mainClass&gt;$&#123;启动类的引用地址&#125;&lt;/mainClass&gt;</span><br><span class="line">          &lt;!-- 加载外部jar包，使用这个命令，可以让maven加载配置了scope为system的jar包 --&gt;</span><br><span class="line">          &lt;includeSystemScope&gt;true&lt;/includeSystemScope&gt;</span><br><span class="line">        &lt;/configuration&gt;</span><br><span class="line">        &lt;executions&gt;</span><br><span class="line">          &lt;execution&gt;</span><br><span class="line">            &lt;goals&gt;</span><br><span class="line">              &lt;goal&gt;repackage&lt;/goal&gt;</span><br><span class="line">            &lt;/goals&gt;</span><br><span class="line">          &lt;/execution&gt;</span><br><span class="line">        &lt;/executions&gt;</span><br><span class="line">      &lt;/plugin&gt;</span><br><span class="line">      &lt;!--测试代码时遇到错误，它会停止编译，使用此插件忽略错误--&gt;</span><br><span class="line">      &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">          &lt;testFailureIgnore&gt;true&lt;/testFailureIgnore&gt;</span><br><span class="line">        &lt;/configuration&gt;</span><br><span class="line">      &lt;/plugin&gt;</span><br><span class="line">    &lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="打成war包"><a href="#打成war包" class="headerlink" title="打成war包"></a>打成war包</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 打成war包时，war包在WEB-INF/lib下</span><br><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.4&lt;/version&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;webResources&gt;</span><br><span class="line">            &lt;resource&gt;</span><br><span class="line">                &lt;directory&gt;src/main/resources/jar/&lt;/directory&gt;</span><br><span class="line">                &lt;targetPath&gt;WEB-INF/lib/&lt;/targetPath&gt;</span><br><span class="line">                &lt;includes&gt;</span><br><span class="line">                    &lt;include&gt;**/*.jar&lt;/include&gt;</span><br><span class="line">                &lt;/includes&gt;</span><br><span class="line">            &lt;/resource&gt;</span><br><span class="line">        &lt;/webResources&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hello World</title>
-    <url>/2023/09/05/hello-world/</url>
+    <url>/myblog.github.io/2023/09/05/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <span id="more"></span>
 
@@ -1491,7 +1491,7 @@
   </entry>
   <entry>
     <title>测试播放视频</title>
-    <url>/2020/06/10/video/</url>
+    <url>/myblog.github.io/2020/06/10/video/</url>
     <content><![CDATA[<h2 id="测试视频链接播放功能"><a href="#测试视频链接播放功能" class="headerlink" title="测试视频链接播放功能"></a>测试视频链接播放功能</h2><span id="more"></span>
 
 <blockquote>
@@ -1514,7 +1514,7 @@ mozallowfullscreen="true">
   </entry>
   <entry>
     <title>解析Cron表达式</title>
-    <url>/2020/06/08/%E8%A7%A3%E6%9E%90Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <url>/myblog.github.io/2020/06/08/%E8%A7%A3%E6%9E%90Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
     <content><![CDATA[<h2 id="解析Cron表达式，转换为时间"><a href="#解析Cron表达式，转换为时间" class="headerlink" title="解析Cron表达式，转换为时间"></a>解析Cron表达式，转换为时间</h2><span id="more"></span>
 
 <blockquote>

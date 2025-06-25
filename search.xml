@@ -1,9 +1,1437 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Python解析专利获奖数据]]></title>
-    <url>%2Fmyblog.github.io%2F2022%2F04%2F25%2FPython%E8%A7%A3%E6%9E%90%E4%B8%93%E5%88%A9%E8%8E%B7%E5%A5%96%E6%95%B0%E6%8D%AE%2F</url>
-    <content type="text"><![CDATA[导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件 未安装Pdfplumber库的要先安装，命令：pip install pdfplumber 专利数据来源与国知局的文件，链接：中国专利奖 PDF数据样式如下： Python源码如下： 1234567891011121314151617181920212223242526272829303132import pdfplumberimport pandas as pddef read_pdf(read_path, save_path): pdf_2020 = pdfplumber.open(read_path) result_df = pd.DataFrame() tables = [] for page in pdf_2020.pages: table = page.extract_table() for item in table : for j in range(5) : item[j] = item[j].replace('\n', '').replace('\r', '') item.insert(5, '22') item.insert(6, '专利优秀奖') item.insert(7, '国家级') item.insert(8, '2021') tables.append(item) # 所有的pdf页数数据 print(tables) print('--------- PDF数据提取完毕 --------') # df_detail = pd.DataFrame(table[1:], columns=table[0]) df_detail = pd.DataFrame(tables) result_df = pd.concat([df_detail, result_df], ignore_index=True) result_df.dropna(axis=1, how='all', inplace=True) result_df.columns = ['序号', '专利申请号', '专利名称', '专利权人', '发明人', '获奖届数', '奖项', '获奖级别', '获奖年度'] result_df.to_excel(excel_writer=save_path, index=False, encoding='utf-8')if __name__ == '__main__': read_path = r'/Users/xxx/Downloads/第二十二届中国专利优秀奖项目名单.pdf' save_path = r'/Users/xxx/Downloads/第二十二届中国专利优秀奖项目名单.xlsx' read_pdf(read_path, save_path)]]></content>
+    <title>Hexo博客Next主题添加DaoVoice在线联系</title>
+    <url>/2019/11/17/Hexo-Daovoice/</url>
+    <content><![CDATA[<p><strong>转载自：</strong> <a href="http://www.aomanhao.top/2019/05/18/Hexo_Daovoice/">http://www.aomanhao.top/2019/05/18/Hexo_Daovoice/</a></p>
+<p> Hexo博客Next主题DaoVoice实现在线联系 </p>
+<span id="more"></span>
+
+<h2 id="注册登录DaoVoice"><a href="#注册登录DaoVoice" class="headerlink" title="注册登录DaoVoice"></a>注册登录DaoVoice</h2><p>注册地址如下:<br><a href="http://www.daovoice.io/">http://www.daovoice.io/</a></p>
+<p>在官网注册帐号需要邀请码，可以输入我的邀请码 b69005f1</p>
+<p>复制粘贴代码<br>修改的<code>hexo</code>的文件路劲如下: <code>博客/themes/next/layout/_partials/head/head.swig</code> 末尾添加下面的代码:</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% if theme.daovoice %&#125; &lt;script&gt;(function(i,s,o,g,r,a,m)&#123;i[&quot;DaoVoiceObject&quot;]=r;i[r]=i[r]||function()&#123;(i[r].q=i[r].q||[]).push(arguments)&#125;,i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset=&quot;utf-8&quot;;m.parentNode.insertBefore(a,m)&#125;)(window,document,&quot;script&quot;,(&#x27;https:&#x27; == document.location.protocol ? &#x27;https:&#x27; : &#x27;http:&#x27;) + &quot;//widget.daovoice.io/widget/b6dbddb6.js&quot;,&quot;daovoice&quot;) daovoice(&#x27;init&#x27;, &#123;  app_id: &quot;用户ID&quot;&#125;);daovoice(&#x27;update&#x27;); &lt;/script&gt;&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用户ID需要自行填写，查找的的位置在下图片中显示出来了</p>
+<p><a href="https://img-blog.nos-eastchina1.126.net/blog/Hexo_Daovoice1.png"><img src="https://img-blog.nos-eastchina1.126.net/blog/Hexo_Daovoice1.png" alt="img"></a></p>
+<h2 id="修改主题配置文件"><a href="#修改主题配置文件" class="headerlink" title="修改主题配置文件"></a>修改主题配置文件</h2><p>在Next主题的配置文件<code>博客/themes/next/_config.yml</code>末尾中添加用户ID:</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">daovoice: truedaovoice_app_id: 用户ID</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="修改聊天图标等设置"><a href="#修改聊天图标等设置" class="headerlink" title="修改聊天图标等设置"></a>修改聊天图标等设置</h2><p>应用设置—聊天设置，然后定制欢迎辞，设置聊天窗口样式等<br><a href="https://img-blog.nos-eastchina1.126.net/blog/Hexo_Daovoice2.png"><img src="https://img-blog.nos-eastchina1.126.net/blog/Hexo_Daovoice2.png" alt="img"></a></p>
+<h2 id="部署Daovoice"><a href="#部署Daovoice" class="headerlink" title="部署Daovoice"></a>部署Daovoice</h2><p>清理缓存，生成缓存，部署服务</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure>
+
+
+
+<p>登陆本地服务：<code>http://localhost:4000/</code>，可以看到Daovoice已经成功运行。</p>
+<p><a href="https://img-blog.nos-eastchina1.126.net/blog/Hexo_Daovoice3.png"><img src="https://img-blog.nos-eastchina1.126.net/blog/Hexo_Daovoice3.png" alt="img"></a></p>
+<p>DaoVoice官网会提示，服务接入成功</p>
+<p><a href="https://img-blog.nos-eastchina1.126.net/blog/Hexo_Daovoice4.png"><img src="https://img-blog.nos-eastchina1.126.net/blog/Hexo_Daovoice4.png" alt="img"></a></p>
+<ul>
+<li><strong>本文作者：</strong> AomanHao</li>
+<li><strong>本文链接：</strong> <a href="http://www.aomanhao.top/2019/05/18/Hexo_Daovoice/">http://www.aomanhao.top/2019/05/18/Hexo_Daovoice/</a></li>
+<li><strong>版权声明：</strong> 本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Next</category>
+      </categories>
+      <tags>
+        <tag>Next</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 概述</title>
+    <url>/2022/01/03/Linux-%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<h2 id="Linux-概述"><a href="#Linux-概述" class="headerlink" title="Linux 概述"></a>Linux 概述</h2><h3 id="什么是Linux"><a href="#什么是Linux" class="headerlink" title="什么是Linux"></a>什么是Linux</h3><p>Linux是一套免费使用和自由传播的类Unix操作系统，是一个基于POSIX和Unix的多用户、多任务、支持多线程和多CPU的操作系统。它能运行主要的Unix工具软件、应用程序和网络协议。它支持32位和64位硬件。Linux继承了Unix以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。</p>
+<h3 id="Unix和Linux有什么区别？"><a href="#Unix和Linux有什么区别？" class="headerlink" title="Unix和Linux有什么区别？"></a>Unix和Linux有什么区别？</h3><p>Linux和Unix都是功能强大的操作系统，都是应用广泛的服务器操作系统，有很多相似之处，甚至有一部分人错误地认为Unix和Linux操作系统是一样的，然而，事实并非如此，以下是两者的区别。</p>
+<ol>
+<li><p>开源性<br>Linux是一款开源操作系统，不需要付费，即可使用；Unix是一款对源码实行知识产权保护的传统商业软件，使用需要付费授权使用。</p>
+</li>
+<li><p>跨平台性<br>Linux操作系统具有良好的跨平台性能，可运行在多种硬件平台上；Unix操作系统跨平台性能较弱，大多需与硬件配套使用。</p>
+</li>
+<li><p>可视化界面<br>Linux除了进行命令行操作，还有窗体管理系统；Unix只是命令行下的系统。</p>
+</li>
+<li><p>硬件环境<br>Linux操作系统对硬件的要求较低，安装方法更易掌握；Unix对硬件要求比较苛刻，按照难度较大。</p>
+</li>
+<li><p>用户群体<br>Linux的用户群体很广泛，个人和企业均可使用；Unix的用户群体比较窄，多是安全性要求高的大型企业使用，如银行、电信部门等，或者Unix硬件厂商使用，如Sun等。<br>相比于Unix操作系统，Linux操作系统更受广大计算机爱好者的喜爱，主要原因是Linux操作系统具有Unix操作系统的全部功能，并且能够在普通PC计算机上实现全部的Unix特性，开源免费的特性，更容易普及使用！</p>
+</li>
+</ol>
+<h3 id="什么是-Linux-内核？"><a href="#什么是-Linux-内核？" class="headerlink" title="什么是 Linux 内核？"></a>什么是 Linux 内核？</h3><p>Linux 系统的核心是内核。内核控制着计算机系统上的所有硬件和软件，在必要时分配硬件，并根据需要执行软件。</p>
+<ol>
+<li>系统内存管理</li>
+<li>应用程序管理</li>
+<li>硬件设备管理</li>
+<li>文件系统管理</li>
+</ol>
+<h3 id="Linux的基本组件是什么？"><a href="#Linux的基本组件是什么？" class="headerlink" title="Linux的基本组件是什么？"></a>Linux的基本组件是什么？</h3><p>就像任何其他典型的操作系统一样，Linux拥有所有这些组件：内核，shell和GUI，系统实用程序和应用程序。Linux比其他操作系统更具优势的是每个方面都附带其他功能，所有代码都可以免费下载。</p>
+<h3 id="Linux-的体系结构"><a href="#Linux-的体系结构" class="headerlink" title="Linux 的体系结构"></a>Linux 的体系结构</h3><p>从大的方面讲，Linux体系结构可以分为两块：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/Linux%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.png"></p>
+<ul>
+<li><p>用户空间(User Space) ：用户空间又包括用户的应用程序(User Applications)、C 库(C Library) 。</p>
+</li>
+<li><p>内核空间(Kernel Space) ：内核空间又包括系统调用接口(System Call Interface)、内核(Kernel)、平台架构相关的代码(Architecture-Dependent Kernel Code) 。</p>
+</li>
+</ul>
+<p><strong>为什么 Linux 体系结构要分为用户空间和内核空间的原因？</strong></p>
+<ul>
+<li>1、现代 CPU 实现了不同的工作模式，不同模式下 CPU 可以执行的指令和访问的寄存器不同。</li>
+<li>2、Linux 从 CPU 的角度出发，为了保护内核的安全，把系统分成了两部分。</li>
+</ul>
+<p>用户空间和内核空间是程序执行的<strong>两种不同的状态</strong>，我们可以通过两种方式完成用户空间到内核空间的转移：</p>
+<p>1）系统调用；</p>
+<p>2）硬件中断。</p>
+<h3 id="BASH和DOS之间的基本区别是什么？"><a href="#BASH和DOS之间的基本区别是什么？" class="headerlink" title="BASH和DOS之间的基本区别是什么？"></a>BASH和DOS之间的基本区别是什么？</h3><p>BASH和DOS控制台之间的主要区别在于3个方面：</p>
+<ul>
+<li><p>BASH命令区分大小写，而DOS命令则不区分;</p>
+</li>
+<li><p>在BASH下，&#x2F; character是目录分隔符，\作为转义字符。在DOS下，&#x2F;用作命令参数分隔符，\是目录分隔符</p>
+</li>
+<li><p>DOS遵循命名文件中的约定，即8个字符的文件名后跟一个点，扩展名为3个字符。BASH没有遵循这样的惯例。</p>
+</li>
+</ul>
+<h3 id="Linux-开机启动过程？"><a href="#Linux-开机启动过程？" class="headerlink" title="Linux 开机启动过程？"></a>Linux 开机启动过程？</h3><blockquote>
+<p>了解即可。</p>
+</blockquote>
+<ul>
+<li><p>1、主机加电自检，加载 BIOS 硬件信息。</p>
+</li>
+<li><p>2、读取 MBR 的引导文件(GRUB、LILO)。</p>
+</li>
+<li><p>3、引导 Linux 内核。</p>
+</li>
+<li><p>4、运行第一个进程 init (进程号永远为 1 )。</p>
+</li>
+<li><p>5、进入相应的运行级别。</p>
+</li>
+<li><p>6、运行终端，输入用户名和密码。</p>
+</li>
+</ul>
+<h3 id="Linux系统缺省的运行级别？"><a href="#Linux系统缺省的运行级别？" class="headerlink" title="Linux系统缺省的运行级别？"></a>Linux系统缺省的运行级别？</h3><ul>
+<li>关机。</li>
+<li>单机用户模式。</li>
+<li>字符界面的多用户模式(不支持网络)。</li>
+<li>字符界面的多用户模式。</li>
+<li>未分配使用。</li>
+<li>图形界面的多用户模式。</li>
+<li>重启。</li>
+</ul>
+<h3 id="Linux-使用的进程间通信方式？"><a href="#Linux-使用的进程间通信方式？" class="headerlink" title="Linux 使用的进程间通信方式？"></a>Linux 使用的进程间通信方式？</h3><blockquote>
+<p>了解即可，不需要太深入。</p>
+</blockquote>
+<ul>
+<li>1、管道(pipe)、流管道(s_pipe)、有名管道(FIFO)。</li>
+<li>2、信号(signal) 。</li>
+<li>3、消息队列。</li>
+<li>4、共享内存。</li>
+<li>5、信号量。</li>
+<li>6、套接字(socket) 。</li>
+</ul>
+<h3 id="Linux-有哪些系统日志文件？"><a href="#Linux-有哪些系统日志文件？" class="headerlink" title="Linux 有哪些系统日志文件？"></a>Linux 有哪些系统日志文件？</h3><p>比较重要的是 <code>/var/log/messages</code> 日志文件。</p>
+<blockquote>
+<p>该日志文件是许多进程日志文件的汇总，从该文件可以看出任何入侵企图或成功的入侵。</p>
+<p>另外，如果胖友的系统里有 ELK 日志集中收集，它也会被收集进去。</p>
+</blockquote>
+<h3 id="什么是交换空间？"><a href="#什么是交换空间？" class="headerlink" title="什么是交换空间？"></a>什么是交换空间？</h3><p>交换空间是Linux使用的一定空间，用于临时保存一些并发运行的程序。当RAM没有足够的内存来容纳正在执行的所有程序时，就会发生这种情况。</p>
+<h3 id="什么是root帐户"><a href="#什么是root帐户" class="headerlink" title="什么是root帐户"></a>什么是root帐户</h3><p>root帐户就像一个系统管理员帐户，允许你完全控制系统。你可以在此处创建和维护用户帐户，为每个帐户分配不同的权限。每次安装Linux时都是默认帐户。</p>
+<h3 id="什么是LILO？"><a href="#什么是LILO？" class="headerlink" title="什么是LILO？"></a>什么是LILO？</h3><p>LILO是Linux的引导加载程序。它主要用于将Linux操作系统加载到主内存中，以便它可以开始运行。</p>
+<h3 id="什么是BASH？"><a href="#什么是BASH？" class="headerlink" title="什么是BASH？"></a>什么是BASH？</h3><p>BASH是Bourne Again SHell的缩写。它由Steve Bourne编写，作为原始Bourne Shell（由&#x2F; bin &#x2F; sh表示）的替代品。它结合了原始版本的Bourne Shell的所有功能，以及其他功能，使其更容易使用。从那以后，它已被改编为运行Linux的大多数系统的默认shell。</p>
+<h3 id="什么是GUI？"><a href="#什么是GUI？" class="headerlink" title="什么是GUI？"></a>什么是GUI？</h3><p>图形用户界面（Graphical User Interface，简称 GUI，又称图形用户接口）是指采用图形方式显示的计算机操作用户界面。</p>
+<p>图形用户界面是一种人与计算机通信的界面显示格式，允许用户使用鼠标等输入设备操纵屏幕上的图标或菜单选项，以选择命令、调用文件、启动程序或执行其它一些日常任务。与通过键盘输入文本或字符命令来完成例行任务的字符界面相比，图形用户界面有许多优点。</p>
+<h2 id="磁盘、目录、文件"><a href="#磁盘、目录、文件" class="headerlink" title="磁盘、目录、文件"></a>磁盘、目录、文件</h2><h3 id="简单-Linux-文件系统？"><a href="#简单-Linux-文件系统？" class="headerlink" title="简单 Linux 文件系统？"></a>简单 Linux 文件系统？</h3><p><strong>在 Linux 操作系统中，所有被操作系统管理的资源，例如网络接口卡、磁盘驱动器、打印机、输入输出设备、普通文件或是目录都被看作是一个文件。</strong></p>
+<p>也就是说在 Linux 系统中有一个重要的概念：一切都是文件。其实这是 Unix 哲学的一个体现，而 Linux 是重写 Unix 而来，所以这个概念也就传承了下来。在 Unix 系统中，把一切资源都看作是文件，包括硬件设备。UNIX系统把每个硬件都看成是一个文件，通常称为设备文件，这样用户就可以用读写文件的方式实现对硬件的访问。</p>
+<p>Linux 支持 5 种文件类型，如下图所示：<img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/Linux%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B.png"></p>
+<h3 id="Linux-的目录结构是怎样的？"><a href="#Linux-的目录结构是怎样的？" class="headerlink" title="Linux 的目录结构是怎样的？"></a>Linux 的目录结构是怎样的？</h3><blockquote>
+<p>这个问题，一般不会问。更多是实际使用时，需要知道。</p>
+</blockquote>
+<p>Linux 文件系统的结构层次鲜明，就像一棵倒立的树，最顶层是其根目录：<br><img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/Linux%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png"></p>
+<p><strong>常见目录说明</strong>：</p>
+<ul>
+<li><strong>&#x2F;bin</strong>： 存放二进制可执行文件(ls,cat,mkdir等)，常用命令一般都在这里；</li>
+<li><strong>&#x2F;etc</strong>： 存放系统管理和配置文件；</li>
+<li><strong>&#x2F;home</strong>： 存放所有用户文件的根目录，是用户主目录的基点，比如用户user的主目录就是&#x2F;home&#x2F;user，可以用~user表示；</li>
+<li><strong>&#x2F;usr</strong>： 用于存放系统应用程序；</li>
+<li><strong>&#x2F;opt</strong>： 额外安装的可选应用程序包所放置的位置。一般情况下，我们可以把tomcat等都安装到这里；</li>
+<li><strong>&#x2F;proc</strong>： 虚拟文件系统目录，是系统内存的映射。可直接访问这个目录来获取系统信息；</li>
+<li><strong>&#x2F;root</strong>： 超级用户（系统管理员）的主目录（特权阶级o）；</li>
+<li><strong>&#x2F;sbin:</strong> 存放二进制可执行文件，只有root才能访问。这里存放的是系统管理员使用的系统级别的管理命令和程序。如ifconfig等；</li>
+<li><strong>&#x2F;dev</strong>： 用于存放设备文件；</li>
+<li><strong>&#x2F;mnt</strong>： 系统管理员安装临时文件系统的安装点，系统提供这个目录是让用户临时挂载其他的文件系统；</li>
+<li><strong>&#x2F;boot</strong>： 存放用于系统引导时使用的各种文件；</li>
+<li><strong>&#x2F;lib</strong>： 存放着和系统运行相关的库文件；</li>
+<li><strong>&#x2F;tmp</strong>： 用于存放各种临时文件，是公用的临时文件存储点；</li>
+<li><strong>&#x2F;var</strong>： 用于存放运行时需要改变数据的文件，也是某些大文件的溢出区，比方说各种服务的日志文件（系统启动日志等。）等；</li>
+<li><strong>&#x2F;lost+found</strong>： 这个目录平时是空的，系统非正常关机而留下“无家可归”的文件（windows下叫什么.chk）就在这里。</li>
+</ul>
+<h3 id="什么是硬链接和软链接？"><a href="#什么是硬链接和软链接？" class="headerlink" title="什么是硬链接和软链接？"></a>什么是硬链接和软链接？</h3><p>1）硬链接</p>
+<p>由于 Linux 下的文件是通过索引节点(inode)来识别文件，硬链接可以认为是一个指针，指向文件索引节点的指针，系统并不为它重新分配 inode 。每添加一个一个硬链接，文件的链接数就加 1 。</p>
+<ul>
+<li><p>不足：</p>
+<ul>
+<li><p>不可以在不同文件系统的文件间建立链接；</p>
+</li>
+<li><p>只有超级用户才可以为目录创建硬链接。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>2）软链接</p>
+<p>软链接克服了硬链接的不足，没有任何文件系统的限制，任何用户可以创建指向目录的符号链接。因而现在更为广泛使用，它具有更大的灵活性，甚至可以跨越不同机器、不同网络对文件进行链接。</p>
+<ul>
+<li>不足：因为链接文件包含有原文件的路径信息，所以当原文件从一个目录下移到其他目录中，再访问链接文件，系统就找不到了，而硬链接就没有这个缺陷，你想怎么移就怎么移；还有它要系统分配额外的空间用于建立新的索引节点和保存原文件的路径。</li>
+</ul>
+<p><strong>实际场景下，基本是使用软链接</strong>。总结区别如下：</p>
+<ul>
+<li>硬链接不可以跨分区，软件链可以跨分区。</li>
+<li>硬链接指向一个 inode 节点，而软链接则是创建一个新的 inode 节点。</li>
+<li>删除硬链接文件，不会删除原文件，删除软链接文件，会把原文件删除。</li>
+</ul>
+<h2 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h2><h3 id="一台-Linux-系统初始化环境后需要做一些什么安全工作？"><a href="#一台-Linux-系统初始化环境后需要做一些什么安全工作？" class="headerlink" title="一台 Linux 系统初始化环境后需要做一些什么安全工作？"></a>一台 Linux 系统初始化环境后需要做一些什么安全工作？</h3><ul>
+<li><p>1、添加普通用户登陆，禁止 root 用户登陆，更改 SSH 端口号。</p>
+<blockquote>
+<p>修改 SSH 端口不一定绝对哈。当然，如果要暴露在外网，建议改下。l</p>
+</blockquote>
+</li>
+<li><p>2、服务器使用密钥登陆，禁止密码登陆。</p>
+</li>
+<li><p>3、开启防火墙，关闭 SElinux ，根据业务需求设置相应的防火墙规则。</p>
+</li>
+<li><p>4、装 fail2ban 这种防止 SSH 暴力破击的软件。</p>
+</li>
+<li><p>5、设置只允许公司办公网出口 IP 能登陆服务器(看公司实际需要)</p>
+<blockquote>
+<p>也可以安装 VPN 等软件，只允许连接 VPN 到服务器上。</p>
+</blockquote>
+</li>
+<li><p>6、修改历史命令记录的条数为 10 条。</p>
+</li>
+<li><p>7、只允许有需要的服务器可以访问外网，其它全部禁止。</p>
+</li>
+<li><p>8、做好软件层面的防护。</p>
+<ul>
+<li>8.1 设置 nginx_waf 模块防止 SQL 注入。</li>
+<li>8.2 把 Web 服务使用 www 用户启动，更改网站目录的所有者和所属组为 www 。</li>
+</ul>
+</li>
+</ul>
+<h3 id="什么叫-CC-攻击？什么叫-DDOS-攻击？"><a href="#什么叫-CC-攻击？什么叫-DDOS-攻击？" class="headerlink" title="什么叫 CC 攻击？什么叫 DDOS 攻击？"></a>什么叫 CC 攻击？什么叫 DDOS 攻击？</h3><ul>
+<li><p>CC 攻击，主要是用来攻击页面的，模拟多个用户不停的对你的页面进行访问，从而使你的系统资源消耗殆尽。</p>
+</li>
+<li><p>DDOS 攻击，中文名叫分布式拒绝服务攻击，指借助服务器技术将多个计算机联合起来作为攻击平台，来对一个或多个目标发动 DDOS 攻击。</p>
+<blockquote>
+<p>攻击，即是通过大量合法的请求占用大量网络资源，以达到瘫痪网络的目的。</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>怎么预防 CC 攻击和 DDOS 攻击？</strong></p>
+<p>防 CC、DDOS 攻击，这些只能是用硬件防火墙做流量清洗，将攻击流量引入黑洞。</p>
+<blockquote>
+<p>流量清洗这一块，主要是买 ISP 服务商的防攻击的服务就可以，机房一般有空余流量，我们一般是买服务，毕竟攻击不会是持续长时间。</p>
+</blockquote>
+<h3 id="什么是网站数据库注入？"><a href="#什么是网站数据库注入？" class="headerlink" title="什么是网站数据库注入？"></a>什么是网站数据库注入？</h3><ul>
+<li><p>由于程序员的水平及经验参差不齐，大部分程序员在编写代码的时候，没有对用户输入数据的合法性进行判断。</p>
+</li>
+<li><p>应用程序存在安全隐患。用户可以提交一段数据库查询代码，根据程序返回的结果，获得某些他想得知的数据，这就是所谓的 SQL 注入。</p>
+</li>
+<li><p>SQL注入，是从正常的 WWW 端口访问，而且表面看起来跟一般的 Web 页面访问没什么区别，如果管理员没查看日志的习惯，可能被入侵很长时间都不会发觉。</p>
+</li>
+</ul>
+<p><strong>如何过滤与预防？</strong></p>
+<p>数据库网页端注入这种，可以考虑使用 nginx_waf 做过滤与预防。</p>
+<h3 id="Shell-脚本是什么？"><a href="#Shell-脚本是什么？" class="headerlink" title="Shell 脚本是什么？"></a>Shell 脚本是什么？</h3><p>一个 Shell 脚本是一个文本文件，包含一个或多个命令。作为系统管理员，我们经常需要使用多个命令来完成一项任务，我们可以添加这些所有命令在一个文本文件(Shell 脚本)来完成这些日常工作任务。</p>
+<p><strong>什么是默认登录 Shell ？</strong></p>
+<p>在 Linux 操作系统，<code>&quot;/bin/bash&quot;</code> 是默认登录 Shell，是在创建用户时分配的。</p>
+<p>使用 chsh 命令可以改变默认的 Shell 。示例如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## chsh &lt;用户名&gt; -s &lt;新shell&gt;</span></span><br><span class="line"><span class="comment">## chsh ThinkWon -s /bin/sh</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="cat-命令"><a href="#cat-命令" class="headerlink" title="cat 命令"></a>cat 命令</h3><p>cat 命令用于连接文件并打印到标准输出设备上。</p>
+<p>cat 主要有三大功能：</p>
+<p>1.一次显示整个文件:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> filename</span><br></pre></td></tr></table></figure>
+
+<p>2.从键盘创建一个文件:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat &gt; filename</span><br></pre></td></tr></table></figure>
+
+<p>只能创建新文件，不能编辑已有文件。</p>
+<p>3.将几个文件合并为一个文件:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat file1 file2 &gt; file</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-b 对非空输出行号</li>
+<li>-n 输出所有行号</li>
+</ul>
+<p><strong>实例</strong>：</p>
+<p>（1）把 log2012.log 的文件内容加上行号后输入 log2013.log 这个文件里</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat -n log2012.log log2013.log</span><br></pre></td></tr></table></figure>
+
+<p>（2）把 log2012.log 和 log2013.log 的文件内容加上行号（空白行不加）之后将内容附加到 log.log 里</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat -b log2012.log log2013.log log.log</span><br></pre></td></tr></table></figure>
+
+<p>（3）使用 here doc 生成新文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat &gt;log.txt &lt;&lt;EOF</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">Hello</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">World</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">PWD=$(<span class="built_in">pwd</span>)</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">EOF</span></span><br><span class="line">ls -l log.txt</span><br><span class="line">cat log.txt</span><br><span class="line">Hello</span><br><span class="line">World</span><br><span class="line">PWD=/opt/soft/test</span><br></pre></td></tr></table></figure>
+
+<p>（4）反向列示</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tac log.txt</span><br><span class="line">PWD=/opt/soft/test</span><br><span class="line">World</span><br><span class="line">Hello</span><br></pre></td></tr></table></figure>
+
+<h3 id="chmod-命令"><a href="#chmod-命令" class="headerlink" title="chmod 命令"></a>chmod 命令</h3><p>Linux&#x2F;Unix 的文件调用权限分为三级 : 文件拥有者、群组、其他。利用 chmod 可以控制文件如何被他人所调用。</p>
+<p>用于改变 linux 系统文件或目录的访问权限。用它控制文件或目录的访问权限。该命令有两种用法。一种是包含字母和操作符表达式的文字设定法；另一种是包含数字的数字设定法。</p>
+<p>每一文件或目录的访问权限都有三组，每组用三位表示，分别为文件属主的读、写和执行权限；与属主同组的用户的读、写和执行权限；系统中其他用户的读、写和执行权限。可使用 ls -l test.txt 查找。</p>
+<p>以文件 log2012.log 为例：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-rw-r--r-- 1 root root 296K 11-13 06:03 log2012.log</span><br></pre></td></tr></table></figure>
+
+<p>第一列共有 10 个位置，第一个字符指定了文件类型。在通常意义上，一个目录也是一个文件。</p>
+<p>如果第一个字符是横线，表示是一个非目录的文件。如果是 d，表示是一个目录。</p>
+<p>从第二个字符开始到第十个 9 个字符，3 个字符一组，分别表示了 3 组用户对文件或者目录的权限。权限字符用横线代表空许可，r 代表只读，w 代表写，x 代表可执行。</p>
+<p><strong>常用参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-c 当发生改变时，报告处理信息-R 处理指定目录以及其子目录下所有文件</span><br></pre></td></tr></table></figure>
+
+<p>权限范围：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">u ：目录或者文件的当前的用户g ：目录或者文件的当前的群组o ：除了目录或者文件的当前用户或群组之外的用户或者群组a ：所有的用户及群组</span><br></pre></td></tr></table></figure>
+
+<p>权限代号：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">r ：读权限，用数字4表示w ：写权限，用数字2表示x ：执行权限，用数字1表示- ：删除权限，用数字0表示s ：特殊权限</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）增加文件 t.log 所有用户可执行权限</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod a+x t.log</span><br></pre></td></tr></table></figure>
+
+<p>（2）撤销原来所有的权限，然后使拥有者具有可读权限,并输出处理信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod u=r t.log -c</span><br></pre></td></tr></table></figure>
+
+<p>（3）给 file 的属主分配读、写、执行(7)的权限，给file的所在组分配读、执行(5)的权限，给其他用户分配执行(1)的权限</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod 751 t.log -c（或者：chmod u=rwx,g=rx,o=x t.log -c)</span><br></pre></td></tr></table></figure>
+
+<p>（4）将 test 目录及其子目录所有文件添加可读权限</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod u+r,g+r,o+r -R text/ -c</span><br></pre></td></tr></table></figure>
+
+<h3 id="chown-命令"><a href="#chown-命令" class="headerlink" title="chown 命令"></a>chown 命令</h3><p>chown 将指定文件的拥有者改为指定的用户或组，用户可以是用户名或者用户 ID；组可以是组名或者组 ID；文件是以空格分开的要改变权限的文件列表，支持通配符。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-c 显示更改的部分的信息-R 处理指定目录及子目录</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）改变拥有者和群组 并显示改变信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chown -c mail:mail log2012.log</span><br></pre></td></tr></table></figure>
+
+<p>（2）改变文件群组</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chown -c :mail t.log</span><br></pre></td></tr></table></figure>
+
+<p>（3）改变文件夹及子文件目录属主及属组为 mail</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chown -cR mail: test/</span><br></pre></td></tr></table></figure>
+
+<h3 id="cp-命令"><a href="#cp-命令" class="headerlink" title="cp 命令"></a>cp 命令</h3><p>将源文件复制至目标文件，或将多个源文件复制至目标目录。</p>
+<p>注意：命令行复制，如果目标文件已经存在会提示是否覆盖，而在 shell 脚本中，如果不加 -i 参数，则不会提示，而是直接覆盖！</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-i 提示-r 复制目录及目录内所有项目-a 复制的文件与原文件时间一样</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）复制 a.txt 到 test 目录下，保持原文件时间，如果原文件存在提示是否覆盖。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cp -ai a.txt test</span><br></pre></td></tr></table></figure>
+
+<p>（2）为 a.txt 建议一个链接（快捷方式）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cp -s a.txt link_a.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="find-命令"><a href="#find-命令" class="headerlink" title="find 命令"></a>find 命令</h3><p>用于在文件树中查找文件，并作出相应的处理。</p>
+<p>命令格式：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find pathname -options [-print -exec -ok ...]</span><br></pre></td></tr></table></figure>
+
+<p>命令参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pathname: find命令所查找的目录路径。例如用.来表示当前目录，用/来表示系统根目录。-print： find命令将匹配的文件输出到标准输出。-exec： find命令对匹配的文件执行该参数所给出的shell命令。相应命令的形式为&#x27;command&#x27; &#123;  &#125; \;，注意&#123;   &#125;和\；之间的空格。-ok： 和-exec的作用相同，只不过以一种更为安全的模式来执行该参数所给出的shell命令，在执行每一个命令之前，都会给出提示，让用户来确定是否执行。</span><br></pre></td></tr></table></figure>
+
+<p><strong>命令选项</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-name 按照文件名查找文件-perm 按文件权限查找文件-user 按文件属主查找文件-group  按照文件所属的组来查找文件。-type  查找某一类型的文件，诸如：   b - 块设备文件   d - 目录   c - 字符设备文件   l - 符号链接文件   p - 管道文件   f - 普通文件</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）查找 48 小时内修改过的文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find -atime -2</span><br></pre></td></tr></table></figure>
+
+<p>（2）在当前目录查找 以 .log 结尾的文件。 <strong>.</strong> 代表当前目录</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find ./ -name &#x27;*.log&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>（3）查找 &#x2F;opt 目录下 权限为 777 的文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find /opt -perm 777</span><br></pre></td></tr></table></figure>
+
+<p>（4）查找大于 1K 的文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find -size +1000c</span><br></pre></td></tr></table></figure>
+
+<p>查找等于 1000 字符的文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find -size 1000c </span><br></pre></td></tr></table></figure>
+
+<p>-exec 参数后面跟的是 command 命令，它的终止是以 ; 为结束标志的，所以这句命令后面的分号是不可缺少的，考虑到各个系统中分号会有不同的意义，所以前面加反斜杠。{} 花括号代表前面find查找出来的文件名。</p>
+<h3 id="head-命令"><a href="#head-命令" class="headerlink" title="head 命令"></a>head 命令</h3><p>head 用来显示档案的开头至标准输出中，默认 head 命令打印其相应文件的开头 10 行。</p>
+<p><strong>常用参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-n&lt;行数&gt; 显示的行数（行数为复数表示从最后向前数）</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）显示 1.log 文件中前 20 行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">head 1.log -n 20</span><br></pre></td></tr></table></figure>
+
+<p>（2）显示 1.log 文件前 20 字节</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">head -c 20 log2014.log</span><br></pre></td></tr></table></figure>
+
+<p>（3）显示 t.log最后 10 行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">head -n -10 t.log</span><br></pre></td></tr></table></figure>
+
+<h3 id="less-命令"><a href="#less-命令" class="headerlink" title="less 命令"></a>less 命令</h3><p>less 与 more 类似，但使用 less 可以随意浏览文件，而 more 仅能向前移动，却不能向后移动，而且 less 在查看之前不会加载整个文件。</p>
+<p><strong>常用命令参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-i  忽略搜索时的大小写-N  显示每行的行号-o  &lt;文件名&gt; 将less 输出的内容在指定文件中保存起来-s  显示连续空行为一行/字符串：向下搜索“字符串”的功能?字符串：向上搜索“字符串”的功能n：重复前一个搜索（与 / 或 ? 有关）N：反向重复前一个搜索（与 / 或 ? 有关）-x &lt;数字&gt; 将“tab”键显示为规定的数字空格b  向后翻一页d  向后翻半页h  显示帮助界面Q  退出less 命令u  向前滚动半页y  向前滚动一行空格键 滚动一行回车键 滚动一页[pagedown]： 向下翻动一页[pageup]：   向上翻动一页</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）ps 查看进程信息并通过 less 分页显示</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps -aux | less -N</span><br></pre></td></tr></table></figure>
+
+<p>（2）查看多个文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">less 1.log 2.log</span><br></pre></td></tr></table></figure>
+
+<p>可以使用 n 查看下一个，使用 p 查看前一个。</p>
+<h3 id="ln-命令"><a href="#ln-命令" class="headerlink" title="ln 命令"></a>ln 命令</h3><p>功能是为文件在另外一个位置建立一个同步的链接，当在不同目录需要该问题时，就不需要为每一个目录创建同样的文件，通过 ln 创建的链接（link）减少磁盘占用量。</p>
+<p>链接分类：软件链接及硬链接</p>
+<p>软链接：</p>
+<ul>
+<li>1.软链接，以路径的形式存在。类似于Windows操作系统中的快捷方式</li>
+<li>2.软链接可以 跨文件系统 ，硬链接不可以</li>
+<li>3.软链接可以对一个不存在的文件名进行链接</li>
+<li>4.软链接可以对目录进行链接</li>
+</ul>
+<p>硬链接:</p>
+<ul>
+<li>1.硬链接，以文件副本的形式存在。但不占用实际空间。</li>
+<li>2.不允许给目录创建硬链接</li>
+<li>3.硬链接只有在同一个文件系统中才能创建</li>
+</ul>
+<p><strong>需要注意</strong>：</p>
+<ul>
+<li><p>第一：ln命令会保持每一处链接文件的同步性，也就是说，不论你改动了哪一处，其它的文件都会发生相同的变化；</p>
+</li>
+<li><p>第二：ln的链接又分软链接和硬链接两种，软链接就是ln –s 源文件 目标文件，它只会在你选定的位置上生成一个文件的镜像，不会占用磁盘空间，硬链接 ln 源文件 目标文件，没有参数-s， 它会在你选定的位置上生成一个和源文件大小相同的文件，无论是软链接还是硬链接，文件都保持同步变化。</p>
+</li>
+<li><p>第三：ln指令用在链接文件或目录，如同时指定两个以上的文件或目录，且最后的目的地是一个已经存在的目录，则会把前面指定的所有文件或目录复制到该目录中。若同时指定多个文件或目录，且最后的目的地并非是一个已存在的目录，则会出现错误信息。</p>
+</li>
+</ul>
+<p><strong>常用参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-b 删除，覆盖以前建立的链接-s 软链接（符号链接）-v 显示详细处理过程</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）给文件创建软链接，并显示操作信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ln -sv source.log link.log</span><br></pre></td></tr></table></figure>
+
+<p>（2）给文件创建硬链接，并显示操作信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ln -v source.log link1.log</span><br></pre></td></tr></table></figure>
+
+<p>（3）给目录创建软链接</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ln -sv /opt/soft/test/test3 /opt/soft/test/test5</span><br></pre></td></tr></table></figure>
+
+<h3 id="locate-命令"><a href="#locate-命令" class="headerlink" title="locate 命令"></a>locate 命令</h3><p>locate 通过搜寻系统内建文档数据库达到快速找到档案，数据库由 updatedb 程序来更新，updatedb 是由 cron daemon 周期性调用的。默认情况下 locate 命令在搜寻数据库时比由整个由硬盘资料来搜寻资料来得快，但较差劲的是 locate 所找到的档案若是最近才建立或 刚更名的，可能会找不到，在内定值中，updatedb 每天会跑一次，可以由修改 crontab 来更新设定值 (etc&#x2F;crontab)。</p>
+<p>locate 与 find 命令相似，可以使用如 *、? 等进行正则匹配查找</p>
+<p><strong>常用参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-l num（要显示的行数）-f   将特定的档案系统排除在外，如将proc排除在外-r   使用正则运算式做为寻找条件</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）查找和 pwd 相关的所有文件(文件名中包含 pwd）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">locate pwd</span><br></pre></td></tr></table></figure>
+
+<p>（2）搜索 etc 目录下所有以 sh 开头的文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">locate /etc/sh</span><br></pre></td></tr></table></figure>
+
+<p>（3）查找 &#x2F;var 目录下，以 reason 结尾的文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">locate -r &#x27;^/var.*reason$&#x27;（其中.表示一个字符，*表示任务多个；.*表示任意多个字符）</span><br></pre></td></tr></table></figure>
+
+<h3 id="more-命令"><a href="#more-命令" class="headerlink" title="more 命令"></a>more 命令</h3><p>功能类似于 cat, more 会以一页一页的显示方便使用者逐页阅读，而最基本的指令就是按空白键（space）就往下一页显示，按 b 键就会往回（back）一页显示。</p>
+<p><strong>命令参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">+n      从笫 n 行开始显示-n       定义屏幕大小为n行+/pattern 在每个档案显示前搜寻该字串（pattern），然后从该字串前两行之后开始显示 -c       从顶部清屏，然后显示-d       提示“Press space to continue，’q’ to quit（按空格键继续，按q键退出）”，禁用响铃功能-l        忽略Ctrl+l（换页）字符-p       通过清除窗口而不是滚屏来对文件进行换页，与-c选项相似-s       把连续的多个空行显示为一行-u       把文件内容中的下画线去掉</span><br></pre></td></tr></table></figure>
+
+<p><strong>常用操作命令</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Enter    向下 n 行，需要定义。默认为 1 行Ctrl+F   向下滚动一屏空格键  向下滚动一屏Ctrl+B  返回上一屏=       输出当前行的行号:f     输出文件名和当前行的行号V      调用vi编辑器!命令   调用Shell，并执行命令q       退出more</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）显示文件中从第3行起的内容</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">more +3 text.txt</span><br></pre></td></tr></table></figure>
+
+<p>（2）在所列出文件目录详细信息，借助管道使每次显示 5 行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls -l | more -5</span><br></pre></td></tr></table></figure>
+
+<p>按空格显示下 5 行。</p>
+<h3 id="mv-命令"><a href="#mv-命令" class="headerlink" title="mv 命令"></a>mv 命令</h3><p>移动文件或修改文件名，根据第二参数类型（如目录，则移动文件；如为文件则重命令该文件）。</p>
+<p>当第二个参数为目录时，第一个参数可以是多个以空格分隔的文件或目录，然后移动第一个参数指定的多个文件到第二个参数指定的目录中。</p>
+<p><strong>实例</strong>：</p>
+<p>（1）将文件 test.log 重命名为 test1.txt</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mv test.log test1.txt</span><br></pre></td></tr></table></figure>
+
+<p>（2）将文件 log1.txt,log2.txt,log3.txt 移动到根的 test3 目录中</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mv llog1.txt log2.txt log3.txt /test3</span><br></pre></td></tr></table></figure>
+
+<p>（3）将文件 file1 改名为 file2，如果 file2 已经存在，则询问是否覆盖</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mv -i log1.txt log2.txt</span><br></pre></td></tr></table></figure>
+
+<p>（4）移动当前文件夹下的所有文件到上一级目录</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mv * ../</span><br></pre></td></tr></table></figure>
+
+<h3 id="rm-命令"><a href="#rm-命令" class="headerlink" title="rm 命令"></a>rm 命令</h3><p>删除一个目录中的一个或多个文件或目录，如果没有使用 -r 选项，则 rm 不会删除目录。如果使用 rm 来删除文件，通常仍可以将该文件恢复原状。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rm [选项] 文件…</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）删除任何 .log 文件，删除前逐一询问确认：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rm -i *.log</span><br></pre></td></tr></table></figure>
+
+<p>（2）删除 test 子目录及子目录中所有档案删除，并且不用一一确认：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rm -rf test</span><br></pre></td></tr></table></figure>
+
+<p>（3）删除以 -f 开头的文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rm -- -f*</span><br></pre></td></tr></table></figure>
+
+<h3 id="tail-命令"><a href="#tail-命令" class="headerlink" title="tail 命令"></a>tail 命令</h3><p>用于显示指定文件末尾内容，不指定文件时，作为输入信息进行处理。常用查看日志文件。</p>
+<p><strong>常用参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-f 循环读取（常用于查看递增的日志文件）-n&lt;行数&gt; 显示行数（从后向前）</span><br></pre></td></tr></table></figure>
+
+<p>（1）循环读取逐渐增加的文件内容</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ping 127.0.0.1 &gt; ping.log &amp;</span><br></pre></td></tr></table></figure>
+
+<p>后台运行：可使用 jobs -l 查看，也可使用 fg 将其移到前台运行。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tail -f ping.log</span><br></pre></td></tr></table></figure>
+
+<p>（查看日志）</p>
+<h3 id="touch-命令"><a href="#touch-命令" class="headerlink" title="touch 命令"></a>touch 命令</h3><p>Linux touch命令用于修改文件或者目录的时间属性，包括存取时间和更改时间。若文件不存在，系统会建立一个新的文件。</p>
+<p>ls -l 可以显示档案的时间记录。</p>
+<p><strong>语法</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">touch [-acfm][-d&lt;日期时间&gt;][-r&lt;参考文件或目录&gt;] [-t&lt;日期时间&gt;][--help][--version][文件或目录…]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>参数说明</strong>：</li>
+<li>a 改变档案的读取时间记录。</li>
+<li>m 改变档案的修改时间记录。</li>
+<li>c 假如目的档案不存在，不会建立新的档案。与 –no-create 的效果一样。</li>
+<li>f 不使用，是为了与其他 unix 系统的相容性而保留。</li>
+<li>r 使用参考档的时间记录，与 –file 的效果一样。</li>
+<li>d 设定时间与日期，可以使用各种不同的格式。</li>
+<li>t 设定档案的时间记录，格式与 date 指令相同。</li>
+<li>–no-create 不会建立新档案。</li>
+<li>–help 列出指令格式。</li>
+<li>–version 列出版本讯息。</li>
+</ul>
+<p><strong>实例</strong></p>
+<p>使用指令”touch”修改文件”testfile”的时间属性为当前系统时间，输入如下命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">touch</span> testfile <span class="comment">#修改文件的时间属性</span></span> </span><br></pre></td></tr></table></figure>
+
+<p>首先，使用ls命令查看testfile文件的属性，如下所示：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span> -l testfile <span class="comment">#查看文件的时间属性  #原来文件的修改时间为16:09  -rw-r--r-- 1 hdd hdd 55 2011-08-22 16:09 testfile</span></span>  </span><br></pre></td></tr></table></figure>
+
+<p>执行指令”touch”修改文件属性以后，并再次查看该文件的时间属性，如下所示：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">touch</span> testfile <span class="comment">#修改文件时间属性为当前系统时间  $ ls -l testfile #查看文件的时间属性  #修改后文件的时间属性为当前系统时间  -rw-r--r-- 1 hdd hdd 55 2011-08-22 19:53 testfile</span></span>  </span><br></pre></td></tr></table></figure>
+
+<p>使用指令”touch”时，如果指定的文件不存在，则将创建一个新的空白文件。例如，在当前目录下，使用该指令创建一个空白文件”file”，输入如下命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">touch</span> file <span class="comment">#创建一个名为“file”的新的空白文件</span></span> </span><br></pre></td></tr></table></figure>
+
+<h3 id="vim-命令"><a href="#vim-命令" class="headerlink" title="vim 命令"></a>vim 命令</h3><p>Vim是从 vi 发展出来的一个文本编辑器。代码补完、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。</p>
+<ul>
+<li>打开文件并跳到第 10 行：<code>vim +10 filename.txt</code> 。</li>
+<li>打开文件跳到第一个匹配的行：<code>vim +/search-term filename.txt</code> 。</li>
+<li>以只读模式打开文件：<code>vim -R /etc/passwd</code> 。</li>
+</ul>
+<p>基本上 vi&#x2F;vim 共分为三种模式，分别是<strong>命令模式（Command mode）</strong>，<strong>输入模式（Insert mode）<strong>和</strong>底线命令模式（Last line mode）</strong>。</p>
+<p>简单的说，我们可以将这三个模式想成底下的图标来表示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/vim.png"></p>
+<h3 id="whereis-命令"><a href="#whereis-命令" class="headerlink" title="whereis 命令"></a>whereis 命令</h3><p>whereis 命令只能用于程序名的搜索，而且只搜索二进制文件（参数-b）、man说明文件（参数-m）和源代码文件（参数-s）。如果省略参数，则返回所有信息。whereis 及 locate 都是基于系统内建的数据库进行搜索，因此效率很高，而find则是遍历硬盘查找文件。</p>
+<p><strong>常用参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-b   定位可执行文件。-m   定位帮助文件。-s   定位源代码文件。-u   搜索默认路径下除可执行文件、源代码文件、帮助文件以外的其它文件。</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）查找 locate 程序相关文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">whereis locate</span><br></pre></td></tr></table></figure>
+
+<p>（2）查找 locate 的源码文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">whereis -s locate</span><br></pre></td></tr></table></figure>
+
+<p>（3）查找 lcoate 的帮助文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">whereis -m locate</span><br></pre></td></tr></table></figure>
+
+<h3 id="which-命令"><a href="#which-命令" class="headerlink" title="which 命令"></a>which 命令</h3><p>在 linux 要查找某个文件，但不知道放在哪里了，可以使用下面的一些命令来搜索：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">which     查看可执行文件的位置。whereis 查看文件的位置。locate  配合数据库查看文件位置。find        实际搜寻硬盘查询文件名称。</span><br></pre></td></tr></table></figure>
+
+<p>which 是在 PATH 就是指定的路径中，搜索某个系统命令的位置，并返回第一个搜索结果。使用 which 命令，就可以看到某个系统命令是否存在，以及执行的到底是哪一个位置的命令。</p>
+<p><strong>常用参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-n 　指定文件名长度，指定的长度必须大于或等于所有文件中最长的文件名。</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）查看 ls 命令是否存在，执行哪个</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">which ls</span><br></pre></td></tr></table></figure>
+
+<p>（2）查看 which</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">which which</span><br></pre></td></tr></table></figure>
+
+<p>（3）查看 cd</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">which cd（显示不存在，因为 cd 是内建命令，而 which 查找显示是 PATH 中的命令）</span><br></pre></td></tr></table></figure>
+
+<p>查看当前 PATH 配置：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo $PATH</span><br></pre></td></tr></table></figure>
+
+<p>或使用 env 查看所有环境变量及对应值</p>
+<h2 id="文档编辑命令"><a href="#文档编辑命令" class="headerlink" title="文档编辑命令"></a>文档编辑命令</h2><h3 id="grep-命令"><a href="#grep-命令" class="headerlink" title="grep 命令"></a>grep 命令</h3><p>强大的文本搜索命令，grep(Global Regular Expression Print) 全局正则表达式搜索。</p>
+<p>grep 的工作方式是这样的，它在一个或多个文件中搜索字符串模板。如果模板包括空格，则必须被引用，模板后的所有字符串被看作文件名。搜索的结果被送到标准输出，不影响原文件内容。</p>
+<p>命令格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">grep [option] pattern file|dir</span><br></pre></td></tr></table></figure>
+
+<p><strong>常用参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-A n --after-context显示匹配字符后n行-B n --before-context显示匹配字符前n行-C n --context 显示匹配字符前后n行-c --count 计算符合样式的列数-i 忽略大小写-l 只列出文件内容符合指定的样式的文件名称-f 从文件中读取关键词-n 显示匹配内容的所在文件中行数-R 递归查找文件夹</span><br></pre></td></tr></table></figure>
+
+<p>grep 的规则表达式:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^  #锚定行的开始 如：&#x27;^grep&#x27;匹配所有以grep开头的行。 $  #锚定行的结束 如：&#x27;grep$&#x27;匹配所有以grep结尾的行。 .  #匹配一个非换行符的字符 如：&#x27;gr.p&#x27;匹配gr后接一个任意字符，然后是p。  *  #匹配零个或多个先前字符 如：&#x27;*grep&#x27;匹配所有一个或多个空格后紧跟grep的行。.*   #一起用代表任意字符。  []   #匹配一个指定范围内的字符，如&#x27;[Gg]rep&#x27;匹配Grep和grep。 [^]  #匹配一个不在指定范围内的字符，如：&#x27;[^A-FH-Z]rep&#x27;匹配不包含A-R和T-Z的一个字母开头，紧跟rep的行。  \(..\)  #标记匹配字符，如&#x27;\(love\)&#x27;，love被标记为1。   \&lt;      #锚定单词的开始，如:&#x27;\&lt;grep&#x27;匹配包含以grep开头的单词的行。\&gt;      #锚定单词的结束，如&#x27;grep\&gt;&#x27;匹配包含以grep结尾的单词的行。x\&#123;m\&#125;  #重复字符x，m次，如：&#x27;0\&#123;5\&#125;&#x27;匹配包含5个o的行。 x\&#123;m,\&#125;  #重复字符x,至少m次，如：&#x27;o\&#123;5,\&#125;&#x27;匹配至少有5个o的行。  x\&#123;m,n\&#125;  #重复字符x，至少m次，不多于n次，如：&#x27;o\&#123;5,10\&#125;&#x27;匹配5--10个o的行。  \w    #匹配文字和数字字符，也就是[A-Za-z0-9]，如：&#x27;G\w*p&#x27;匹配以G后跟零个或多个文字或数字字符，然后是p。  \W    #\w的反置形式，匹配一个或多个非单词字符，如点号句号等。  \b    #单词锁定符，如: &#x27;\bgrep\b&#x27;只匹配grep。</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）查找指定进程</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps -ef | grep svn</span><br></pre></td></tr></table></figure>
+
+<p>（2）查找指定进程个数</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps -ef | grep svn -c</span><br></pre></td></tr></table></figure>
+
+<p>（3）从文件中读取关键词</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat test1.txt | grep -f key.log</span><br></pre></td></tr></table></figure>
+
+<p>（4）从文件夹中递归查找以grep开头的行，并只列出文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -lR &#x27;^grep&#x27; /tmp</span><br></pre></td></tr></table></figure>
+
+<p>（5）查找非x开关的行内容</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep &#x27;^[^x]&#x27; test.txt</span><br></pre></td></tr></table></figure>
+
+<p>（6）显示包含 ed 或者 at 字符的内容行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep -E &#x27;ed|at&#x27; test.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="wc-命令"><a href="#wc-命令" class="headerlink" title="wc 命令"></a>wc 命令</h3><p>wc(word count)功能为统计指定的文件中字节数、字数、行数，并将统计结果输出</p>
+<p>命令格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wc [option] file..</span><br></pre></td></tr></table></figure>
+
+<p><strong>命令参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-c 统计字节数-l 统计行数-m 统计字符数-w 统计词数，一个字被定义为由空白、跳格或换行字符分隔的字符串</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）查找文件的 行数 单词数 字节数 文件名</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wc text.txt</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">7     8     70     test.txt</span><br></pre></td></tr></table></figure>
+
+<p>（2）统计输出结果的行数</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat test.txt | wc -l</span><br></pre></td></tr></table></figure>
+
+<h2 id="磁盘管理命令"><a href="#磁盘管理命令" class="headerlink" title="磁盘管理命令"></a>磁盘管理命令</h2><h3 id="cd-命令"><a href="#cd-命令" class="headerlink" title="cd 命令"></a>cd 命令</h3><p>cd(changeDirectory) 命令语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd [目录名]</span><br></pre></td></tr></table></figure>
+
+<p>说明：切换当前目录至 dirName。</p>
+<p><strong>实例</strong>：</p>
+<p>（1）进入要目录</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /</span><br></pre></td></tr></table></figure>
+
+<p>（2）进入 “home” 目录</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd ~</span><br></pre></td></tr></table></figure>
+
+<p>（3）进入上一次工作路径</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd -</span><br></pre></td></tr></table></figure>
+
+<p>（4）把上个命令的参数作为cd参数使用。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd !$</span><br></pre></td></tr></table></figure>
+
+<h3 id="df-命令"><a href="#df-命令" class="headerlink" title="df 命令"></a>df 命令</h3><p>显示磁盘空间使用情况。获取硬盘被占用了多少空间，目前还剩下多少空间等信息，如果没有文件名被指定，则所有当前被挂载的文件系统的可用空间将被显示。默认情况下，磁盘空间将以 1KB 为单位进行显示，除非环境变量 POSIXLY_CORRECT 被指定，那样将以512字节为单位进行显示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-a 全部文件系统列表-h 以方便阅读的方式显示信息-i 显示inode信息-k 区块为1024字节-l 只显示本地磁盘-T 列出文件系统类型</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）显示磁盘使用情况</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">df -l</span><br></pre></td></tr></table></figure>
+
+<p>（2）以易读方式列出所有文件系统及其类型</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">df -haT</span><br></pre></td></tr></table></figure>
+
+<h3 id="du-命令"><a href="#du-命令" class="headerlink" title="du 命令"></a>du 命令</h3><p>du 命令也是查看使用空间的，但是与 df 命令不同的是 Linux du 命令是对文件和目录磁盘使用的空间的查看：</p>
+<p>命令格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">du [选项] [文件]</span><br></pre></td></tr></table></figure>
+
+<p><strong>常用参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-a 显示目录中所有文件大小-k 以KB为单位显示文件大小-m 以MB为单位显示文件大小-g 以GB为单位显示文件大小-h 以易读方式显示文件大小-s 仅显示总计-c或--total  除了显示个别目录或文件的大小外，同时也显示所有目录或文件的总和</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）以易读方式显示文件夹内及子文件夹大小</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">du -h scf/</span><br></pre></td></tr></table></figure>
+
+<p>（2）以易读方式显示文件夹内所有文件大小</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">du -ah scf/</span><br></pre></td></tr></table></figure>
+
+<p>（3）显示几个文件或目录各自占用磁盘空间的大小，还统计它们的总和</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">du -hc test/ scf/</span><br></pre></td></tr></table></figure>
+
+<p>（4）输出当前目录下各个子目录所使用的空间</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">du -hc --max-depth=1 scf/</span><br></pre></td></tr></table></figure>
+
+<h3 id="ls命令"><a href="#ls命令" class="headerlink" title="ls命令"></a>ls命令</h3><p>就是 list 的缩写，通过 ls 命令不仅可以查看 linux 文件夹包含的文件，而且可以查看文件权限(包括目录、文件夹、文件权限)查看目录信息等等。</p>
+<p><strong>常用参数搭配</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls -a 列出目录所有文件，包含以.开始的隐藏文件ls -A 列出除.及..的其它文件ls -r 反序排列ls -t 以文件修改时间排序ls -S 以文件大小排序ls -h 以易读大小显示ls -l 除了文件名之外，还将文件的权限、所有者、文件大小等信息详细列出来</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>(1) 按易读方式按时间反序排序，并显示文件详细信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls -lhrt</span><br></pre></td></tr></table></figure>
+
+<p>(2) 按大小反序显示文件详细信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls -lrS</span><br></pre></td></tr></table></figure>
+
+<p>(3)列出当前目录中所有以”t”开头的目录的详细内容</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls -l t*</span><br></pre></td></tr></table></figure>
+
+<p>(4) 列出文件绝对路径（不包含隐藏文件）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls | sed &quot;s:^:`pwd`/:&quot;</span><br></pre></td></tr></table></figure>
+
+<p>(5) 列出文件绝对路径（包含隐藏文件）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find $pwd -maxdepth 1 | xargs ls -ld</span><br></pre></td></tr></table></figure>
+
+<h3 id="mkdir-命令"><a href="#mkdir-命令" class="headerlink" title="mkdir 命令"></a>mkdir 命令</h3><p>mkdir 命令用于创建文件夹。</p>
+<p>可用选项：</p>
+<ul>
+<li><strong>-m</strong>: 对新建目录设置存取权限，也可以用 chmod 命令设置;</li>
+<li><strong>-p</strong>: 可以是一个路径名称。此时若路径中的某些目录尚不存在,加上此选项后，系统将自动建立好那些尚不在的目录，即一次可以建立多个目录。</li>
+</ul>
+<p><strong>实例</strong>：</p>
+<p>（1）当前工作目录下创建名为 t的文件夹</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir t</span><br></pre></td></tr></table></figure>
+
+<p>（2）在 tmp 目录下创建路径为 test&#x2F;t1&#x2F;t 的目录，若不存在，则创建：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir -p /tmp/test/t1/t</span><br></pre></td></tr></table></figure>
+
+<h3 id="pwd-命令"><a href="#pwd-命令" class="headerlink" title="pwd 命令"></a>pwd 命令</h3><p>pwd 命令用于查看当前工作目录路径。</p>
+<p><strong>实例</strong>：</p>
+<p>（1）查看当前路径</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure>
+
+<p>（2）查看软链接的实际路径</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pwd -P</span><br></pre></td></tr></table></figure>
+
+<h3 id="rmdir-命令"><a href="#rmdir-命令" class="headerlink" title="rmdir 命令"></a>rmdir 命令</h3><p>从一个目录中删除一个或多个子目录项，删除某目录时也必须具有对其父目录的写权限。</p>
+<p><strong>注意</strong>：不能删除非空目录</p>
+<p><strong>实例</strong>：</p>
+<p>（1）当 parent 子目录被删除后使它也成为空目录的话，则顺便一并删除：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rmdir -p parent/child/child11</span><br></pre></td></tr></table></figure>
+
+<h2 id="网络通讯命令"><a href="#网络通讯命令" class="headerlink" title="网络通讯命令"></a>网络通讯命令</h2><h3 id="ifconfig-命令"><a href="#ifconfig-命令" class="headerlink" title="ifconfig 命令"></a>ifconfig 命令</h3><ul>
+<li>ifconfig 用于查看和配置 Linux 系统的网络接口。</li>
+<li>查看所有网络接口及其状态：<code>ifconfig -a</code> 。</li>
+<li>使用 up 和 down 命令启动或停止某个接口：<code>ifconfig eth0 up</code> 和 <code>ifconfig eth0 down</code> 。</li>
+</ul>
+<h3 id="iptables-命令"><a href="#iptables-命令" class="headerlink" title="iptables 命令"></a>iptables 命令</h3><p>iptables ，是一个配置 Linux 内核防火墙的命令行工具。功能非常强大，对于我们开发来说，主要掌握如何开放端口即可。例如：</p>
+<ul>
+<li><p>把来源 IP 为 192.168.1.101 访问本机 80 端口的包直接拒绝：<code>iptables \-I INPUT \-s 192.168.1.101 \-p tcp \--dport 80 \-j REJECT</code> 。</p>
+</li>
+<li><p>开启 80 端口，因为web对外都是这个端口</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">iptables -A INPUT -p tcp --dport 80 -j ACCEP</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>另外，要注意使用 <code>iptables save</code> 命令，进行保存。否则，服务器重启后，配置的规则将丢失。</p>
+</li>
+</ul>
+<h3 id="netstat-命令"><a href="#netstat-命令" class="headerlink" title="netstat 命令"></a>netstat 命令</h3><p>Linux netstat命令用于显示网络状态。</p>
+<p>利用netstat指令可让你得知整个Linux系统的网络情况。</p>
+<p>语法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat [-acCeFghilMnNoprstuvVwx][-A&lt;网络类型&gt;][--ip]</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数说明</strong>：</p>
+<ul>
+<li>-a或–all 显示所有连线中的Socket。</li>
+<li>-A&lt;网络类型&gt;或–&lt;网络类型&gt; 列出该网络类型连线中的相关地址。</li>
+<li>-c或–continuous 持续列出网络状态。</li>
+<li>-C或–cache 显示路由器配置的快取信息。</li>
+<li>-e或–extend 显示网络其他相关信息。</li>
+<li>-F或–fib 显示FIB。</li>
+<li>-g或–groups 显示多重广播功能群组组员名单。</li>
+<li>-h或–help 在线帮助。</li>
+<li>-i或–interfaces 显示网络界面信息表单。</li>
+<li>-l或–listening 显示监控中的服务器的Socket。</li>
+<li>-M或–masquerade 显示伪装的网络连线。</li>
+<li>-n或–numeric 直接使用IP地址，而不通过域名服务器。</li>
+<li>-N或–netlink或–symbolic 显示网络硬件外围设备的符号连接名称。</li>
+<li>-o或–timers 显示计时器。</li>
+<li>-p或–programs 显示正在使用Socket的程序识别码和程序名称。</li>
+<li>-r或–route 显示Routing Table。</li>
+<li>-s或–statistice 显示网络工作信息统计表。</li>
+<li>-t或–tcp 显示TCP传输协议的连线状况。</li>
+<li>-u或–udp 显示UDP传输协议的连线状况。</li>
+<li>-v或–verbose 显示指令执行过程。</li>
+<li>-V或–version 显示版本信息。</li>
+<li>-w或–raw 显示RAW传输协议的连线状况。</li>
+<li>-x或–unix 此参数的效果和指定”-A unix”参数相同。</li>
+<li>–ip或–inet 此参数的效果和指定”-A inet”参数相同。</li>
+</ul>
+<p><strong>实例</strong></p>
+<p><strong>如何查看系统都开启了哪些端口？</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@centos6 ~ 13:20 #55]# netstat -lnpActive Internet connections (only servers)Proto Recv-Q Send-Q Local Address               Foreign Address             State       PID/Program nametcp        0      0 0.0.0.0:22                  0.0.0.0:*                   LISTEN      1035/sshdtcp        0      0 :::22                       :::*                        LISTEN      1035/sshdudp        0      0 0.0.0.0:68                  0.0.0.0:*                               931/dhclientActive UNIX domain sockets (only servers)Proto RefCnt Flags       Type       State         I-Node PID/Program name    Pathunix  2      [ ACC ]     STREAM     LISTENING     6825   1/init              @/com/ubuntu/upstartunix  2      [ ACC ]     STREAM     LISTENING     8429   1003/dbus-daemon    /var/run/dbus/system_bus_socket</span><br></pre></td></tr></table></figure>
+
+<p><strong>如何查看网络连接状况？</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@centos6 ~ 13:22 #58]# netstat -anActive Internet connections (servers and established)Proto Recv-Q Send-Q Local Address               Foreign Address             Statetcp        0      0 0.0.0.0:22                  0.0.0.0:*                   LISTENtcp        0      0 192.168.147.130:22          192.168.147.1:23893         ESTABLISHEDtcp        0      0 :::22                       :::*                        LISTENudp        0      0 0.0.0.0:68                  0.0.0.0:*</span><br></pre></td></tr></table></figure>
+
+<p><strong>如何统计系统当前进程连接数？</strong></p>
+<ul>
+<li>输入命令 <code>netstat -an | grep ESTABLISHED | wc -l</code> 。</li>
+<li>输出结果 <code>177</code> 。一共有 177 连接数。</li>
+</ul>
+<p><strong>用 netstat 命令配合其他命令，按照源 IP 统计所有到 80 端口的 ESTABLISHED 状态链接的个数？</strong></p>
+<blockquote>
+<p>严格来说，这个题目考验的是对 awk 的使用。</p>
+</blockquote>
+<p>首先，使用 <code>netstat \-an|grep ESTABLISHED</code> 命令。结果如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tcp        0      0 120.27.146.122:80       113.65.18.33:62721      ESTABLISHEDtcp        0      0 120.27.146.122:80       27.43.83.115:47148      ESTABLISHEDtcp        0      0 120.27.146.122:58838    106.39.162.96:443       ESTABLISHEDtcp        0      0 120.27.146.122:52304    203.208.40.121:443      ESTABLISHEDtcp        0      0 120.27.146.122:33194    203.208.40.122:443      ESTABLISHEDtcp        0      0 120.27.146.122:53758    101.37.183.144:443      ESTABLISHEDtcp        0      0 120.27.146.122:27017    23.105.193.30:50556     ESTABLISHED</span><br></pre></td></tr></table></figure>
+
+<h3 id="ping-命令"><a href="#ping-命令" class="headerlink" title="ping 命令"></a>ping 命令</h3><p>Linux ping命令用于检测主机。</p>
+<p>执行ping指令会使用ICMP传输协议，发出要求回应的信息，若远端主机的网络功能没有问题，就会回应该信息，因而得知该主机运作正常。</p>
+<p>指定接收包的次数</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ping -c 2 www.baidu.com</span><br></pre></td></tr></table></figure>
+
+<h3 id="telnet-命令"><a href="#telnet-命令" class="headerlink" title="telnet 命令"></a>telnet 命令</h3><p>Linux telnet命令用于远端登入。</p>
+<p>执行telnet指令开启终端机阶段作业，并登入远端主机。</p>
+<p>语法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">telnet [-8acdEfFKLrx][-b&lt;主机别名&gt;][-e&lt;脱离字符&gt;][-k&lt;域名&gt;][-l&lt;用户名称&gt;][-n&lt;记录文件&gt;][-S&lt;服务类型&gt;][-X&lt;认证形态&gt;][主机名称或IP地址&lt;通信端口&gt;]</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数说明</strong>：</p>
+<ul>
+<li>-8 允许使用8位字符资料，包括输入与输出。</li>
+<li>-a 尝试自动登入远端系统。</li>
+<li>-b&lt;主机别名&gt; 使用别名指定远端主机名称。</li>
+<li>-c 不读取用户专属目录里的.telnetrc文件。</li>
+<li>-d 启动排错模式。</li>
+<li>-e&lt;脱离字符&gt; 设置脱离字符。</li>
+<li>-E 滤除脱离字符。</li>
+<li>-f 此参数的效果和指定”-F”参数相同。</li>
+<li>-F 使用Kerberos V5认证时，加上此参数可把本地主机的认证数据上传到远端主机。</li>
+<li>-k&lt;域名&gt; 使用Kerberos认证时，加上此参数让远端主机采用指定的领域名，而非该主机的域名。</li>
+<li>-K 不自动登入远端主机。</li>
+<li>-l&lt;用户名称&gt; 指定要登入远端主机的用户名称。</li>
+<li>-L 允许输出8位字符资料。</li>
+<li>-n&lt;记录文件&gt; 指定文件记录相关信息。</li>
+<li>-r 使用类似rlogin指令的用户界面。</li>
+<li>-S&lt;服务类型&gt; 设置telnet连线所需的IP TOS信息。</li>
+<li>-x 假设主机有支持数据加密的功能，就使用它。</li>
+<li>-X&lt;认证形态&gt; 关闭指定的认证形态。</li>
+</ul>
+<p><strong>实例</strong></p>
+<p>登录远程主机</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">登录IP为 192.168.0.5 的远程主机telnet 192.168.0.5</span> </span><br></pre></td></tr></table></figure>
+
+<h2 id="系统管理命令"><a href="#系统管理命令" class="headerlink" title="系统管理命令"></a>系统管理命令</h2><h3 id="date-命令"><a href="#date-命令" class="headerlink" title="date 命令"></a>date 命令</h3><p>显示或设定系统的日期与时间。</p>
+<p>命令参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-d&lt;字符串&gt; 　显示字符串所指的日期与时间。字符串前后必须加上双引号。-s&lt;字符串&gt; 　根据字符串来设置日期与时间。字符串前后必须加上双引号。-u 　显示GMT。%H 小时(00-23)%I 小时(00-12)%M 分钟(以00-59来表示)%s 总秒数。起算时间为1970-01-01 00:00:00 UTC。%S 秒(以本地的惯用法来表示)%a 星期的缩写。%A 星期的完整名称。%d 日期(以01-31来表示)。%D 日期(含年月日)。%m 月份(以01-12来表示)。%y 年份(以00-99来表示)。%Y 年份(以四位数来表示)。</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）显示下一天</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">date +%Y%m%d --date=&quot;+1 day&quot;  //显示下一天的日期</span><br></pre></td></tr></table></figure>
+
+<p>（2）-d参数使用</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">date -d &quot;nov 22&quot;  今年的 11 月 22 日是星期三date -d &#x27;2 weeks&#x27; 2周后的日期date -d &#x27;next monday&#x27; (下周一的日期)date -d next-day +%Y%m%d（明天的日期）或者：date -d tomorrow +%Y%m%ddate -d last-day +%Y%m%d(昨天的日期) 或者：date -d yesterday +%Y%m%ddate -d last-month +%Y%m(上个月是几月)date -d next-month +%Y%m(下个月是几月)</span><br></pre></td></tr></table></figure>
+
+<h3 id="free-命令"><a href="#free-命令" class="headerlink" title="free 命令"></a>free 命令</h3><p>显示系统内存使用情况，包括物理内存、交互区内存(swap)和内核缓冲区内存。</p>
+<p><strong>命令参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-b 以Byte显示内存使用情况-k 以kb为单位显示内存使用情况-m 以mb为单位显示内存使用情况-g 以gb为单位显示内存使用情况-s&lt;间隔秒数&gt; 持续显示内存-t 显示内存使用总合</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）显示内存使用情况</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">freefree -kfree -m</span><br></pre></td></tr></table></figure>
+
+<p>（2）以总和的形式显示内存的使用信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">free -t</span><br></pre></td></tr></table></figure>
+
+<p>（3）周期性查询内存使用情况</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">free -s 10</span><br></pre></td></tr></table></figure>
+
+<h3 id="kill-命令"><a href="#kill-命令" class="headerlink" title="kill 命令"></a>kill 命令</h3><p>发送指定的信号到相应进程。不指定型号将发送SIGTERM（15）终止指定进程。如果任无法终止该程序可用”-KILL” 参数，其发送的信号为SIGKILL(9) ，将强制结束进程，使用ps命令或者jobs 命令可以查看进程号。root用户将影响用户的进程，非root用户只能影响自己的进程。</p>
+<p><strong>常用参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-l  信号，若果不加信号的编号参数，则使用“-l”参数会列出全部的信号名称-a  当处理当前进程时，不限制命令名和进程号的对应关系-p  指定kill 命令只打印相关进程的进程号，而不发送任何信号-s  指定发送信号-u  指定用户</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）先使用ps查找进程pro1，然后用kill杀掉</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kill -9 $(ps -ef | grep pro1)</span><br></pre></td></tr></table></figure>
+
+<h3 id="ps-命令"><a href="#ps-命令" class="headerlink" title="ps 命令"></a>ps 命令</h3><p>ps(process status)，用来查看当前运行的进程状态，一次性查看，如果需要动态连续结果使用 top</p>
+<p>linux上进程有5种状态:</p>
+<ol>
+<li><p>运行(正在运行或在运行队列中等待)</p>
+</li>
+<li><p>中断(休眠中, 受阻, 在等待某个条件的形成或接受到信号)</p>
+</li>
+<li><p>不可中断(收到信号不唤醒和不可运行, 进程必须等待直到有中断发生)</p>
+</li>
+<li><p>僵死(进程已终止, 但进程描述符存在, 直到父进程调用wait4()系统调用后释放)</p>
+</li>
+<li><p>停止(进程收到SIGSTOP, SIGSTP, SIGTIN, SIGTOU信号后停止运行运行)</p>
+</li>
+</ol>
+<p>ps 工具标识进程的5种状态码:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">D 不可中断 uninterruptible sleep (usually IO)R 运行 runnable (on run queue)S 中断 sleepingT 停止 traced or stoppedZ 僵死 a defunct (”zombie”) process</span><br></pre></td></tr></table></figure>
+
+<p><strong>命令参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-A 显示所有进程a 显示所有进程-a 显示同一终端下所有进程c 显示进程真实名称e 显示环境变量f 显示进程间的关系r 显示当前终端运行的进程-aux 显示所有包含其它使用的进程</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）显示当前所有进程环境变量及进程间关系</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps -ef</span><br></pre></td></tr></table></figure>
+
+<p>（2）显示当前所有进程</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps -A</span><br></pre></td></tr></table></figure>
+
+<p>（3）与grep联用查找某进程</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps -aux | grep apache</span><br></pre></td></tr></table></figure>
+
+<p>（4）找出与 cron 与 syslog 这两个服务有关的 PID 号码</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps aux | grep &#x27;(cron|syslog)&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="rpm-命令"><a href="#rpm-命令" class="headerlink" title="rpm 命令"></a>rpm 命令</h3><p>Linux rpm 命令用于管理套件。</p>
+<p>rpm(redhat package manager) 原本是 Red Hat Linux 发行版专门用来管理 Linux 各项套件的程序，由于它遵循 GPL 规则且功能强大方便，因而广受欢迎。逐渐受到其他发行版的采用。RPM 套件管理方式的出现，让 Linux 易于安装，升级，间接提升了 Linux 的适用度。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看系统自带jdkrpm -qa | grep jdk# 删除系统自带jdkrpm -e --nodeps 查看jdk显示的数据# 安装jdkrpm -ivh jdk-7u80-linux-x64.rpm</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Linux常见性能分析命令"><a href="#Linux常见性能分析命令" class="headerlink" title="Linux常见性能分析命令"></a>Linux常见性能分析命令</h2><h3 id="top-命令"><a href="#top-命令" class="headerlink" title="top 命令"></a>top 命令</h3><p>显示当前系统正在执行的进程的相关信息，包括进程 ID、内存占用率、CPU 占用率等</p>
+<p><strong>常用参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-c 显示完整的进程命令-s 保密模式-p &lt;进程号&gt; 指定进程显示-n &lt;次数&gt;循环显示次数</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">top - 14:06:23 up 70 days, 16:44,  2 users,  load average: 1.25, 1.32, 1.35Tasks: 206 total,   1 running, 205 sleeping,   0 stopped,   0 zombieCpu(s):  5.9%us,  3.4%sy,  0.0%ni, 90.4%id,  0.0%wa,  0.0%hi,  0.2%si,  0.0%stMem:  32949016k total, 14411180k used, 18537836k free,   169884k buffersSwap: 32764556k total,        0k used, 32764556k free,  3612636k cachedPID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND  28894 root      22   0 1501m 405m  10m S 52.2  1.3   2534:16 java  </span><br></pre></td></tr></table></figure>
+
+<p>前五行是当前系统情况整体的统计信息区。</p>
+<p><strong>第一行，任务队列信息，同 uptime 命令的执行结果，具体参数说明情况如下</strong>：</p>
+<p>14:06:23 — 当前系统时间</p>
+<p>up 70 days, 16:44 — 系统已经运行了70天16小时44分钟（在这期间系统没有重启过的吆！）</p>
+<p>2 users — 当前有2个用户登录系统</p>
+<p>load average: 1.15, 1.42, 1.44 — load average后面的三个数分别是1分钟、5分钟、15分钟的负载情况。</p>
+<p>load average数据是每隔5秒钟检查一次活跃的进程数，然后按特定算法计算出的数值。如果这个数除以逻辑CPU的数量，结果高于5的时候就表明系统在超负荷运转了。</p>
+<p><strong>第二行，Tasks — 任务（进程），具体信息说明如下</strong>：</p>
+<p>系统现在共有206个进程，其中处于运行中的有1个，205个在休眠（sleep），stoped状态的有0个，zombie状态（僵尸）的有0个。</p>
+<p><strong>第三行，cpu状态信息，具体属性说明如下</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">5.9%us — 用户空间占用CPU的百分比。3.4% sy — 内核空间占用CPU的百分比。0.0% ni — 改变过优先级的进程占用CPU的百分比90.4% id — 空闲CPU百分比0.0% wa — IO等待占用CPU的百分比0.0% hi — 硬中断（Hardware IRQ）占用CPU的百分比0.2% si — 软中断（Software Interrupts）占用CPU的百分比</span><br></pre></td></tr></table></figure>
+
+<p><strong>备注</strong>：在这里CPU的使用比率和windows概念不同，需要理解linux系统用户空间和内核空间的相关知识！</p>
+<p>第四行，内存状态，具体信息如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">32949016k total — 物理内存总量（32GB）14411180k used — 使用中的内存总量（14GB）18537836k free — 空闲内存总量（18GB）169884k buffers — 缓存的内存量 （169M）</span><br></pre></td></tr></table></figure>
+
+<p><strong>第五行，swap交换分区信息，具体信息说明如下</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">32764556k total — 交换区总量（32GB）0k used — 使用的交换区总量（0K）32764556k free — 空闲交换区总量（32GB）3612636k cached — 缓冲的交换区总量（3.6GB）</span><br></pre></td></tr></table></figure>
+
+<p><strong>第六行，空行。</strong></p>
+<p><strong>第七行以下：各进程（任务）的状态监控，项目列信息说明如下</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PID — 进程idUSER — 进程所有者PR — 进程优先级NI — nice值。负值表示高优先级，正值表示低优先级VIRT — 进程使用的虚拟内存总量，单位kb。VIRT=SWAP+RESRES — 进程使用的、未被换出的物理内存大小，单位kb。RES=CODE+DATASHR — 共享内存大小，单位kbS — 进程状态。D=不可中断的睡眠状态 R=运行 S=睡眠 T=跟踪/停止 Z=僵尸进程%CPU — 上次更新到现在的CPU时间占用百分比%MEM — 进程使用的物理内存百分比TIME+ — 进程使用的CPU时间总计，单位1/100秒COMMAND — 进程名称（命令名/命令行）</span><br></pre></td></tr></table></figure>
+
+<p><strong>top 交互命令</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">h 显示top交互命令帮助信息c 切换显示命令名称和完整命令行m 以内存使用率排序P 根据CPU使用百分比大小进行排序T 根据时间/累计时间进行排序W 将当前设置写入~/.toprc文件中o或者O 改变显示项目的顺序</span><br></pre></td></tr></table></figure>
+
+<h3 id="yum-命令"><a href="#yum-命令" class="headerlink" title="yum 命令"></a>yum 命令</h3><p>yum（ Yellow dog Updater, Modified）是一个在Fedora和RedHat以及SUSE中的Shell前端软件包管理器。</p>
+<p>基於RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。</p>
+<p>yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。</p>
+<ul>
+<li>1.列出所有可更新的软件清单命令：yum check-update</li>
+<li>2.更新所有软件命令：yum update</li>
+<li>3.仅安装指定的软件命令：yum install &lt;package_name&gt;</li>
+<li>4.仅更新指定的软件命令：yum update &lt;package_name&gt;</li>
+<li>5.列出所有可安裝的软件清单命令：yum list</li>
+<li>6.删除软件包命令：yum remove &lt;package_name&gt;</li>
+<li>7.查找软件包 命令：yum search</li>
+<li>8.清除缓存命令:<ul>
+<li>yum clean packages: 清除缓存目录下的软件包</li>
+<li>yum clean headers: 清除缓存目录下的 headers</li>
+<li>yum clean oldheaders: 清除缓存目录下旧的 headers</li>
+<li>yum clean, yum clean all (&#x3D; yum clean packages; yum clean oldheaders) :清除缓存目录下的软件包及旧的headers</li>
+</ul>
+</li>
+</ul>
+<p><strong>实例</strong></p>
+<p>安装 pam-devel</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@www ~]# yum install pam-devel</span><br></pre></td></tr></table></figure>
+
+<h2 id="备份压缩命令"><a href="#备份压缩命令" class="headerlink" title="备份压缩命令"></a>备份压缩命令</h2><h3 id="bzip2-命令"><a href="#bzip2-命令" class="headerlink" title="bzip2 命令"></a>bzip2 命令</h3><ul>
+<li><p>创建 <code>*.bz2</code> 压缩文件：<code>bzip2 test.txt</code> 。</p>
+</li>
+<li><p>解压 <code>*.bz2</code> 文件：<code>bzip2 -d test.txt.bz2</code> 。</p>
+</li>
+</ul>
+<h3 id="gzip-命令"><a href="#gzip-命令" class="headerlink" title="gzip 命令"></a>gzip 命令</h3><ul>
+<li><p>创建一个 <code>*.gz</code> 的压缩文件：<code>gzip test.txt</code> 。</p>
+</li>
+<li><p>解压 <code>*.gz</code> 文件：<code>gzip -d test.txt.gz</code> 。</p>
+</li>
+<li><p>显示压缩的比率：<code>gzip -l *.gz</code> 。</p>
+</li>
+</ul>
+<h3 id="tar-命令"><a href="#tar-命令" class="headerlink" title="tar 命令"></a>tar 命令</h3><p>用来压缩和解压文件。tar 本身不具有压缩功能，只具有打包功能，有关压缩及解压是调用其它的功能来完成。</p>
+<p>弄清两个概念：打包和压缩。打包是指将一大堆文件或目录变成一个总的文件；压缩则是将一个大的文件通过一些压缩算法变成一个小文件</p>
+<p><strong>常用参数</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-c 建立新的压缩文件-f 指定压缩文件-r 添加文件到已经压缩文件包中-u 添加改了和现有的文件到压缩包中-x 从压缩包中抽取文件-t 显示压缩文件中的内容-z 支持gzip压缩-j 支持bzip2压缩-Z 支持compress解压文件-v 显示操作过程</span><br></pre></td></tr></table></figure>
+
+<p>有关 gzip 及 bzip2 压缩:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip 实例：压缩 gzip fileName .tar.gz 和.tgz  解压：gunzip filename.gz 或 gzip -d filename.gz          对应：tar zcvf filename.tar.gz     tar zxvf filename.tar.gzbz2实例：压缩 bzip2 -z filename .tar.bz2 解压：bunzip filename.bz2或bzip -d filename.bz2       对应：tar jcvf filename.tar.gz         解压：tar jxvf filename.tar.bz2</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例</strong>：</p>
+<p>（1）将文件全部打包成 tar 包</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -cvf log.tar 1.log,2.log 或tar -cvf log.*</span><br></pre></td></tr></table></figure>
+
+<p>（2）将 &#x2F;etc 下的所有文件及目录打包到指定目录，并使用 gz 压缩</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zcvf /tmp/etc.tar.gz /etc</span><br></pre></td></tr></table></figure>
+
+<p>（3）查看刚打包的文件内容（一定加z，因为是使用 gzip 压缩的）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -ztvf /tmp/etc.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>（4）要压缩打包 &#x2F;home, &#x2F;etc ，但不要 &#x2F;home&#x2F;dmtsai</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar --exclude /home/dmtsai -zcvf myfile.tar.gz /home/* /etc</span><br></pre></td></tr></table></figure>
+
+<h3 id="unzip-命令"><a href="#unzip-命令" class="headerlink" title="unzip 命令"></a>unzip 命令</h3><ul>
+<li><p>解压 <code>*.zip</code> 文件：<code>unzip test.zip</code> 。</p>
+</li>
+<li><p>查看 <code>*.zip</code> 文件的内容：<code>unzip -l jasper.zip</code> 。</p>
+</li>
+</ul>
+<h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><p><strong>作用：</strong> 能够实时显示系统中各个进程的资源占用情况。类似于windows的任务管理器</p>
+<p><strong>命令参数：</strong></p>
+<ul>
+<li><strong>d：指定每两次屏幕信息刷新之间的时间间隔</strong></li>
+<li><strong>p：通过指定监控进程ID来仅仅监控某个进程的状态</strong></li>
+<li><strong>q：使top没有任何演示的进行刷新</strong></li>
+<li><strong>S：指定累计模式</strong></li>
+<li><strong>s：使top命令在安全模式中运行</strong></li>
+<li><strong>i：使top不显示任何闲置或者僵死进程</strong></li>
+<li><strong>c：显示整个命令行而不只是显示命令名</strong></li>
+</ul>
+<p>终端输入top，显示如下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/Linux%E7%9A%84top%E5%91%BD%E4%BB%A4%E5%9B%BE.png"></p>
+<ul>
+<li><p><strong>第一行：表示的项目依次为当前时间、系统启动时间、当前系统登录用户数目、平均负载（最近1，5，15分钟）</strong></p>
+</li>
+<li><p><strong>第二行：显示的所有启动的进程、目前运行的、挂起的(sleeping)和无用(zombie)的进程</strong></p>
+</li>
+<li><p><strong>第三行：显示的是目前CPU的情况，包括系统占用的比例、用户占用的比例、闲置的比例</strong></p>
+</li>
+<li><p><strong>第四行：显示物理内存的使用情况，包括总的可以使用的内存、已用内存、空闲内存、缓冲区占用的内存</strong></p>
+</li>
+<li><p><strong>第五行：显示交换区使用情况，包括总的交换分区、使用的、空闲的和用于高速缓存的大小。</strong></p>
+</li>
+<li><p><strong>第六行：显示的项目如下：</strong></p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/Linux%E7%9A%84top%E5%91%BD%E4%BB%A4%E8%A7%A3%E9%87%8A.png" alt="Linux的top命令解释"></p>
+<p>输入top之后，还可以根据需要进行排序，查看对应信息</p>
+<p>shift+M：按照内存使用进行排序</p>
+<p>shift+P：按照cpu时间排序</p>
+<p>shift+T：按照cpou累计使用时间</p>
+<h2 id="vmstat"><a href="#vmstat" class="headerlink" title="vmstat"></a>vmstat</h2><p><strong>作用：</strong></p>
+<p>虚拟内存的统计。vmstat可以实时监控cpu运行队列和系统关键的性能指标，如磁盘，上下文交换，cpu使用率等</p>
+<p>命令参数：</p>
+<ul>
+<li><strong>-a：显示活跃和非活跃内存</strong></li>
+<li><strong>-f：显示从系统启动至今的fork数量</strong></li>
+<li><strong>-m：只显示slabinfo</strong></li>
+<li><strong>-n：只在开始时显示一次个字段名称</strong></li>
+<li><strong>-s：显示内存相关统计信息及多种系统活动数量</strong></li>
+<li><strong>delay：属性时间间隔。如果不指定，只显示一条结果</strong></li>
+<li><strong>count：刷新次数。如果不指定刷新次数，但制定了刷新时间间隔，这是刷新次数为无穷</strong></li>
+<li><strong>-d：显示磁盘相关统计信息</strong></li>
+<li><strong>-p：显示制定磁盘分区统计信息</strong></li>
+<li><strong>-S：使用指定单位显示。参数有k、K、m、M，分别代表1000、1024、1000000、1048576字节（byte）。默认单位为K</strong></li>
+<li><strong>-V：显示vmstat版本信息</strong></li>
+</ul>
+<p>例子：</p>
+<p>输入vmstat可以看到</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/Linux%E7%9A%84vmstat%E5%91%BD%E4%BB%A4.png"></p>
+<p><strong>procs</strong></p>
+<p>r列表示等待cpu时间片的进程数，如果长期大于1，说明cpu不足，需要增加cpu。</p>
+<p>b列表示在等待资源的进程数，比如正在等待I&#x2F;O、或者内存交换等。</p>
+<p><strong>memory</strong></p>
+<p>swpd 切换到内存交换区的内存数量，或者说是现在可用的交换内存（k）。</p>
+<p>如果swpd不为0，或者比较大，比如100m，只要si、so的值长期为0，系统性能还是正常</p>
+<p>free当前的空闲页面列中内存数量（k），空闲内存</p>
+<p>buff作为buffer cache的内存数量，一般对块设备的读写才需要缓冲</p>
+<p>cache做为page cache的内存数量，一般做为内存系统的cache，如果cache较大，说明用到cahce的文件较多，如果此时IO中bi较小，说明文件系统效率较好</p>
+<p><strong>swap</strong></p>
+<p>si有内存进入交换区数量</p>
+<p>so有内存交换区进入内存数量</p>
+<p><strong>IO</strong></p>
+<p>bi从块设备读入数据的总量（读磁盘）（每秒KB）</p>
+<p>bo块设置吸入数据的总量（写磁盘）（每秒KB）</p>
+<p>这里我们设置的bi+bo参考值为1000，如果超过1000，而且wa值较大应该考虑均衡磁盘负载，可以结合iostat输出来分析。如果bi，bo长期不等于0，表示物理内存容量太小</p>
+<p>system</p>
+<p>显示采集间隔内发生的中断数</p>
+<p>in列表示在某一段时间间隔中观测到的每秒设备中断数</p>
+<p>cs列表示每秒产生的上下文交换次数，如当cs比磁盘I&#x2F;O和网络信息包速率高得多，都应该进一步调查</p>
+<p><strong>cpu</strong></p>
+<p>表示cpu的使用状态</p>
+<p>us 列显示了用户方式下所花费cpu时间的百分比。us的值比较高时，说明用户进程消耗的cpu时间多，但是如果长期大于50%，需要考虑优化用户的程序</p>
+<p>sy 列显示了内核进程花费的cpu时间的百分比。这里us+sy的参考值为80%，如果us+sy大于80%说明可能存在cpu不足</p>
+<p>wa 列显示了IO等待所占有的cpu时间的百分比。这里wa的参考值为30%，如果wa超过30%，说明IO等待严重，这可能是磁盘或者磁盘访问控制器的带宽瓶颈造成的（块操作）</p>
+<p>id 列显示了cpu处在空闲状态的时间百分比，如果id经常小于40，表示中央处理器的符合很重</p>
+<p>最好使用vmstat t [n]命令，例如vmstat 5 5，表示在T(5)秒时间内进行N(5)次采样。如果只使用vmstat，无法反映真正的系统情况。</p>
+<h2 id="iostat"><a href="#iostat" class="headerlink" title="iostat"></a>iostat</h2><p><strong>iostat主要用于监控系统设备的IO负载情况</strong></p>
+<ul>
+<li><strong>-d：显示设备（磁盘）使用状态</strong></li>
+<li><strong>-k：某些使用block为单位的列强制使用Kb</strong></li>
+<li><strong>-x：显示更多的统计信息</strong></li>
+<li><strong>-c：获取cpu部分状态值</strong></li>
+</ul>
+<p>例：每个1s刷新一次，共刷新10次：<code>iostat -d -k 1 10</code></p>
+<p><strong>tps：该设备每秒的传输次数。一次传输即一次I&#x2F;O</strong></p>
+<p><strong>kB_read&#x2F;s：每秒从设备读取的数量</strong></p>
+<p><strong>kB_wrtn&#x2F;s：每秒向设备写入的数量</strong></p>
+<p><strong>kB_read：读取的总数据量（Kb）</strong></p>
+<p><strong>kB_wrtn：写入的总数据量（Kb）</strong></p>
+<p>上面看到磁盘每秒传输次数平均约为400；每秒读取约5M，写入约1M</p>
+<p><img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/Linux%E7%9A%84iostat%E5%91%BD%E4%BB%A4.png"></p>
+<h2 id="查看日志用到的常用命令举例"><a href="#查看日志用到的常用命令举例" class="headerlink" title="查看日志用到的常用命令举例"></a>查看日志用到的常用命令举例</h2><p>杀僵尸进程 部分程序员，肯定喜欢下面命令：</p>
+<ul>
+<li><p>ps -ef | grep java (先查java进程ID)</p>
+</li>
+<li><p>kill -9  PID(生产环境谨慎使用)</p>
+</li>
+</ul>
+<p><strong>kill、killall、pkill命令的区别</strong></p>
+<ul>
+<li><p>kill：通过pid来杀死进程</p>
+</li>
+<li><p>killall （killall [参数] [进程名]）：Linux系统中的killall命令用于杀死指定名字的进程（kill processes by name）。我们可以使用kill命令杀死指定进程PID的进程，如果要找到我们需要杀死的进程，我们还需要在之前使用ps等命令再配合grep来查找进程，而killall把这两个过程合二为一，是一个很好用的命令。  </p>
+</li>
+<li><p>pkill：pkill 和killall 应用方法差不多，也是直接杀死运行中的程式；如果你想杀掉单个进程，请用kill 来杀掉。例子： pkill -9 firefox</p>
+</li>
+</ul>
+<p><strong>1.查看日志常用命令</strong></p>
+<p> <strong>tail:</strong>  </p>
+<p> -n  是显示行号；相当于nl命令；例子如下：</p>
+<ul>
+<li><p>tail -100f test.log      实时监控100行日志</p>
+</li>
+<li><p>tail  -n  10  test.log   查询日志尾部最后10行的日志;</p>
+</li>
+<li><p>tail -n +10 test.log    查询10行之后的所有日志;</p>
+</li>
+</ul>
+<p><strong>head:</strong>  </p>
+<p>跟tail是相反的，tail是看后多少行日志；例子如下：</p>
+<ul>
+<li><p>head -n 10  test.log   查询日志文件中的头10行日志;</p>
+</li>
+<li><p>head -n -10  test.log   查询日志文件除了最后10行的其他所有日志;</p>
+</li>
+</ul>
+<p><strong>cat：</strong> </p>
+<p>tac是倒序查看，是cat单词反写；例子如下：</p>
+<p>cat -n test.log |grep “debug”   查询关键字的日志</p>
+<p><strong>2. 应用场景一：按行号查看—过滤出关键字附近的日志</strong></p>
+<p>1）cat -n test.log |grep “debug”  得到关键日志的行号</p>
+<p>2）通常查找出错误日志 cat error.log | grep ‘nick’ , 这时候我们还有个需求就是输出当前这个日志的前后几行：</p>
+<ul>
+<li><p>cat error.log | grep -B 5 ‘nick’ 显示nick及前5行</p>
+</li>
+<li><p>cat error.log | grep -A 5 ‘nick’ 显示nick及后5行</p>
+</li>
+<li><p>cat error.log | grep -C 5 ‘nick’ 显示file文件里匹配nick字串那行以及上下5行</p>
+</li>
+<li><p>cat error.log | grep -n -B10 -A10 5 ‘nick’ 显示file文件里匹配nick字串前后10行</p>
+</li>
+</ul>
+<p><strong>3. 应用场景二：选取日志中特定范围进行分析</strong></p>
+<p>1）cat -n test.log |tail -n +1000|head -n 20   从第1000行开始，显示20行</p>
+<ul>
+<li><p>tail -n +1000表示查询1000行之后的日志</p>
+</li>
+<li><p>head -n 20 则表示在前面的查询结果里再查前20条记录</p>
+</li>
+</ul>
+<p>2）cat catalina.out | head -n 1400| tail -n +1350  显示1350行到1400行 （实现原理都差不多，就是通过语法糖）</p>
+<p>3）按日期截取 ：一般在日志系统中都会记录打印日志的时间，通常我们非常需要查找指定时间端的日志：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sed -n &#x27;/2014-12-17 16:17:20/,/2014-12-17 16:17:36/p&#x27;  test.log</span><br></pre></td></tr></table></figure>
+
+<p>特别说明:该命令中的两个日期值必须是日志文件中包含的值,否则该命令无效.； 先 grep ‘2014-12-17 16:17:20’ test.log 来确定日志中是否有该 时间点</p>
+<p>4）按行数截取</p>
+<p>sed -n ‘10000,20000p’ test.log                </p>
+<p>sed -i ‘&#x2F;关键词&#x2F;d’ catalina.out  删除包含关键词的行</p>
+<p><strong>4.应用场景三：日志内容特别多，打印在屏幕上不方便查看</strong></p>
+<p>(1)使用more和less命令</p>
+<p>如： cat -n test.log |grep “debug” |more     这样就分页打印了,通过点击空格键翻页</p>
+<p>(2)使用 &gt;xxx.txt 将其保存到文件中,到时可以拉下这个文件分析</p>
+<p>如：cat -n test.log |grep “debug”  &gt;debug.txt</p>
+<p><strong>5：使用管道进行and or条件处理</strong></p>
+<p>and 使用管道实现，例如：grep -n ‘日志排查’ test.log | grep ‘日志’</p>
+<p>or 用-E，例如：grep -n -E ‘日志排查|hello’ test.log  满足两个关键字的都可以找出来</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown基本语法</title>
+    <url>/2019/11/17/Markdown/</url>
+    <content><![CDATA[<p><strong>转载自：</strong> <a href="https://www.mdeditor.com/">https://www.mdeditor.com/</a></p>
+<p>Markdown基本语法解释以及在线Markdown编辑器MdEditor</p>
+<span id="more"></span>
+
+<h2 id="Markdown是一种轻量级的「标记语言」"><a href="#Markdown是一种轻量级的「标记语言」" class="headerlink" title="Markdown是一种轻量级的「标记语言」"></a>Markdown是一种轻量级的「标记语言」</h2><p><img src="https://www.mdeditor.com/images/logos/markdown.png" alt="markdown" title="markdown"></p>
+<p>Markdown是一种可以使用普通文本编辑器编写的标记语言，通过简单的标记语法，它可以使普通文本内容具有一定的格式。它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面，Markdown文件的后缀名便是“.md”</p>
+<h2 id="MdEditor是一个在线编辑Markdown文档的编辑器"><a href="#MdEditor是一个在线编辑Markdown文档的编辑器" class="headerlink" title="MdEditor是一个在线编辑Markdown文档的编辑器"></a>MdEditor是一个在线编辑Markdown文档的编辑器</h2><p><em>MdEditor扩展了Markdown的功能（如表格、脚注、内嵌HTML等等），以使让Markdown转换成更多的格式，和更丰富的展示效果，这些功能原初的Markdown尚不具备。</em></p>
+<blockquote>
+<p>Markdown增强版中比较有名的有Markdown Extra、MultiMarkdown、 Maruku等。这些衍生版本要么基于工具，如<del>Pandoc</del>，Pandao；要么基于网站，如GitHub和Wikipedia，在语法上基本兼容，但在一些语法和渲染效果上有改动。</p>
+</blockquote>
+<p>MdEditor源于Pandao的JavaScript开源项目，开源地址<a href="https://github.com/pandao/editor.md" title="Editor.md">Editor.md</a>，并在MIT开源协议的许可范围内进行了优化，以适应广大用户群体的需求。向优秀的markdown开源编辑器原作者Pandao致敬。</p>
+<p><img src="https://pandao.github.io/editor.md/images/logos/editormd-logo-180x180.png" alt="Pandao editor.md" title="Pandao editor.md"></p>
+<h2 id="MdEditor的功能列表演示"><a href="#MdEditor的功能列表演示" class="headerlink" title="MdEditor的功能列表演示"></a>MdEditor的功能列表演示</h2><h1 id="标题H1"><a href="#标题H1" class="headerlink" title="标题H1"></a>标题H1</h1><h2 id="标题H2"><a href="#标题H2" class="headerlink" title="标题H2"></a>标题H2</h2><h3 id="标题H3"><a href="#标题H3" class="headerlink" title="标题H3"></a>标题H3</h3><h4 id="标题H4"><a href="#标题H4" class="headerlink" title="标题H4"></a>标题H4</h4><h5 id="标题H5"><a href="#标题H5" class="headerlink" title="标题H5"></a>标题H5</h5><h6 id="标题H5-1"><a href="#标题H5-1" class="headerlink" title="标题H5"></a>标题H5</h6><h3 id="字符效果和横线等"><a href="#字符效果和横线等" class="headerlink" title="字符效果和横线等"></a>字符效果和横线等</h3><hr>
+<p><del>删除线</del> <s>删除线（开启识别HTML标签时）</s></p>
+<p><em>斜体字</em>      <em>斜体字</em></p>
+<p><strong>粗体</strong>  <strong>粗体</strong></p>
+<p><em><strong>粗斜体</strong></em> <em><strong>粗斜体</strong></em></p>
+<p>上标：X<sub>2</sub>，下标：O<sup>2</sup></p>
+<p><strong>缩写(同HTML的abbr标签)</strong></p>
+<blockquote>
+<p>即更长的单词或短语的缩写形式，前提是开启识别HTML标签时，已默认开启</p>
+</blockquote>
+<p>The <abbr title="Hyper Text Markup Language">HTML</abbr> specification is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.</p>
+<h3 id="引用-Blockquotes"><a href="#引用-Blockquotes" class="headerlink" title="引用 Blockquotes"></a>引用 Blockquotes</h3><blockquote>
+<p>引用文本 Blockquotes</p>
+</blockquote>
+<p>引用的行内混合 Blockquotes</p>
+<blockquote>
+<p>引用：如果想要插入空白换行<code>即&lt;br /&gt;标签</code>，在插入处先键入两个以上的空格然后回车即可，<a href="https://www.mdeditor.com/">普通链接</a>。</p>
+</blockquote>
+<h3 id="锚点与链接-Links"><a href="#锚点与链接-Links" class="headerlink" title="锚点与链接 Links"></a>锚点与链接 Links</h3><p><a href="https://www.mdeditor.com/">普通链接</a><br><a href="https://www.mdeditor.com/" title="普通链接带标题">普通链接带标题</a><br>直接链接：<a href="https://www.mdeditor.com/">https://www.mdeditor.com</a><br>[锚点链接][anchor-id]<br>[anchor-id]: <a href="https://www.mdeditor.com/">https://www.mdeditor.com/</a><br><a href="mailto:&#116;&#x65;&#x73;&#116;&#46;&#x74;&#x65;&#x73;&#116;&#x40;&#103;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">mailto:test.test@gmail.com</a><br>GFM a-tail link @pandao<br>邮箱地址自动链接 <a href="mailto:&#x74;&#x65;&#115;&#x74;&#46;&#x74;&#101;&#115;&#x74;&#64;&#103;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;">test.test@gmail.com</a>  <a href="mailto:&#x77;&#119;&#119;&#64;&#x76;&#105;&#112;&#x2e;&#x71;&#x71;&#x2e;&#99;&#111;&#109;">www@vip.qq.com</a></p>
+<blockquote>
+<p>@pandao</p>
+</blockquote>
+<h3 id="多语言代码高亮-Codes"><a href="#多语言代码高亮-Codes" class="headerlink" title="多语言代码高亮 Codes"></a>多语言代码高亮 Codes</h3><h4 id="行内代码-Inline-code"><a href="#行内代码-Inline-code" class="headerlink" title="行内代码 Inline code"></a>行内代码 Inline code</h4><p>执行命令：<code>npm install marked</code></p>
+<h4 id="缩进风格"><a href="#缩进风格" class="headerlink" title="缩进风格"></a>缩进风格</h4><p>即缩进四个空格，也做为实现类似 <code>&lt;pre&gt;</code> 预格式化文本 ( Preformatted Text ) 的功能。</p>
+<pre><code>&lt;?php
+    echo &quot;Hello world!&quot;;
+?&gt;
+</code></pre>
+<p>预格式化文本：</p>
+<pre><code>| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+</code></pre>
+<h4 id="JS代码"><a href="#JS代码" class="headerlink" title="JS代码"></a>JS代码</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello world!&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="HTML-代码-HTML-codes"><a href="#HTML-代码-HTML-codes" class="headerlink" title="HTML 代码 HTML codes"></a>HTML 代码 HTML codes</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mate</span> <span class="attr">charest</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;keywords&quot;</span> <span class="attr">content</span>=<span class="string">&quot;Editor.md, Markdown, Editor&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello world!<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">            <span class="selector-tag">body</span>&#123;<span class="attribute">font-size</span>:<span class="number">14px</span>;<span class="attribute">color</span>:<span class="number">#444</span>;<span class="attribute">font-family</span>: <span class="string">&quot;Microsoft Yahei&quot;</span>, Tahoma, <span class="string">&quot;Hiragino Sans GB&quot;</span>, Arial;<span class="attribute">background</span>:<span class="number">#fff</span>;&#125;</span></span><br><span class="line"><span class="language-css">            <span class="selector-tag">ul</span>&#123;<span class="attribute">list-style</span>: none;&#125;</span></span><br><span class="line"><span class="language-css">            <span class="selector-tag">img</span>&#123;<span class="attribute">border</span>:none;<span class="attribute">vertical-align</span>: middle;&#125;</span></span><br><span class="line"><span class="language-css">        </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;text-xxl&quot;</span>&gt;</span>Hello world!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-green&quot;</span>&gt;</span>Plain text<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="图片-Images"><a href="#图片-Images" class="headerlink" title="图片 Images"></a>图片 Images</h3><p>图片加链接 (Image + Link)：</p>
+<p><a href="https://www.mdeditor.com/images/logos/markdown.png" title="markdown"><img src="https://www.mdeditor.com/images/logos/markdown.png"></a></p>
+<blockquote>
+<p>Follow your heart.</p>
+</blockquote>
+<hr>
+<h3 id="列表-Lists"><a href="#列表-Lists" class="headerlink" title="列表 Lists"></a>列表 Lists</h3><h4 id="无序列表（减号）Unordered-Lists"><a href="#无序列表（减号）Unordered-Lists" class="headerlink" title="无序列表（减号）Unordered Lists (-)"></a>无序列表（减号）Unordered Lists (-)</h4><ul>
+<li>列表一</li>
+<li>列表二</li>
+<li>列表三</li>
+</ul>
+<h4 id="无序列表（星号）Unordered-Lists"><a href="#无序列表（星号）Unordered-Lists" class="headerlink" title="无序列表（星号）Unordered Lists (*)"></a>无序列表（星号）Unordered Lists (*)</h4><ul>
+<li>列表一</li>
+<li>列表二</li>
+<li>列表三</li>
+</ul>
+<h4 id="无序列表（加号和嵌套）Unordered-Lists"><a href="#无序列表（加号和嵌套）Unordered-Lists" class="headerlink" title="无序列表（加号和嵌套）Unordered Lists (+)"></a>无序列表（加号和嵌套）Unordered Lists (+)</h4><ul>
+<li>列表一</li>
+<li>列表二<ul>
+<li>列表二-1</li>
+<li>列表二-2</li>
+<li>列表二-3</li>
+</ul>
+</li>
+<li>列表三<ul>
+<li>列表一</li>
+<li>列表二</li>
+<li>列表三</li>
+</ul>
+</li>
+</ul>
+<h4 id="有序列表-Ordered-Lists"><a href="#有序列表-Ordered-Lists" class="headerlink" title="有序列表 Ordered Lists (-)"></a>有序列表 Ordered Lists (-)</h4><ol>
+<li>第一行</li>
+<li>第二行</li>
+<li>第三行</li>
+</ol>
+<h4 id="GFM-task-list"><a href="#GFM-task-list" class="headerlink" title="GFM task list"></a>GFM task list</h4><ul>
+<li><input checked="" disabled="" type="checkbox"> GFM task list 1</li>
+<li><input checked="" disabled="" type="checkbox"> GFM task list 2</li>
+<li><input disabled="" type="checkbox"> GFM task list 3<ul>
+<li><input disabled="" type="checkbox"> GFM task list 3-1</li>
+<li><input disabled="" type="checkbox"> GFM task list 3-2</li>
+<li><input disabled="" type="checkbox"> GFM task list 3-3</li>
+</ul>
+</li>
+<li><input disabled="" type="checkbox"> GFM task list 4<ul>
+<li><input disabled="" type="checkbox"> GFM task list 4-1</li>
+<li><input disabled="" type="checkbox"> GFM task list 4-2</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="绘制表格-Tables"><a href="#绘制表格-Tables" class="headerlink" title="绘制表格 Tables"></a>绘制表格 Tables</h3><table>
+<thead>
+<tr>
+<th>项目</th>
+<th align="right">价格</th>
+<th align="center">数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>计算机</td>
+<td align="right">$1600</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td>手机</td>
+<td align="right">$12</td>
+<td align="center">12</td>
+</tr>
+<tr>
+<td>管线</td>
+<td align="right">$1</td>
+<td align="center">234</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>First Header</th>
+<th>Second Header</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>First Header</th>
+<th>Second Header</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Function name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>help()</code></td>
+<td>Display the help window.</td>
+</tr>
+<tr>
+<td><code>destroy()</code></td>
+<td><strong>Destroy your computer!</strong></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">Left-Aligned</th>
+<th align="center">Center Aligned</th>
+<th align="right">Right Aligned</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">col 3 is</td>
+<td align="center">some wordy text</td>
+<td align="right">$1600</td>
+</tr>
+<tr>
+<td align="left">col 2 is</td>
+<td align="center">centered</td>
+<td align="right">$12</td>
+</tr>
+<tr>
+<td align="left">zebra stripes</td>
+<td align="center">are neat</td>
+<td align="right">$1</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th align="right">Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Computer</td>
+<td align="right">$1600</td>
+</tr>
+<tr>
+<td>Phone</td>
+<td align="right">$12</td>
+</tr>
+<tr>
+<td>Pipe</td>
+<td align="right">$1</td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="特殊符号-HTML-Entities-Codes"><a href="#特殊符号-HTML-Entities-Codes" class="headerlink" title="特殊符号 HTML Entities Codes"></a>特殊符号 HTML Entities Codes</h4><p>&copy; &amp;  &uml; &trade; &iexcl; &pound;<br>&amp; &lt; &gt; &yen; &euro; &reg; &plusmn; &para; &sect; &brvbar; &macr; &laquo; &middot;</p>
+<p>X&sup2; Y&sup3; &frac34; &frac14;  &times;  &divide;   &raquo;</p>
+<p>18&ordm;C  &quot;  &apos;</p>
+<p>[&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;]</p>
+<h3 id="Emoji表情-smiley"><a href="#Emoji表情-smiley" class="headerlink" title="Emoji表情 :smiley:"></a>Emoji表情 :smiley:</h3><blockquote>
+<p>Blockquotes :star:</p>
+</blockquote>
+<h4 id="GFM-task-lists-Emoji-fontAwesome-icon-emoji-editormd-logo-emoji-editormd-logo-5x"><a href="#GFM-task-lists-Emoji-fontAwesome-icon-emoji-editormd-logo-emoji-editormd-logo-5x" class="headerlink" title="GFM task lists &amp; Emoji &amp; fontAwesome icon emoji &amp; editormd logo emoji :editormd-logo-5x:"></a>GFM task lists &amp; Emoji &amp; fontAwesome icon emoji &amp; editormd logo emoji :editormd-logo-5x:</h4><ul>
+<li><input checked="" disabled="" type="checkbox"> :smiley: @mentions, :smiley: #refs, <a href="">links</a>, <strong>formatting</strong>, and <del>tags</del> supported :editormd-logo:;</li>
+<li><input checked="" disabled="" type="checkbox"> list syntax required (any unordered or ordered list supported) :editormd-logo-3x:;</li>
+<li><input checked="" disabled="" type="checkbox"> [ ] :smiley: this is a complete item :smiley:;</li>
+<li><input disabled="" type="checkbox"> []this is an incomplete item <a href="#">test link</a> :fa-star: @pandao;</li>
+<li><input disabled="" type="checkbox"> [ ]this is an incomplete item :fa-star: :fa-gear:;<ul>
+<li><input disabled="" type="checkbox"> :smiley: this is an incomplete item <a href="#">test link</a> :fa-star: :fa-gear:;</li>
+<li><input disabled="" type="checkbox"> :smiley: this is  :fa-star: :fa-gear: an incomplete item <a href="#">test link</a>;</li>
+</ul>
+</li>
+</ul>
+<h4 id="反斜杠-Escape"><a href="#反斜杠-Escape" class="headerlink" title="反斜杠 Escape"></a>反斜杠 Escape</h4><p>*literal asterisks*</p>
+<p>[&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;]</p>
+<h3 id="科学公式-TeX-KaTeX"><a href="#科学公式-TeX-KaTeX" class="headerlink" title="科学公式 TeX(KaTeX)"></a>科学公式 TeX(KaTeX)</h3><p>$$E&#x3D;mc^2$$</p>
+<p>行内的公式$$E&#x3D;mc^2$$行内的公式，行内的$$E&#x3D;mc^2$$公式。</p>
+<p>$$x &gt; y$$</p>
+<p>$$(\sqrt{3x-1}+(1+x)^2)$$</p>
+<p>$$\sin(\alpha)^{\theta}&#x3D;\sum_{i&#x3D;0}^{n}(x^i + \cos(f))$$</p>
+<p>多行公式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\displaystyle</span><br><span class="line">\left( \sum\_&#123;k=1&#125;^n a\_k b\_k \right)^2</span><br><span class="line">\leq</span><br><span class="line">\left( \sum\_&#123;k=1&#125;^n a\_k^2 \right)</span><br><span class="line">\left( \sum\_&#123;k=1&#125;^n b\_k^2 \right)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\displaystyle</span><br><span class="line">    \frac&#123;1&#125;&#123;</span><br><span class="line">        \Bigl(\sqrt&#123;\phi \sqrt&#123;5&#125;&#125;-\phi\Bigr) e^&#123;</span><br><span class="line">        \frac25 \pi&#125;&#125; = 1+\frac&#123;e^&#123;-2\pi&#125;&#125; &#123;1+\frac&#123;e^&#123;-4\pi&#125;&#125; &#123;</span><br><span class="line">        1+\frac&#123;e^&#123;-6\pi&#125;&#125;</span><br><span class="line">        &#123;1+\frac&#123;e^&#123;-8\pi&#125;&#125;</span><br><span class="line">         &#123;1+\cdots&#125; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line">f(x) = <span class="keyword">\int</span><span class="built_in">_</span>&#123;-<span class="keyword">\infty</span>&#125;<span class="built_in">^</span><span class="keyword">\infty</span></span><br><span class="line">    <span class="keyword">\hat</span> f(<span class="keyword">\xi</span>)<span class="keyword">\,</span>e<span class="built_in">^</span>&#123;2 <span class="keyword">\pi</span> i <span class="keyword">\xi</span> x&#125;</span><br><span class="line">    <span class="keyword">\,</span>d<span class="keyword">\xi</span></span><br></pre></td></tr></table></figure>
+<h3 id="分页符-Page-break"><a href="#分页符-Page-break" class="headerlink" title="分页符 Page break"></a>分页符 Page break</h3><blockquote>
+<p>Print Test: Ctrl + P</p>
+</blockquote>
+<p>[&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;]</p>
+<h3 id="绘制流程图-Flowchart"><a href="#绘制流程图-Flowchart" class="headerlink" title="绘制流程图 Flowchart"></a>绘制流程图 Flowchart</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">st=&gt;start: 用户登陆</span><br><span class="line">op=&gt;operation: 登陆操作</span><br><span class="line">cond=&gt;condition: 登陆成功 Yes or No?</span><br><span class="line">e=&gt;end: 进入后台</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br></pre></td></tr></table></figure>
+<p>[&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;]</p>
+<h3 id="绘制序列图-Sequence-Diagram"><a href="#绘制序列图-Sequence-Diagram" class="headerlink" title="绘制序列图 Sequence Diagram"></a>绘制序列图 Sequence Diagram</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Andrew-&gt;China: Says Hello</span><br><span class="line">Note right of China: China thinks\nabout it</span><br><span class="line">China--&gt;Andrew: How are you?</span><br><span class="line">Andrew-&gt;&gt;China: I am good thanks!</span><br></pre></td></tr></table></figure>
+<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3>]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python解析专利获奖数据</title>
+    <url>/2022/04/25/Python%E8%A7%A3%E6%9E%90%E4%B8%93%E5%88%A9%E8%8E%B7%E5%A5%96%E6%95%B0%E6%8D%AE/</url>
+    <content><![CDATA[<h4 id="导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件"><a href="#导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件" class="headerlink" title="导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件"></a>导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件</h4><blockquote>
+<p>未安装Pdfplumber库的要先安装，命令：pip install pdfplumber</p>
+</blockquote>
+<ul>
+<li><p>专利数据来源与国知局的文件，链接：<a href="#https://www.cnipa.gov.cn/col/col41/index.html">中国专利奖</a></p>
+</li>
+<li><p>PDF数据样式如下：<img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/20220425172920.png"></p>
+</li>
+<li><p>Python源码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pdfplumber</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read_pdf</span>(<span class="params">read_path, save_path</span>):</span><br><span class="line">    pdf_2020 = pdfplumber.<span class="built_in">open</span>(read_path)</span><br><span class="line">    result_df = pd.DataFrame()</span><br><span class="line">    tables = []</span><br><span class="line">    <span class="keyword">for</span> page <span class="keyword">in</span> pdf_2020.pages:</span><br><span class="line">        table = page.extract_table()</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> table :</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>) :</span><br><span class="line">                item[j] = item[j].replace(<span class="string">&#x27;\n&#x27;</span>, <span class="string">&#x27;&#x27;</span>).replace(<span class="string">&#x27;\r&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">            item.insert(<span class="number">5</span>, <span class="string">&#x27;22&#x27;</span>)</span><br><span class="line">            item.insert(<span class="number">6</span>, <span class="string">&#x27;专利优秀奖&#x27;</span>)</span><br><span class="line">            item.insert(<span class="number">7</span>, <span class="string">&#x27;国家级&#x27;</span>)</span><br><span class="line">            item.insert(<span class="number">8</span>, <span class="string">&#x27;2021&#x27;</span>)</span><br><span class="line">            tables.append(item)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 所有的pdf页数数据</span></span><br><span class="line">    <span class="built_in">print</span>(tables)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;--------- PDF数据提取完毕 --------&#x27;</span>)</span><br><span class="line">    <span class="comment"># df_detail = pd.DataFrame(table[1:], columns=table[0])</span></span><br><span class="line">    df_detail = pd.DataFrame(tables)</span><br><span class="line">    result_df = pd.concat([df_detail, result_df], ignore_index=<span class="literal">True</span>)</span><br><span class="line">    result_df.dropna(axis=<span class="number">1</span>, how=<span class="string">&#x27;all&#x27;</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">    result_df.columns = [<span class="string">&#x27;序号&#x27;</span>, <span class="string">&#x27;专利申请号&#x27;</span>, <span class="string">&#x27;专利名称&#x27;</span>, <span class="string">&#x27;专利权人&#x27;</span>, <span class="string">&#x27;发明人&#x27;</span>, <span class="string">&#x27;获奖届数&#x27;</span>, <span class="string">&#x27;奖项&#x27;</span>, <span class="string">&#x27;获奖级别&#x27;</span>, <span class="string">&#x27;获奖年度&#x27;</span>]</span><br><span class="line">    result_df.to_excel(excel_writer=save_path, index=<span class="literal">False</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    read_path = <span class="string">r&#x27;/Users/xxx/Downloads/第二十二届中国专利优秀奖项目名单.pdf&#x27;</span></span><br><span class="line">    save_path = <span class="string">r&#x27;/Users/xxx/Downloads/第二十二届中国专利优秀奖项目名单.xlsx&#x27;</span></span><br><span class="line">    read_pdf(read_path, save_path)</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
       <categories>
         <category>Python</category>
         <category>Pdfplumber</category>
@@ -14,9 +1442,19 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Springboot加载本地jar包，并配置maven引用]]></title>
-    <url>%2Fmyblog.github.io%2F2022%2F01%2F16%2FSpringboot%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0jar%E5%8C%85%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AEmaven%E5%BC%95%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[Springboot加载本地jar包，并配置maven引用在idea中放入jar包，如下图，以spire.doc为例子 在pom文件中引用1234567&lt;dependency&gt; &lt;groupId&gt;cn.net.xxx&lt;/groupId&gt; &lt;artifactId&gt;spire-doc&lt;/artifactId&gt; &lt;version&gt;1.0.0&lt;/version&gt; &lt;scope&gt;system&lt;/scope&gt; &lt;systemPath&gt;$&#123;project.basedir&#125;/src/main/resources/jar/Spire.Doc.jar&lt;/systemPath&gt;&lt;/dependency&gt; 配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效打成jar包时12345678910111213141516171819202122232425262728293031// 打成jar包时，jar包在BOOT-INF\lib下 &lt;plugins&gt; &lt;plugin&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt; &lt;version&gt;$&#123;spring-boot-maven-plugin.version&#125;&lt;/version&gt; &lt;configuration&gt; &lt;!--使用-Dloader.path需要在打包的时候增加&lt;layout&gt;ZIP&lt;/layout&gt;，不指定的话-Dloader.path不生效--&gt; &lt;layout&gt;ZIP&lt;/layout&gt; &lt;!-- 指定该jar包启动时的主类[建议] --&gt; &lt;mainClass&gt;$&#123;启动类的引用地址&#125;&lt;/mainClass&gt; &lt;!-- 加载外部jar包，使用这个命令，可以让maven加载配置了scope为system的jar包 --&gt; &lt;includeSystemScope&gt;true&lt;/includeSystemScope&gt; &lt;/configuration&gt; &lt;executions&gt; &lt;execution&gt; &lt;goals&gt; &lt;goal&gt;repackage&lt;/goal&gt; &lt;/goals&gt; &lt;/execution&gt; &lt;/executions&gt; &lt;/plugin&gt; &lt;!--测试代码时遇到错误，它会停止编译，使用此插件忽略错误--&gt; &lt;plugin&gt; &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt; &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt; &lt;configuration&gt; &lt;testFailureIgnore&gt;true&lt;/testFailureIgnore&gt; &lt;/configuration&gt; &lt;/plugin&gt; &lt;/plugins&gt; 打成war包1234567891011121314151617// 打成war包时，war包在WEB-INF/lib下&lt;plugin&gt; &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt; &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt; &lt;version&gt;2.4&lt;/version&gt; &lt;configuration&gt; &lt;webResources&gt; &lt;resource&gt; &lt;directory&gt;src/main/resources/jar/&lt;/directory&gt; &lt;targetPath&gt;WEB-INF/lib/&lt;/targetPath&gt; &lt;includes&gt; &lt;include&gt;**/*.jar&lt;/include&gt; &lt;/includes&gt; &lt;/resource&gt; &lt;/webResources&gt; &lt;/configuration&gt;&lt;/plugin&gt;]]></content>
+    <title>Springboot加载本地jar包，并配置maven引用</title>
+    <url>/2022/01/16/Springboot%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0jar%E5%8C%85%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AEmaven%E5%BC%95%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="Springboot加载本地jar包，并配置maven引用"><a href="#Springboot加载本地jar包，并配置maven引用" class="headerlink" title="Springboot加载本地jar包，并配置maven引用"></a>Springboot加载本地jar包，并配置maven引用</h2><h3 id="在idea中放入jar包，如下图，以spire-doc为例子"><a href="#在idea中放入jar包，如下图，以spire-doc为例子" class="headerlink" title="在idea中放入jar包，如下图，以spire.doc为例子"></a>在idea中放入jar包，如下图，以spire.doc为例子</h3><img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/jar.png" style="zoom:75%;" />
+
+<h3 id="在pom文件中引用"><a href="#在pom文件中引用" class="headerlink" title="在pom文件中引用"></a>在pom文件中引用</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;cn.net.xxx&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spire-doc&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;1.0.0&lt;/version&gt;</span><br><span class="line">  &lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">  &lt;systemPath&gt;$&#123;project.basedir&#125;/src/main/resources/jar/Spire.Doc.jar&lt;/systemPath&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效"><a href="#配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效" class="headerlink" title="配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效"></a>配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效</h3><h4 id="打成jar包时"><a href="#打成jar包时" class="headerlink" title="打成jar包时"></a>打成jar包时</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 打成jar包时，jar包在BOOT-INF\lib下</span><br><span class="line">    &lt;plugins&gt;</span><br><span class="line">      &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;$&#123;spring-boot-maven-plugin.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">          &lt;!--使用-Dloader.path需要在打包的时候增加&lt;layout&gt;ZIP&lt;/layout&gt;，不指定的话-Dloader.path不生效--&gt;</span><br><span class="line">          &lt;layout&gt;ZIP&lt;/layout&gt;</span><br><span class="line">          &lt;!-- 指定该jar包启动时的主类[建议] --&gt;</span><br><span class="line">          &lt;mainClass&gt;$&#123;启动类的引用地址&#125;&lt;/mainClass&gt;</span><br><span class="line">          &lt;!-- 加载外部jar包，使用这个命令，可以让maven加载配置了scope为system的jar包 --&gt;</span><br><span class="line">          &lt;includeSystemScope&gt;true&lt;/includeSystemScope&gt;</span><br><span class="line">        &lt;/configuration&gt;</span><br><span class="line">        &lt;executions&gt;</span><br><span class="line">          &lt;execution&gt;</span><br><span class="line">            &lt;goals&gt;</span><br><span class="line">              &lt;goal&gt;repackage&lt;/goal&gt;</span><br><span class="line">            &lt;/goals&gt;</span><br><span class="line">          &lt;/execution&gt;</span><br><span class="line">        &lt;/executions&gt;</span><br><span class="line">      &lt;/plugin&gt;</span><br><span class="line">      &lt;!--测试代码时遇到错误，它会停止编译，使用此插件忽略错误--&gt;</span><br><span class="line">      &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">          &lt;testFailureIgnore&gt;true&lt;/testFailureIgnore&gt;</span><br><span class="line">        &lt;/configuration&gt;</span><br><span class="line">      &lt;/plugin&gt;</span><br><span class="line">    &lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="打成war包"><a href="#打成war包" class="headerlink" title="打成war包"></a>打成war包</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 打成war包时，war包在WEB-INF/lib下</span><br><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.4&lt;/version&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;webResources&gt;</span><br><span class="line">            &lt;resource&gt;</span><br><span class="line">                &lt;directory&gt;src/main/resources/jar/&lt;/directory&gt;</span><br><span class="line">                &lt;targetPath&gt;WEB-INF/lib/&lt;/targetPath&gt;</span><br><span class="line">                &lt;includes&gt;</span><br><span class="line">                    &lt;include&gt;**/*.jar&lt;/include&gt;</span><br><span class="line">                &lt;/includes&gt;</span><br><span class="line">            &lt;/resource&gt;</span><br><span class="line">        &lt;/webResources&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
         <category>Markdown</category>
       </categories>
@@ -25,20 +1463,48 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Linux 概述]]></title>
-    <url>%2Fmyblog.github.io%2F2022%2F01%2F03%2FLinux-%E6%A6%82%E8%BF%B0%2F</url>
-    <content type="text"><![CDATA[Linux 概述什么是LinuxLinux是一套免费使用和自由传播的类Unix操作系统，是一个基于POSIX和Unix的多用户、多任务、支持多线程和多CPU的操作系统。它能运行主要的Unix工具软件、应用程序和网络协议。它支持32位和64位硬件。Linux继承了Unix以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。 Unix和Linux有什么区别？Linux和Unix都是功能强大的操作系统，都是应用广泛的服务器操作系统，有很多相似之处，甚至有一部分人错误地认为Unix和Linux操作系统是一样的，然而，事实并非如此，以下是两者的区别。 开源性Linux是一款开源操作系统，不需要付费，即可使用；Unix是一款对源码实行知识产权保护的传统商业软件，使用需要付费授权使用。 跨平台性Linux操作系统具有良好的跨平台性能，可运行在多种硬件平台上；Unix操作系统跨平台性能较弱，大多需与硬件配套使用。 可视化界面Linux除了进行命令行操作，还有窗体管理系统；Unix只是命令行下的系统。 硬件环境Linux操作系统对硬件的要求较低，安装方法更易掌握；Unix对硬件要求比较苛刻，按照难度较大。 用户群体Linux的用户群体很广泛，个人和企业均可使用；Unix的用户群体比较窄，多是安全性要求高的大型企业使用，如银行、电信部门等，或者Unix硬件厂商使用，如Sun等。相比于Unix操作系统，Linux操作系统更受广大计算机爱好者的喜爱，主要原因是Linux操作系统具有Unix操作系统的全部功能，并且能够在普通PC计算机上实现全部的Unix特性，开源免费的特性，更容易普及使用！ 什么是 Linux 内核？Linux 系统的核心是内核。内核控制着计算机系统上的所有硬件和软件，在必要时分配硬件，并根据需要执行软件。 系统内存管理 应用程序管理 硬件设备管理 文件系统管理 Linux的基本组件是什么？就像任何其他典型的操作系统一样，Linux拥有所有这些组件：内核，shell和GUI，系统实用程序和应用程序。Linux比其他操作系统更具优势的是每个方面都附带其他功能，所有代码都可以免费下载。 Linux 的体系结构从大的方面讲，Linux体系结构可以分为两块： 用户空间(User Space) ：用户空间又包括用户的应用程序(User Applications)、C 库(C Library) 。 内核空间(Kernel Space) ：内核空间又包括系统调用接口(System Call Interface)、内核(Kernel)、平台架构相关的代码(Architecture-Dependent Kernel Code) 。 为什么 Linux 体系结构要分为用户空间和内核空间的原因？ 1、现代 CPU 实现了不同的工作模式，不同模式下 CPU 可以执行的指令和访问的寄存器不同。 2、Linux 从 CPU 的角度出发，为了保护内核的安全，把系统分成了两部分。 用户空间和内核空间是程序执行的两种不同的状态，我们可以通过两种方式完成用户空间到内核空间的转移： 1）系统调用； 2）硬件中断。 BASH和DOS之间的基本区别是什么？BASH和DOS控制台之间的主要区别在于3个方面： BASH命令区分大小写，而DOS命令则不区分; 在BASH下，/ character是目录分隔符，\作为转义字符。在DOS下，/用作命令参数分隔符，\是目录分隔符 DOS遵循命名文件中的约定，即8个字符的文件名后跟一个点，扩展名为3个字符。BASH没有遵循这样的惯例。 Linux 开机启动过程？ 了解即可。 1、主机加电自检，加载 BIOS 硬件信息。 2、读取 MBR 的引导文件(GRUB、LILO)。 3、引导 Linux 内核。 4、运行第一个进程 init (进程号永远为 1 )。 5、进入相应的运行级别。 6、运行终端，输入用户名和密码。 Linux系统缺省的运行级别？ 关机。 单机用户模式。 字符界面的多用户模式(不支持网络)。 字符界面的多用户模式。 未分配使用。 图形界面的多用户模式。 重启。 Linux 使用的进程间通信方式？ 了解即可，不需要太深入。 1、管道(pipe)、流管道(s_pipe)、有名管道(FIFO)。 2、信号(signal) 。 3、消息队列。 4、共享内存。 5、信号量。 6、套接字(socket) 。 Linux 有哪些系统日志文件？比较重要的是 /var/log/messages 日志文件。 该日志文件是许多进程日志文件的汇总，从该文件可以看出任何入侵企图或成功的入侵。 另外，如果胖友的系统里有 ELK 日志集中收集，它也会被收集进去。 什么是交换空间？交换空间是Linux使用的一定空间，用于临时保存一些并发运行的程序。当RAM没有足够的内存来容纳正在执行的所有程序时，就会发生这种情况。 什么是root帐户root帐户就像一个系统管理员帐户，允许你完全控制系统。你可以在此处创建和维护用户帐户，为每个帐户分配不同的权限。每次安装Linux时都是默认帐户。 什么是LILO？LILO是Linux的引导加载程序。它主要用于将Linux操作系统加载到主内存中，以便它可以开始运行。 什么是BASH？BASH是Bourne Again SHell的缩写。它由Steve Bourne编写，作为原始Bourne Shell（由/ bin / sh表示）的替代品。它结合了原始版本的Bourne Shell的所有功能，以及其他功能，使其更容易使用。从那以后，它已被改编为运行Linux的大多数系统的默认shell。 什么是GUI？图形用户界面（Graphical User Interface，简称 GUI，又称图形用户接口）是指采用图形方式显示的计算机操作用户界面。 图形用户界面是一种人与计算机通信的界面显示格式，允许用户使用鼠标等输入设备操纵屏幕上的图标或菜单选项，以选择命令、调用文件、启动程序或执行其它一些日常任务。与通过键盘输入文本或字符命令来完成例行任务的字符界面相比，图形用户界面有许多优点。 磁盘、目录、文件简单 Linux 文件系统？在 Linux 操作系统中，所有被操作系统管理的资源，例如网络接口卡、磁盘驱动器、打印机、输入输出设备、普通文件或是目录都被看作是一个文件。 也就是说在 Linux 系统中有一个重要的概念：一切都是文件。其实这是 Unix 哲学的一个体现，而 Linux 是重写 Unix 而来，所以这个概念也就传承了下来。在 Unix 系统中，把一切资源都看作是文件，包括硬件设备。UNIX系统把每个硬件都看成是一个文件，通常称为设备文件，这样用户就可以用读写文件的方式实现对硬件的访问。 Linux 支持 5 种文件类型，如下图所示： Linux 的目录结构是怎样的？ 这个问题，一般不会问。更多是实际使用时，需要知道。 Linux 文件系统的结构层次鲜明，就像一棵倒立的树，最顶层是其根目录： 常见目录说明： /bin： 存放二进制可执行文件(ls,cat,mkdir等)，常用命令一般都在这里； /etc： 存放系统管理和配置文件； /home： 存放所有用户文件的根目录，是用户主目录的基点，比如用户user的主目录就是/home/user，可以用~user表示； /usr： 用于存放系统应用程序； /opt： 额外安装的可选应用程序包所放置的位置。一般情况下，我们可以把tomcat等都安装到这里； /proc： 虚拟文件系统目录，是系统内存的映射。可直接访问这个目录来获取系统信息； /root： 超级用户（系统管理员）的主目录（特权阶级o）； /sbin: 存放二进制可执行文件，只有root才能访问。这里存放的是系统管理员使用的系统级别的管理命令和程序。如ifconfig等； /dev： 用于存放设备文件； /mnt： 系统管理员安装临时文件系统的安装点，系统提供这个目录是让用户临时挂载其他的文件系统； /boot： 存放用于系统引导时使用的各种文件； /lib： 存放着和系统运行相关的库文件； /tmp： 用于存放各种临时文件，是公用的临时文件存储点； /var： 用于存放运行时需要改变数据的文件，也是某些大文件的溢出区，比方说各种服务的日志文件（系统启动日志等。）等； /lost+found： 这个目录平时是空的，系统非正常关机而留下“无家可归”的文件（windows下叫什么.chk）就在这里。 什么是硬链接和软链接？1）硬链接 由于 Linux 下的文件是通过索引节点(inode)来识别文件，硬链接可以认为是一个指针，指向文件索引节点的指针，系统并不为它重新分配 inode 。每添加一个一个硬链接，文件的链接数就加 1 。 不足： 不可以在不同文件系统的文件间建立链接； 只有超级用户才可以为目录创建硬链接。 2）软链接 软链接克服了硬链接的不足，没有任何文件系统的限制，任何用户可以创建指向目录的符号链接。因而现在更为广泛使用，它具有更大的灵活性，甚至可以跨越不同机器、不同网络对文件进行链接。 不足：因为链接文件包含有原文件的路径信息，所以当原文件从一个目录下移到其他目录中，再访问链接文件，系统就找不到了，而硬链接就没有这个缺陷，你想怎么移就怎么移；还有它要系统分配额外的空间用于建立新的索引节点和保存原文件的路径。 实际场景下，基本是使用软链接。总结区别如下： 硬链接不可以跨分区，软件链可以跨分区。 硬链接指向一个 inode 节点，而软链接则是创建一个新的 inode 节点。 删除硬链接文件，不会删除原文件，删除软链接文件，会把原文件删除。 安全一台 Linux 系统初始化环境后需要做一些什么安全工作？ 1、添加普通用户登陆，禁止 root 用户登陆，更改 SSH 端口号。 修改 SSH 端口不一定绝对哈。当然，如果要暴露在外网，建议改下。l 2、服务器使用密钥登陆，禁止密码登陆。 3、开启防火墙，关闭 SElinux ，根据业务需求设置相应的防火墙规则。 4、装 fail2ban 这种防止 SSH 暴力破击的软件。 5、设置只允许公司办公网出口 IP 能登陆服务器(看公司实际需要) 也可以安装 VPN 等软件，只允许连接 VPN 到服务器上。 6、修改历史命令记录的条数为 10 条。 7、只允许有需要的服务器可以访问外网，其它全部禁止。 8、做好软件层面的防护。 8.1 设置 nginx_waf 模块防止 SQL 注入。 8.2 把 Web 服务使用 www 用户启动，更改网站目录的所有者和所属组为 www 。 什么叫 CC 攻击？什么叫 DDOS 攻击？ CC 攻击，主要是用来攻击页面的，模拟多个用户不停的对你的页面进行访问，从而使你的系统资源消耗殆尽。 DDOS 攻击，中文名叫分布式拒绝服务攻击，指借助服务器技术将多个计算机联合起来作为攻击平台，来对一个或多个目标发动 DDOS 攻击。 攻击，即是通过大量合法的请求占用大量网络资源，以达到瘫痪网络的目的。 怎么预防 CC 攻击和 DDOS 攻击？ 防 CC、DDOS 攻击，这些只能是用硬件防火墙做流量清洗，将攻击流量引入黑洞。 流量清洗这一块，主要是买 ISP 服务商的防攻击的服务就可以，机房一般有空余流量，我们一般是买服务，毕竟攻击不会是持续长时间。 什么是网站数据库注入？ 由于程序员的水平及经验参差不齐，大部分程序员在编写代码的时候，没有对用户输入数据的合法性进行判断。 应用程序存在安全隐患。用户可以提交一段数据库查询代码，根据程序返回的结果，获得某些他想得知的数据，这就是所谓的 SQL 注入。 SQL注入，是从正常的 WWW 端口访问，而且表面看起来跟一般的 Web 页面访问没什么区别，如果管理员没查看日志的习惯，可能被入侵很长时间都不会发觉。 如何过滤与预防？ 数据库网页端注入这种，可以考虑使用 nginx_waf 做过滤与预防。 Shell 脚本是什么？一个 Shell 脚本是一个文本文件，包含一个或多个命令。作为系统管理员，我们经常需要使用多个命令来完成一项任务，我们可以添加这些所有命令在一个文本文件(Shell 脚本)来完成这些日常工作任务。 什么是默认登录 Shell ？ 在 Linux 操作系统，&quot;/bin/bash&quot; 是默认登录 Shell，是在创建用户时分配的。 使用 chsh 命令可以改变默认的 Shell 。示例如下所示： 12## chsh &lt;用户名&gt; -s &lt;新shell&gt;## chsh ThinkWon -s /bin/sh cat 命令cat 命令用于连接文件并打印到标准输出设备上。 cat 主要有三大功能： 1.一次显示整个文件: 1cat filename 2.从键盘创建一个文件: 1cat &gt; filename 只能创建新文件，不能编辑已有文件。 3.将几个文件合并为一个文件: 1cat file1 file2 &gt; file -b 对非空输出行号 -n 输出所有行号 实例： （1）把 log2012.log 的文件内容加上行号后输入 log2013.log 这个文件里 1cat -n log2012.log log2013.log （2）把 log2012.log 和 log2013.log 的文件内容加上行号（空白行不加）之后将内容附加到 log.log 里 1cat -b log2012.log log2013.log log.log （3）使用 here doc 生成新文件 12345678910cat &gt;log.txt &lt;&lt;EOF&gt;Hello&gt;World&gt;PWD=$(pwd)&gt;EOFls -l log.txtcat log.txtHelloWorldPWD=/opt/soft/test （4）反向列示 1234tac log.txtPWD=/opt/soft/testWorldHello chmod 命令Linux/Unix 的文件调用权限分为三级 : 文件拥有者、群组、其他。利用 chmod 可以控制文件如何被他人所调用。 用于改变 linux 系统文件或目录的访问权限。用它控制文件或目录的访问权限。该命令有两种用法。一种是包含字母和操作符表达式的文字设定法；另一种是包含数字的数字设定法。 每一文件或目录的访问权限都有三组，每组用三位表示，分别为文件属主的读、写和执行权限；与属主同组的用户的读、写和执行权限；系统中其他用户的读、写和执行权限。可使用 ls -l test.txt 查找。 以文件 log2012.log 为例： 1-rw-r--r-- 1 root root 296K 11-13 06:03 log2012.log 第一列共有 10 个位置，第一个字符指定了文件类型。在通常意义上，一个目录也是一个文件。 如果第一个字符是横线，表示是一个非目录的文件。如果是 d，表示是一个目录。 从第二个字符开始到第十个 9 个字符，3 个字符一组，分别表示了 3 组用户对文件或者目录的权限。权限字符用横线代表空许可，r 代表只读，w 代表写，x 代表可执行。 常用参数： 1-c 当发生改变时，报告处理信息-R 处理指定目录以及其子目录下所有文件 权限范围： 1u ：目录或者文件的当前的用户g ：目录或者文件的当前的群组o ：除了目录或者文件的当前用户或群组之外的用户或者群组a ：所有的用户及群组 权限代号： 1r ：读权限，用数字4表示w ：写权限，用数字2表示x ：执行权限，用数字1表示- ：删除权限，用数字0表示s ：特殊权限 实例： （1）增加文件 t.log 所有用户可执行权限 1chmod a+x t.log （2）撤销原来所有的权限，然后使拥有者具有可读权限,并输出处理信息 1chmod u=r t.log -c （3）给 file 的属主分配读、写、执行(7)的权限，给file的所在组分配读、执行(5)的权限，给其他用户分配执行(1)的权限 1chmod 751 t.log -c（或者：chmod u=rwx,g=rx,o=x t.log -c) （4）将 test 目录及其子目录所有文件添加可读权限 1chmod u+r,g+r,o+r -R text/ -c chown 命令chown 将指定文件的拥有者改为指定的用户或组，用户可以是用户名或者用户 ID；组可以是组名或者组 ID；文件是以空格分开的要改变权限的文件列表，支持通配符。 1-c 显示更改的部分的信息-R 处理指定目录及子目录 实例： （1）改变拥有者和群组 并显示改变信息 1chown -c mail:mail log2012.log （2）改变文件群组 1chown -c :mail t.log （3）改变文件夹及子文件目录属主及属组为 mail 1chown -cR mail: test/ cp 命令将源文件复制至目标文件，或将多个源文件复制至目标目录。 注意：命令行复制，如果目标文件已经存在会提示是否覆盖，而在 shell 脚本中，如果不加 -i 参数，则不会提示，而是直接覆盖！ 1-i 提示-r 复制目录及目录内所有项目-a 复制的文件与原文件时间一样 实例： （1）复制 a.txt 到 test 目录下，保持原文件时间，如果原文件存在提示是否覆盖。 1cp -ai a.txt test （2）为 a.txt 建议一个链接（快捷方式） 1cp -s a.txt link_a.txt find 命令用于在文件树中查找文件，并作出相应的处理。 命令格式： 1find pathname -options [-print -exec -ok ...] 命令参数： 1pathname: find命令所查找的目录路径。例如用.来表示当前目录，用/来表示系统根目录。-print： find命令将匹配的文件输出到标准输出。-exec： find命令对匹配的文件执行该参数所给出的shell命令。相应命令的形式为&apos;command&apos; &#123; &#125; \;，注意&#123; &#125;和\；之间的空格。-ok： 和-exec的作用相同，只不过以一种更为安全的模式来执行该参数所给出的shell命令，在执行每一个命令之前，都会给出提示，让用户来确定是否执行。 命令选项： 1-name 按照文件名查找文件-perm 按文件权限查找文件-user 按文件属主查找文件-group 按照文件所属的组来查找文件。-type 查找某一类型的文件，诸如： b - 块设备文件 d - 目录 c - 字符设备文件 l - 符号链接文件 p - 管道文件 f - 普通文件 实例： （1）查找 48 小时内修改过的文件 1find -atime -2 （2）在当前目录查找 以 .log 结尾的文件。 . 代表当前目录 1find ./ -name '*.log' （3）查找 /opt 目录下 权限为 777 的文件 1find /opt -perm 777 （4）查找大于 1K 的文件 1find -size +1000c 查找等于 1000 字符的文件 1find -size 1000c -exec 参数后面跟的是 command 命令，它的终止是以 ; 为结束标志的，所以这句命令后面的分号是不可缺少的，考虑到各个系统中分号会有不同的意义，所以前面加反斜杠。{} 花括号代表前面find查找出来的文件名。 head 命令head 用来显示档案的开头至标准输出中，默认 head 命令打印其相应文件的开头 10 行。 常用参数： 1-n&lt;行数&gt; 显示的行数（行数为复数表示从最后向前数） 实例： （1）显示 1.log 文件中前 20 行 1head 1.log -n 20 （2）显示 1.log 文件前 20 字节 1head -c 20 log2014.log （3）显示 t.log最后 10 行 1head -n -10 t.log less 命令less 与 more 类似，但使用 less 可以随意浏览文件，而 more 仅能向前移动，却不能向后移动，而且 less 在查看之前不会加载整个文件。 常用命令参数： 1-i 忽略搜索时的大小写-N 显示每行的行号-o &lt;文件名&gt; 将less 输出的内容在指定文件中保存起来-s 显示连续空行为一行/字符串：向下搜索“字符串”的功能?字符串：向上搜索“字符串”的功能n：重复前一个搜索（与 / 或 ? 有关）N：反向重复前一个搜索（与 / 或 ? 有关）-x &lt;数字&gt; 将“tab”键显示为规定的数字空格b 向后翻一页d 向后翻半页h 显示帮助界面Q 退出less 命令u 向前滚动半页y 向前滚动一行空格键 滚动一行回车键 滚动一页[pagedown]： 向下翻动一页[pageup]： 向上翻动一页 实例： （1）ps 查看进程信息并通过 less 分页显示 1ps -aux | less -N （2）查看多个文件 1less 1.log 2.log 可以使用 n 查看下一个，使用 p 查看前一个。 ln 命令功能是为文件在另外一个位置建立一个同步的链接，当在不同目录需要该问题时，就不需要为每一个目录创建同样的文件，通过 ln 创建的链接（link）减少磁盘占用量。 链接分类：软件链接及硬链接 软链接： 1.软链接，以路径的形式存在。类似于Windows操作系统中的快捷方式 2.软链接可以 跨文件系统 ，硬链接不可以 3.软链接可以对一个不存在的文件名进行链接 4.软链接可以对目录进行链接 硬链接: 1.硬链接，以文件副本的形式存在。但不占用实际空间。 2.不允许给目录创建硬链接 3.硬链接只有在同一个文件系统中才能创建 需要注意： 第一：ln命令会保持每一处链接文件的同步性，也就是说，不论你改动了哪一处，其它的文件都会发生相同的变化； 第二：ln的链接又分软链接和硬链接两种，软链接就是ln –s 源文件 目标文件，它只会在你选定的位置上生成一个文件的镜像，不会占用磁盘空间，硬链接 ln 源文件 目标文件，没有参数-s， 它会在你选定的位置上生成一个和源文件大小相同的文件，无论是软链接还是硬链接，文件都保持同步变化。 第三：ln指令用在链接文件或目录，如同时指定两个以上的文件或目录，且最后的目的地是一个已经存在的目录，则会把前面指定的所有文件或目录复制到该目录中。若同时指定多个文件或目录，且最后的目的地并非是一个已存在的目录，则会出现错误信息。 常用参数： 1-b 删除，覆盖以前建立的链接-s 软链接（符号链接）-v 显示详细处理过程 实例： （1）给文件创建软链接，并显示操作信息 1ln -sv source.log link.log （2）给文件创建硬链接，并显示操作信息 1ln -v source.log link1.log （3）给目录创建软链接 1ln -sv /opt/soft/test/test3 /opt/soft/test/test5 locate 命令locate 通过搜寻系统内建文档数据库达到快速找到档案，数据库由 updatedb 程序来更新，updatedb 是由 cron daemon 周期性调用的。默认情况下 locate 命令在搜寻数据库时比由整个由硬盘资料来搜寻资料来得快，但较差劲的是 locate 所找到的档案若是最近才建立或 刚更名的，可能会找不到，在内定值中，updatedb 每天会跑一次，可以由修改 crontab 来更新设定值 (etc/crontab)。 locate 与 find 命令相似，可以使用如 *、? 等进行正则匹配查找 常用参数： 1-l num（要显示的行数）-f 将特定的档案系统排除在外，如将proc排除在外-r 使用正则运算式做为寻找条件 实例： （1）查找和 pwd 相关的所有文件(文件名中包含 pwd） 1locate pwd （2）搜索 etc 目录下所有以 sh 开头的文件 1locate /etc/sh （3）查找 /var 目录下，以 reason 结尾的文件 1locate -r '^/var.*reason$'（其中.表示一个字符，*表示任务多个；.*表示任意多个字符） more 命令功能类似于 cat, more 会以一页一页的显示方便使用者逐页阅读，而最基本的指令就是按空白键（space）就往下一页显示，按 b 键就会往回（back）一页显示。 命令参数： 1+n 从笫 n 行开始显示-n 定义屏幕大小为n行+/pattern 在每个档案显示前搜寻该字串（pattern），然后从该字串前两行之后开始显示 -c 从顶部清屏，然后显示-d 提示“Press space to continue，’q’ to quit（按空格键继续，按q键退出）”，禁用响铃功能-l 忽略Ctrl+l（换页）字符-p 通过清除窗口而不是滚屏来对文件进行换页，与-c选项相似-s 把连续的多个空行显示为一行-u 把文件内容中的下画线去掉 常用操作命令： 1Enter 向下 n 行，需要定义。默认为 1 行Ctrl+F 向下滚动一屏空格键 向下滚动一屏Ctrl+B 返回上一屏= 输出当前行的行号:f 输出文件名和当前行的行号V 调用vi编辑器!命令 调用Shell，并执行命令q 退出more 实例： （1）显示文件中从第3行起的内容 1more +3 text.txt （2）在所列出文件目录详细信息，借助管道使每次显示 5 行 1ls -l | more -5 按空格显示下 5 行。 mv 命令移动文件或修改文件名，根据第二参数类型（如目录，则移动文件；如为文件则重命令该文件）。 当第二个参数为目录时，第一个参数可以是多个以空格分隔的文件或目录，然后移动第一个参数指定的多个文件到第二个参数指定的目录中。 实例： （1）将文件 test.log 重命名为 test1.txt 1mv test.log test1.txt （2）将文件 log1.txt,log2.txt,log3.txt 移动到根的 test3 目录中 1mv llog1.txt log2.txt log3.txt /test3 （3）将文件 file1 改名为 file2，如果 file2 已经存在，则询问是否覆盖 1mv -i log1.txt log2.txt （4）移动当前文件夹下的所有文件到上一级目录 1mv * ../ rm 命令删除一个目录中的一个或多个文件或目录，如果没有使用 -r 选项，则 rm 不会删除目录。如果使用 rm 来删除文件，通常仍可以将该文件恢复原状。 1rm [选项] 文件… 实例： （1）删除任何 .log 文件，删除前逐一询问确认： 1rm -i *.log （2）删除 test 子目录及子目录中所有档案删除，并且不用一一确认： 1rm -rf test （3）删除以 -f 开头的文件 1rm -- -f* tail 命令用于显示指定文件末尾内容，不指定文件时，作为输入信息进行处理。常用查看日志文件。 常用参数： 1-f 循环读取（常用于查看递增的日志文件）-n&lt;行数&gt; 显示行数（从后向前） （1）循环读取逐渐增加的文件内容 1ping 127.0.0.1 &gt; ping.log &amp; 后台运行：可使用 jobs -l 查看，也可使用 fg 将其移到前台运行。 1tail -f ping.log （查看日志） touch 命令Linux touch命令用于修改文件或者目录的时间属性，包括存取时间和更改时间。若文件不存在，系统会建立一个新的文件。 ls -l 可以显示档案的时间记录。 语法 1touch [-acfm][-d&lt;日期时间&gt;][-r&lt;参考文件或目录&gt;] [-t&lt;日期时间&gt;][--help][--version][文件或目录…] 参数说明： a 改变档案的读取时间记录。 m 改变档案的修改时间记录。 c 假如目的档案不存在，不会建立新的档案。与 –no-create 的效果一样。 f 不使用，是为了与其他 unix 系统的相容性而保留。 r 使用参考档的时间记录，与 –file 的效果一样。 d 设定时间与日期，可以使用各种不同的格式。 t 设定档案的时间记录，格式与 date 指令相同。 –no-create 不会建立新档案。 –help 列出指令格式。 –version 列出版本讯息。 实例 使用指令”touch”修改文件”testfile”的时间属性为当前系统时间，输入如下命令： 1$ touch testfile #修改文件的时间属性 首先，使用ls命令查看testfile文件的属性，如下所示： 1$ ls -l testfile #查看文件的时间属性 #原来文件的修改时间为16:09 -rw-r--r-- 1 hdd hdd 55 2011-08-22 16:09 testfile 执行指令”touch”修改文件属性以后，并再次查看该文件的时间属性，如下所示： 1$ touch testfile #修改文件时间属性为当前系统时间 $ ls -l testfile #查看文件的时间属性 #修改后文件的时间属性为当前系统时间 -rw-r--r-- 1 hdd hdd 55 2011-08-22 19:53 testfile 使用指令”touch”时，如果指定的文件不存在，则将创建一个新的空白文件。例如，在当前目录下，使用该指令创建一个空白文件”file”，输入如下命令： 1$ touch file #创建一个名为“file”的新的空白文件 vim 命令Vim是从 vi 发展出来的一个文本编辑器。代码补完、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。 打开文件并跳到第 10 行：vim +10 filename.txt 。 打开文件跳到第一个匹配的行：vim +/search-term filename.txt 。 以只读模式打开文件：vim -R /etc/passwd 。 基本上 vi/vim 共分为三种模式，分别是命令模式（Command mode），输入模式（Insert mode）和底线命令模式（Last line mode）。 简单的说，我们可以将这三个模式想成底下的图标来表示： whereis 命令whereis 命令只能用于程序名的搜索，而且只搜索二进制文件（参数-b）、man说明文件（参数-m）和源代码文件（参数-s）。如果省略参数，则返回所有信息。whereis 及 locate 都是基于系统内建的数据库进行搜索，因此效率很高，而find则是遍历硬盘查找文件。 常用参数： 1-b 定位可执行文件。-m 定位帮助文件。-s 定位源代码文件。-u 搜索默认路径下除可执行文件、源代码文件、帮助文件以外的其它文件。 实例： （1）查找 locate 程序相关文件 1whereis locate （2）查找 locate 的源码文件 1whereis -s locate （3）查找 lcoate 的帮助文件 1whereis -m locate which 命令在 linux 要查找某个文件，但不知道放在哪里了，可以使用下面的一些命令来搜索： 1which 查看可执行文件的位置。whereis 查看文件的位置。locate 配合数据库查看文件位置。find 实际搜寻硬盘查询文件名称。 which 是在 PATH 就是指定的路径中，搜索某个系统命令的位置，并返回第一个搜索结果。使用 which 命令，就可以看到某个系统命令是否存在，以及执行的到底是哪一个位置的命令。 常用参数： 1-n 指定文件名长度，指定的长度必须大于或等于所有文件中最长的文件名。 实例： （1）查看 ls 命令是否存在，执行哪个 1which ls （2）查看 which 1which which （3）查看 cd 1which cd（显示不存在，因为 cd 是内建命令，而 which 查找显示是 PATH 中的命令） 查看当前 PATH 配置： 1echo $PATH 或使用 env 查看所有环境变量及对应值 文档编辑命令grep 命令强大的文本搜索命令，grep(Global Regular Expression Print) 全局正则表达式搜索。 grep 的工作方式是这样的，它在一个或多个文件中搜索字符串模板。如果模板包括空格，则必须被引用，模板后的所有字符串被看作文件名。搜索的结果被送到标准输出，不影响原文件内容。 命令格式： 1grep [option] pattern file|dir 常用参数： 1-A n --after-context显示匹配字符后n行-B n --before-context显示匹配字符前n行-C n --context 显示匹配字符前后n行-c --count 计算符合样式的列数-i 忽略大小写-l 只列出文件内容符合指定的样式的文件名称-f 从文件中读取关键词-n 显示匹配内容的所在文件中行数-R 递归查找文件夹 grep 的规则表达式: 1^ #锚定行的开始 如：&apos;^grep&apos;匹配所有以grep开头的行。 $ #锚定行的结束 如：&apos;grep$&apos;匹配所有以grep结尾的行。 . #匹配一个非换行符的字符 如：&apos;gr.p&apos;匹配gr后接一个任意字符，然后是p。 * #匹配零个或多个先前字符 如：&apos;*grep&apos;匹配所有一个或多个空格后紧跟grep的行。.* #一起用代表任意字符。 [] #匹配一个指定范围内的字符，如&apos;[Gg]rep&apos;匹配Grep和grep。 [^] #匹配一个不在指定范围内的字符，如：&apos;[^A-FH-Z]rep&apos;匹配不包含A-R和T-Z的一个字母开头，紧跟rep的行。 \(..\) #标记匹配字符，如&apos;\(love\)&apos;，love被标记为1。 \&lt; #锚定单词的开始，如:&apos;\&lt;grep&apos;匹配包含以grep开头的单词的行。\&gt; #锚定单词的结束，如&apos;grep\&gt;&apos;匹配包含以grep结尾的单词的行。x\&#123;m\&#125; #重复字符x，m次，如：&apos;0\&#123;5\&#125;&apos;匹配包含5个o的行。 x\&#123;m,\&#125; #重复字符x,至少m次，如：&apos;o\&#123;5,\&#125;&apos;匹配至少有5个o的行。 x\&#123;m,n\&#125; #重复字符x，至少m次，不多于n次，如：&apos;o\&#123;5,10\&#125;&apos;匹配5--10个o的行。 \w #匹配文字和数字字符，也就是[A-Za-z0-9]，如：&apos;G\w*p&apos;匹配以G后跟零个或多个文字或数字字符，然后是p。 \W #\w的反置形式，匹配一个或多个非单词字符，如点号句号等。 \b #单词锁定符，如: &apos;\bgrep\b&apos;只匹配grep。 实例： （1）查找指定进程 1ps -ef | grep svn （2）查找指定进程个数 1ps -ef | grep svn -c （3）从文件中读取关键词 1cat test1.txt | grep -f key.log （4）从文件夹中递归查找以grep开头的行，并只列出文件 1grep -lR '^grep' /tmp （5）查找非x开关的行内容 1grep '^[^x]' test.txt （6）显示包含 ed 或者 at 字符的内容行 1grep -E 'ed|at' test.txt wc 命令wc(word count)功能为统计指定的文件中字节数、字数、行数，并将统计结果输出 命令格式： 1wc [option] file.. 命令参数： 1-c 统计字节数-l 统计行数-m 统计字符数-w 统计词数，一个字被定义为由空白、跳格或换行字符分隔的字符串 实例： （1）查找文件的 行数 单词数 字节数 文件名 1wc text.txt 结果： 17 8 70 test.txt （2）统计输出结果的行数 1cat test.txt | wc -l 磁盘管理命令cd 命令cd(changeDirectory) 命令语法： 1cd [目录名] 说明：切换当前目录至 dirName。 实例： （1）进入要目录 1cd / （2）进入 “home” 目录 1cd ~ （3）进入上一次工作路径 1cd - （4）把上个命令的参数作为cd参数使用。 1cd !$ df 命令显示磁盘空间使用情况。获取硬盘被占用了多少空间，目前还剩下多少空间等信息，如果没有文件名被指定，则所有当前被挂载的文件系统的可用空间将被显示。默认情况下，磁盘空间将以 1KB 为单位进行显示，除非环境变量 POSIXLY_CORRECT 被指定，那样将以512字节为单位进行显示： 1-a 全部文件系统列表-h 以方便阅读的方式显示信息-i 显示inode信息-k 区块为1024字节-l 只显示本地磁盘-T 列出文件系统类型 实例： （1）显示磁盘使用情况 1df -l （2）以易读方式列出所有文件系统及其类型 1df -haT du 命令du 命令也是查看使用空间的，但是与 df 命令不同的是 Linux du 命令是对文件和目录磁盘使用的空间的查看： 命令格式： 1du [选项] [文件] 常用参数： 1-a 显示目录中所有文件大小-k 以KB为单位显示文件大小-m 以MB为单位显示文件大小-g 以GB为单位显示文件大小-h 以易读方式显示文件大小-s 仅显示总计-c或--total 除了显示个别目录或文件的大小外，同时也显示所有目录或文件的总和 实例： （1）以易读方式显示文件夹内及子文件夹大小 1du -h scf/ （2）以易读方式显示文件夹内所有文件大小 1du -ah scf/ （3）显示几个文件或目录各自占用磁盘空间的大小，还统计它们的总和 1du -hc test/ scf/ （4）输出当前目录下各个子目录所使用的空间 1du -hc --max-depth=1 scf/ ls命令就是 list 的缩写，通过 ls 命令不仅可以查看 linux 文件夹包含的文件，而且可以查看文件权限(包括目录、文件夹、文件权限)查看目录信息等等。 常用参数搭配： 1ls -a 列出目录所有文件，包含以.开始的隐藏文件ls -A 列出除.及..的其它文件ls -r 反序排列ls -t 以文件修改时间排序ls -S 以文件大小排序ls -h 以易读大小显示ls -l 除了文件名之外，还将文件的权限、所有者、文件大小等信息详细列出来 实例： (1) 按易读方式按时间反序排序，并显示文件详细信息 1ls -lhrt (2) 按大小反序显示文件详细信息 1ls -lrS (3)列出当前目录中所有以”t”开头的目录的详细内容 1ls -l t* (4) 列出文件绝对路径（不包含隐藏文件） 1ls | sed "s:^:`pwd`/:" (5) 列出文件绝对路径（包含隐藏文件） 1find $pwd -maxdepth 1 | xargs ls -ld mkdir 命令mkdir 命令用于创建文件夹。 可用选项： -m: 对新建目录设置存取权限，也可以用 chmod 命令设置; -p: 可以是一个路径名称。此时若路径中的某些目录尚不存在,加上此选项后，系统将自动建立好那些尚不在的目录，即一次可以建立多个目录。 实例： （1）当前工作目录下创建名为 t的文件夹 1mkdir t （2）在 tmp 目录下创建路径为 test/t1/t 的目录，若不存在，则创建： 1mkdir -p /tmp/test/t1/t pwd 命令pwd 命令用于查看当前工作目录路径。 实例： （1）查看当前路径 1pwd （2）查看软链接的实际路径 1pwd -P rmdir 命令从一个目录中删除一个或多个子目录项，删除某目录时也必须具有对其父目录的写权限。 注意：不能删除非空目录 实例： （1）当 parent 子目录被删除后使它也成为空目录的话，则顺便一并删除： 1rmdir -p parent/child/child11 网络通讯命令ifconfig 命令 ifconfig 用于查看和配置 Linux 系统的网络接口。 查看所有网络接口及其状态：ifconfig -a 。 使用 up 和 down 命令启动或停止某个接口：ifconfig eth0 up 和 ifconfig eth0 down 。 iptables 命令iptables ，是一个配置 Linux 内核防火墙的命令行工具。功能非常强大，对于我们开发来说，主要掌握如何开放端口即可。例如： 把来源 IP 为 192.168.1.101 访问本机 80 端口的包直接拒绝：iptables \-I INPUT \-s 192.168.1.101 \-p tcp \--dport 80 \-j REJECT 。 开启 80 端口，因为web对外都是这个端口 1iptables -A INPUT -p tcp --dport 80 -j ACCEP 另外，要注意使用 iptables save 命令，进行保存。否则，服务器重启后，配置的规则将丢失。 netstat 命令Linux netstat命令用于显示网络状态。 利用netstat指令可让你得知整个Linux系统的网络情况。 语法 1netstat [-acCeFghilMnNoprstuvVwx][-A&lt;网络类型&gt;][--ip] 参数说明： -a或–all 显示所有连线中的Socket。 -A&lt;网络类型&gt;或–&lt;网络类型&gt; 列出该网络类型连线中的相关地址。 -c或–continuous 持续列出网络状态。 -C或–cache 显示路由器配置的快取信息。 -e或–extend 显示网络其他相关信息。 -F或–fib 显示FIB。 -g或–groups 显示多重广播功能群组组员名单。 -h或–help 在线帮助。 -i或–interfaces 显示网络界面信息表单。 -l或–listening 显示监控中的服务器的Socket。 -M或–masquerade 显示伪装的网络连线。 -n或–numeric 直接使用IP地址，而不通过域名服务器。 -N或–netlink或–symbolic 显示网络硬件外围设备的符号连接名称。 -o或–timers 显示计时器。 -p或–programs 显示正在使用Socket的程序识别码和程序名称。 -r或–route 显示Routing Table。 -s或–statistice 显示网络工作信息统计表。 -t或–tcp 显示TCP传输协议的连线状况。 -u或–udp 显示UDP传输协议的连线状况。 -v或–verbose 显示指令执行过程。 -V或–version 显示版本信息。 -w或–raw 显示RAW传输协议的连线状况。 -x或–unix 此参数的效果和指定”-A unix”参数相同。 –ip或–inet 此参数的效果和指定”-A inet”参数相同。 实例 如何查看系统都开启了哪些端口？ 1[root@centos6 ~ 13:20 #55]# netstat -lnpActive Internet connections (only servers)Proto Recv-Q Send-Q Local Address Foreign Address State PID/Program nametcp 0 0 0.0.0.0:22 0.0.0.0:* LISTEN 1035/sshdtcp 0 0 :::22 :::* LISTEN 1035/sshdudp 0 0 0.0.0.0:68 0.0.0.0:* 931/dhclientActive UNIX domain sockets (only servers)Proto RefCnt Flags Type State I-Node PID/Program name Pathunix 2 [ ACC ] STREAM LISTENING 6825 1/init @/com/ubuntu/upstartunix 2 [ ACC ] STREAM LISTENING 8429 1003/dbus-daemon /var/run/dbus/system_bus_socket 如何查看网络连接状况？ 1[root@centos6 ~ 13:22 #58]# netstat -anActive Internet connections (servers and established)Proto Recv-Q Send-Q Local Address Foreign Address Statetcp 0 0 0.0.0.0:22 0.0.0.0:* LISTENtcp 0 0 192.168.147.130:22 192.168.147.1:23893 ESTABLISHEDtcp 0 0 :::22 :::* LISTENudp 0 0 0.0.0.0:68 0.0.0.0:* 如何统计系统当前进程连接数？ 输入命令 netstat -an | grep ESTABLISHED | wc -l 。 输出结果 177 。一共有 177 连接数。 用 netstat 命令配合其他命令，按照源 IP 统计所有到 80 端口的 ESTABLISHED 状态链接的个数？ 严格来说，这个题目考验的是对 awk 的使用。 首先，使用 netstat \-an|grep ESTABLISHED 命令。结果如下： 1tcp 0 0 120.27.146.122:80 113.65.18.33:62721 ESTABLISHEDtcp 0 0 120.27.146.122:80 27.43.83.115:47148 ESTABLISHEDtcp 0 0 120.27.146.122:58838 106.39.162.96:443 ESTABLISHEDtcp 0 0 120.27.146.122:52304 203.208.40.121:443 ESTABLISHEDtcp 0 0 120.27.146.122:33194 203.208.40.122:443 ESTABLISHEDtcp 0 0 120.27.146.122:53758 101.37.183.144:443 ESTABLISHEDtcp 0 0 120.27.146.122:27017 23.105.193.30:50556 ESTABLISHED ping 命令Linux ping命令用于检测主机。 执行ping指令会使用ICMP传输协议，发出要求回应的信息，若远端主机的网络功能没有问题，就会回应该信息，因而得知该主机运作正常。 指定接收包的次数 1ping -c 2 www.baidu.com telnet 命令Linux telnet命令用于远端登入。 执行telnet指令开启终端机阶段作业，并登入远端主机。 语法 1telnet [-8acdEfFKLrx][-b&lt;主机别名&gt;][-e&lt;脱离字符&gt;][-k&lt;域名&gt;][-l&lt;用户名称&gt;][-n&lt;记录文件&gt;][-S&lt;服务类型&gt;][-X&lt;认证形态&gt;][主机名称或IP地址&lt;通信端口&gt;] 参数说明： -8 允许使用8位字符资料，包括输入与输出。 -a 尝试自动登入远端系统。 -b&lt;主机别名&gt; 使用别名指定远端主机名称。 -c 不读取用户专属目录里的.telnetrc文件。 -d 启动排错模式。 -e&lt;脱离字符&gt; 设置脱离字符。 -E 滤除脱离字符。 -f 此参数的效果和指定”-F”参数相同。 -F 使用Kerberos V5认证时，加上此参数可把本地主机的认证数据上传到远端主机。 -k&lt;域名&gt; 使用Kerberos认证时，加上此参数让远端主机采用指定的领域名，而非该主机的域名。 -K 不自动登入远端主机。 -l&lt;用户名称&gt; 指定要登入远端主机的用户名称。 -L 允许输出8位字符资料。 -n&lt;记录文件&gt; 指定文件记录相关信息。 -r 使用类似rlogin指令的用户界面。 -S&lt;服务类型&gt; 设置telnet连线所需的IP TOS信息。 -x 假设主机有支持数据加密的功能，就使用它。 -X&lt;认证形态&gt; 关闭指定的认证形态。 实例 登录远程主机 1# 登录IP为 192.168.0.5 的远程主机telnet 192.168.0.5 系统管理命令date 命令显示或设定系统的日期与时间。 命令参数： 1-d&lt;字符串&gt; 显示字符串所指的日期与时间。字符串前后必须加上双引号。-s&lt;字符串&gt; 根据字符串来设置日期与时间。字符串前后必须加上双引号。-u 显示GMT。%H 小时(00-23)%I 小时(00-12)%M 分钟(以00-59来表示)%s 总秒数。起算时间为1970-01-01 00:00:00 UTC。%S 秒(以本地的惯用法来表示)%a 星期的缩写。%A 星期的完整名称。%d 日期(以01-31来表示)。%D 日期(含年月日)。%m 月份(以01-12来表示)。%y 年份(以00-99来表示)。%Y 年份(以四位数来表示)。 实例： （1）显示下一天 1date +%Y%m%d --date="+1 day" //显示下一天的日期 （2）-d参数使用 1date -d "nov 22" 今年的 11 月 22 日是星期三date -d '2 weeks' 2周后的日期date -d 'next monday' (下周一的日期)date -d next-day +%Y%m%d（明天的日期）或者：date -d tomorrow +%Y%m%ddate -d last-day +%Y%m%d(昨天的日期) 或者：date -d yesterday +%Y%m%ddate -d last-month +%Y%m(上个月是几月)date -d next-month +%Y%m(下个月是几月) free 命令显示系统内存使用情况，包括物理内存、交互区内存(swap)和内核缓冲区内存。 命令参数： 1-b 以Byte显示内存使用情况-k 以kb为单位显示内存使用情况-m 以mb为单位显示内存使用情况-g 以gb为单位显示内存使用情况-s&lt;间隔秒数&gt; 持续显示内存-t 显示内存使用总合 实例： （1）显示内存使用情况 1freefree -kfree -m （2）以总和的形式显示内存的使用信息 1free -t （3）周期性查询内存使用情况 1free -s 10 kill 命令发送指定的信号到相应进程。不指定型号将发送SIGTERM（15）终止指定进程。如果任无法终止该程序可用”-KILL” 参数，其发送的信号为SIGKILL(9) ，将强制结束进程，使用ps命令或者jobs 命令可以查看进程号。root用户将影响用户的进程，非root用户只能影响自己的进程。 常用参数： 1-l 信号，若果不加信号的编号参数，则使用“-l”参数会列出全部的信号名称-a 当处理当前进程时，不限制命令名和进程号的对应关系-p 指定kill 命令只打印相关进程的进程号，而不发送任何信号-s 指定发送信号-u 指定用户 实例： （1）先使用ps查找进程pro1，然后用kill杀掉 1kill -9 $(ps -ef | grep pro1) ps 命令ps(process status)，用来查看当前运行的进程状态，一次性查看，如果需要动态连续结果使用 top linux上进程有5种状态: 运行(正在运行或在运行队列中等待) 中断(休眠中, 受阻, 在等待某个条件的形成或接受到信号) 不可中断(收到信号不唤醒和不可运行, 进程必须等待直到有中断发生) 僵死(进程已终止, 但进程描述符存在, 直到父进程调用wait4()系统调用后释放) 停止(进程收到SIGSTOP, SIGSTP, SIGTIN, SIGTOU信号后停止运行运行) ps 工具标识进程的5种状态码: 1D 不可中断 uninterruptible sleep (usually IO)R 运行 runnable (on run queue)S 中断 sleepingT 停止 traced or stoppedZ 僵死 a defunct (”zombie”) process 命令参数： 1-A 显示所有进程a 显示所有进程-a 显示同一终端下所有进程c 显示进程真实名称e 显示环境变量f 显示进程间的关系r 显示当前终端运行的进程-aux 显示所有包含其它使用的进程 实例： （1）显示当前所有进程环境变量及进程间关系 1ps -ef （2）显示当前所有进程 1ps -A （3）与grep联用查找某进程 1ps -aux | grep apache （4）找出与 cron 与 syslog 这两个服务有关的 PID 号码 1ps aux | grep '(cron|syslog)' rpm 命令Linux rpm 命令用于管理套件。 rpm(redhat package manager) 原本是 Red Hat Linux 发行版专门用来管理 Linux 各项套件的程序，由于它遵循 GPL 规则且功能强大方便，因而广受欢迎。逐渐受到其他发行版的采用。RPM 套件管理方式的出现，让 Linux 易于安装，升级，间接提升了 Linux 的适用度。 1# 查看系统自带jdkrpm -qa | grep jdk# 删除系统自带jdkrpm -e --nodeps 查看jdk显示的数据# 安装jdkrpm -ivh jdk-7u80-linux-x64.rpm Linux常见性能分析命令top 命令显示当前系统正在执行的进程的相关信息，包括进程 ID、内存占用率、CPU 占用率等 常用参数： 1-c 显示完整的进程命令-s 保密模式-p &lt;进程号&gt; 指定进程显示-n &lt;次数&gt;循环显示次数 实例： 1top - 14:06:23 up 70 days, 16:44, 2 users, load average: 1.25, 1.32, 1.35Tasks: 206 total, 1 running, 205 sleeping, 0 stopped, 0 zombieCpu(s): 5.9%us, 3.4%sy, 0.0%ni, 90.4%id, 0.0%wa, 0.0%hi, 0.2%si, 0.0%stMem: 32949016k total, 14411180k used, 18537836k free, 169884k buffersSwap: 32764556k total, 0k used, 32764556k free, 3612636k cachedPID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND 28894 root 22 0 1501m 405m 10m S 52.2 1.3 2534:16 java 前五行是当前系统情况整体的统计信息区。 第一行，任务队列信息，同 uptime 命令的执行结果，具体参数说明情况如下： 14:06:23 — 当前系统时间 up 70 days, 16:44 — 系统已经运行了70天16小时44分钟（在这期间系统没有重启过的吆！） 2 users — 当前有2个用户登录系统 load average: 1.15, 1.42, 1.44 — load average后面的三个数分别是1分钟、5分钟、15分钟的负载情况。 load average数据是每隔5秒钟检查一次活跃的进程数，然后按特定算法计算出的数值。如果这个数除以逻辑CPU的数量，结果高于5的时候就表明系统在超负荷运转了。 第二行，Tasks — 任务（进程），具体信息说明如下： 系统现在共有206个进程，其中处于运行中的有1个，205个在休眠（sleep），stoped状态的有0个，zombie状态（僵尸）的有0个。 第三行，cpu状态信息，具体属性说明如下： 15.9%us — 用户空间占用CPU的百分比。3.4% sy — 内核空间占用CPU的百分比。0.0% ni — 改变过优先级的进程占用CPU的百分比90.4% id — 空闲CPU百分比0.0% wa — IO等待占用CPU的百分比0.0% hi — 硬中断（Hardware IRQ）占用CPU的百分比0.2% si — 软中断（Software Interrupts）占用CPU的百分比 备注：在这里CPU的使用比率和windows概念不同，需要理解linux系统用户空间和内核空间的相关知识！ 第四行，内存状态，具体信息如下： 132949016k total — 物理内存总量（32GB）14411180k used — 使用中的内存总量（14GB）18537836k free — 空闲内存总量（18GB）169884k buffers — 缓存的内存量 （169M） 第五行，swap交换分区信息，具体信息说明如下： 132764556k total — 交换区总量（32GB）0k used — 使用的交换区总量（0K）32764556k free — 空闲交换区总量（32GB）3612636k cached — 缓冲的交换区总量（3.6GB） 第六行，空行。 第七行以下：各进程（任务）的状态监控，项目列信息说明如下： 1PID — 进程idUSER — 进程所有者PR — 进程优先级NI — nice值。负值表示高优先级，正值表示低优先级VIRT — 进程使用的虚拟内存总量，单位kb。VIRT=SWAP+RESRES — 进程使用的、未被换出的物理内存大小，单位kb。RES=CODE+DATASHR — 共享内存大小，单位kbS — 进程状态。D=不可中断的睡眠状态 R=运行 S=睡眠 T=跟踪/停止 Z=僵尸进程%CPU — 上次更新到现在的CPU时间占用百分比%MEM — 进程使用的物理内存百分比TIME+ — 进程使用的CPU时间总计，单位1/100秒COMMAND — 进程名称（命令名/命令行） top 交互命令 1h 显示top交互命令帮助信息c 切换显示命令名称和完整命令行m 以内存使用率排序P 根据CPU使用百分比大小进行排序T 根据时间/累计时间进行排序W 将当前设置写入~/.toprc文件中o或者O 改变显示项目的顺序 yum 命令yum（ Yellow dog Updater, Modified）是一个在Fedora和RedHat以及SUSE中的Shell前端软件包管理器。 基於RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。 yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。 1.列出所有可更新的软件清单命令：yum check-update 2.更新所有软件命令：yum update 3.仅安装指定的软件命令：yum install &lt;package_name&gt; 4.仅更新指定的软件命令：yum update &lt;package_name&gt; 5.列出所有可安裝的软件清单命令：yum list 6.删除软件包命令：yum remove &lt;package_name&gt; 7.查找软件包 命令：yum search 8.清除缓存命令: yum clean packages: 清除缓存目录下的软件包 yum clean headers: 清除缓存目录下的 headers yum clean oldheaders: 清除缓存目录下旧的 headers yum clean, yum clean all (= yum clean packages; yum clean oldheaders) :清除缓存目录下的软件包及旧的headers 实例 安装 pam-devel 1[root@www ~]# yum install pam-devel 备份压缩命令bzip2 命令 创建 *.bz2 压缩文件：bzip2 test.txt 。 解压 *.bz2 文件：bzip2 -d test.txt.bz2 。 gzip 命令 创建一个 *.gz 的压缩文件：gzip test.txt 。 解压 *.gz 文件：gzip -d test.txt.gz 。 显示压缩的比率：gzip -l *.gz 。 tar 命令用来压缩和解压文件。tar 本身不具有压缩功能，只具有打包功能，有关压缩及解压是调用其它的功能来完成。 弄清两个概念：打包和压缩。打包是指将一大堆文件或目录变成一个总的文件；压缩则是将一个大的文件通过一些压缩算法变成一个小文件 常用参数： 1-c 建立新的压缩文件-f 指定压缩文件-r 添加文件到已经压缩文件包中-u 添加改了和现有的文件到压缩包中-x 从压缩包中抽取文件-t 显示压缩文件中的内容-z 支持gzip压缩-j 支持bzip2压缩-Z 支持compress解压文件-v 显示操作过程 有关 gzip 及 bzip2 压缩: 1gzip 实例：压缩 gzip fileName .tar.gz 和.tgz 解压：gunzip filename.gz 或 gzip -d filename.gz 对应：tar zcvf filename.tar.gz tar zxvf filename.tar.gzbz2实例：压缩 bzip2 -z filename .tar.bz2 解压：bunzip filename.bz2或bzip -d filename.bz2 对应：tar jcvf filename.tar.gz 解压：tar jxvf filename.tar.bz2 实例： （1）将文件全部打包成 tar 包 1tar -cvf log.tar 1.log,2.log 或tar -cvf log.* （2）将 /etc 下的所有文件及目录打包到指定目录，并使用 gz 压缩 1tar -zcvf /tmp/etc.tar.gz /etc （3）查看刚打包的文件内容（一定加z，因为是使用 gzip 压缩的） 1tar -ztvf /tmp/etc.tar.gz （4）要压缩打包 /home, /etc ，但不要 /home/dmtsai 1tar --exclude /home/dmtsai -zcvf myfile.tar.gz /home/* /etc unzip 命令 解压 *.zip 文件：unzip test.zip 。 查看 *.zip 文件的内容：unzip -l jasper.zip 。 top作用： 能够实时显示系统中各个进程的资源占用情况。类似于windows的任务管理器 命令参数： d：指定每两次屏幕信息刷新之间的时间间隔 p：通过指定监控进程ID来仅仅监控某个进程的状态 q：使top没有任何演示的进行刷新 S：指定累计模式 s：使top命令在安全模式中运行 i：使top不显示任何闲置或者僵死进程 c：显示整个命令行而不只是显示命令名 终端输入top，显示如下 第一行：表示的项目依次为当前时间、系统启动时间、当前系统登录用户数目、平均负载（最近1，5，15分钟） 第二行：显示的所有启动的进程、目前运行的、挂起的(sleeping)和无用(zombie)的进程 第三行：显示的是目前CPU的情况，包括系统占用的比例、用户占用的比例、闲置的比例 第四行：显示物理内存的使用情况，包括总的可以使用的内存、已用内存、空闲内存、缓冲区占用的内存 第五行：显示交换区使用情况，包括总的交换分区、使用的、空闲的和用于高速缓存的大小。 第六行：显示的项目如下： 输入top之后，还可以根据需要进行排序，查看对应信息 shift+M：按照内存使用进行排序 shift+P：按照cpu时间排序 shift+T：按照cpou累计使用时间 vmstat作用： 虚拟内存的统计。vmstat可以实时监控cpu运行队列和系统关键的性能指标，如磁盘，上下文交换，cpu使用率等 命令参数： -a：显示活跃和非活跃内存 -f：显示从系统启动至今的fork数量 -m：只显示slabinfo -n：只在开始时显示一次个字段名称 -s：显示内存相关统计信息及多种系统活动数量 delay：属性时间间隔。如果不指定，只显示一条结果 count：刷新次数。如果不指定刷新次数，但制定了刷新时间间隔，这是刷新次数为无穷 -d：显示磁盘相关统计信息 -p：显示制定磁盘分区统计信息 -S：使用指定单位显示。参数有k、K、m、M，分别代表1000、1024、1000000、1048576字节（byte）。默认单位为K -V：显示vmstat版本信息 例子： 输入vmstat可以看到 procs r列表示等待cpu时间片的进程数，如果长期大于1，说明cpu不足，需要增加cpu。 b列表示在等待资源的进程数，比如正在等待I/O、或者内存交换等。 memory swpd 切换到内存交换区的内存数量，或者说是现在可用的交换内存（k）。 如果swpd不为0，或者比较大，比如100m，只要si、so的值长期为0，系统性能还是正常 free当前的空闲页面列中内存数量（k），空闲内存 buff作为buffer cache的内存数量，一般对块设备的读写才需要缓冲 cache做为page cache的内存数量，一般做为内存系统的cache，如果cache较大，说明用到cahce的文件较多，如果此时IO中bi较小，说明文件系统效率较好 swap si有内存进入交换区数量 so有内存交换区进入内存数量 IO bi从块设备读入数据的总量（读磁盘）（每秒KB） bo块设置吸入数据的总量（写磁盘）（每秒KB） 这里我们设置的bi+bo参考值为1000，如果超过1000，而且wa值较大应该考虑均衡磁盘负载，可以结合iostat输出来分析。如果bi，bo长期不等于0，表示物理内存容量太小 system 显示采集间隔内发生的中断数 in列表示在某一段时间间隔中观测到的每秒设备中断数 cs列表示每秒产生的上下文交换次数，如当cs比磁盘I/O和网络信息包速率高得多，都应该进一步调查 cpu 表示cpu的使用状态 us 列显示了用户方式下所花费cpu时间的百分比。us的值比较高时，说明用户进程消耗的cpu时间多，但是如果长期大于50%，需要考虑优化用户的程序 sy 列显示了内核进程花费的cpu时间的百分比。这里us+sy的参考值为80%，如果us+sy大于80%说明可能存在cpu不足 wa 列显示了IO等待所占有的cpu时间的百分比。这里wa的参考值为30%，如果wa超过30%，说明IO等待严重，这可能是磁盘或者磁盘访问控制器的带宽瓶颈造成的（块操作） id 列显示了cpu处在空闲状态的时间百分比，如果id经常小于40，表示中央处理器的符合很重 最好使用vmstat t [n]命令，例如vmstat 5 5，表示在T(5)秒时间内进行N(5)次采样。如果只使用vmstat，无法反映真正的系统情况。 iostatiostat主要用于监控系统设备的IO负载情况 -d：显示设备（磁盘）使用状态 -k：某些使用block为单位的列强制使用Kb -x：显示更多的统计信息 -c：获取cpu部分状态值 例：每个1s刷新一次，共刷新10次：iostat -d -k 1 10 tps：该设备每秒的传输次数。一次传输即一次I/O kB_read/s：每秒从设备读取的数量 kB_wrtn/s：每秒向设备写入的数量 kB_read：读取的总数据量（Kb） kB_wrtn：写入的总数据量（Kb） 上面看到磁盘每秒传输次数平均约为400；每秒读取约5M，写入约1M 查看日志用到的常用命令举例杀僵尸进程 部分程序员，肯定喜欢下面命令： ps -ef | grep java (先查java进程ID) kill -9 PID(生产环境谨慎使用) kill、killall、pkill命令的区别 kill：通过pid来杀死进程 killall （killall [参数] [进程名]）：Linux系统中的killall命令用于杀死指定名字的进程（kill processes by name）。我们可以使用kill命令杀死指定进程PID的进程，如果要找到我们需要杀死的进程，我们还需要在之前使用ps等命令再配合grep来查找进程，而killall把这两个过程合二为一，是一个很好用的命令。 pkill：pkill 和killall 应用方法差不多，也是直接杀死运行中的程式；如果你想杀掉单个进程，请用kill 来杀掉。例子： pkill -9 firefox 1.查看日志常用命令 tail: -n 是显示行号；相当于nl命令；例子如下： tail -100f test.log 实时监控100行日志 tail -n 10 test.log 查询日志尾部最后10行的日志; tail -n +10 test.log 查询10行之后的所有日志; head: 跟tail是相反的，tail是看后多少行日志；例子如下： head -n 10 test.log 查询日志文件中的头10行日志; head -n -10 test.log 查询日志文件除了最后10行的其他所有日志; cat： tac是倒序查看，是cat单词反写；例子如下： cat -n test.log |grep “debug” 查询关键字的日志 2. 应用场景一：按行号查看—过滤出关键字附近的日志 1）cat -n test.log |grep “debug” 得到关键日志的行号 2）通常查找出错误日志 cat error.log | grep ‘nick’ , 这时候我们还有个需求就是输出当前这个日志的前后几行： cat error.log | grep -B 5 ‘nick’ 显示nick及前5行 cat error.log | grep -A 5 ‘nick’ 显示nick及后5行 cat error.log | grep -C 5 ‘nick’ 显示file文件里匹配nick字串那行以及上下5行 cat error.log | grep -n -B10 -A10 5 ‘nick’ 显示file文件里匹配nick字串前后10行 3. 应用场景二：选取日志中特定范围进行分析 1）cat -n test.log |tail -n +1000|head -n 20 从第1000行开始，显示20行 tail -n +1000表示查询1000行之后的日志 head -n 20 则表示在前面的查询结果里再查前20条记录 2）cat catalina.out | head -n 1400| tail -n +1350 显示1350行到1400行 （实现原理都差不多，就是通过语法糖） 3）按日期截取 ：一般在日志系统中都会记录打印日志的时间，通常我们非常需要查找指定时间端的日志： 1sed -n &apos;/2014-12-17 16:17:20/,/2014-12-17 16:17:36/p&apos; test.log 特别说明:该命令中的两个日期值必须是日志文件中包含的值,否则该命令无效.； 先 grep ‘2014-12-17 16:17:20’ test.log 来确定日志中是否有该 时间点 4）按行数截取 sed -n ‘10000,20000p’ test.log sed -i ‘/关键词/d’ catalina.out 删除包含关键词的行 4.应用场景三：日志内容特别多，打印在屏幕上不方便查看 (1)使用more和less命令 如： cat -n test.log |grep “debug” |more 这样就分页打印了,通过点击空格键翻页 (2)使用 &gt;xxx.txt 将其保存到文件中,到时可以拉下这个文件分析 如：cat -n test.log |grep “debug” &gt;debug.txt 5：使用管道进行and or条件处理 and 使用管道实现，例如：grep -n ‘日志排查’ test.log | grep ‘日志’ or 用-E，例如：grep -n -E ‘日志排查|hello’ test.log 满足两个关键字的都可以找出来]]></content>
+    <title>Hello World</title>
+    <url>/2023/09/05/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<span id="more"></span>
+
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+]]></content>
       <categories>
-        <category>Linux</category>
+        <category>博客</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
+        <tag>Hexo</tag>
+        <tag>入门</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[测试播放视频]]></title>
-    <url>%2Fmyblog.github.io%2F2020%2F06%2F10%2Fvideo%2F</url>
-    <content type="text"><![CDATA[测试视频链接播放功能 内容描述：添加B站视频链接]]></content>
+    <title>测试播放视频</title>
+    <url>/2020/06/10/video/</url>
+    <content><![CDATA[<h2 id="测试视频链接播放功能"><a href="#测试视频链接播放功能" class="headerlink" title="测试视频链接播放功能"></a>测试视频链接播放功能</h2><span id="more"></span>
+
+<blockquote>
+<p>内容描述：添加B站视频链接</p>
+</blockquote>
+<iframe style="width:98%;height: 450px;" 
+src="//player.bilibili.com/player.html?aid=883419577&bvid=BV1KK4y1b7BM&cid=200067857&page=1&high_quality=1"
+frameborder=0 
+allowfullscreen="true"  
+webkitallowfullscreen="true"
+mozallowfullscreen="true">
+</iframe>
+]]></content>
       <categories>
         <category>video</category>
       </categories>
@@ -47,41 +1513,55 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[解析Cron表达式]]></title>
-    <url>%2Fmyblog.github.io%2F2020%2F06%2F08%2F%E8%A7%A3%E6%9E%90Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[解析Cron表达式，转换为时间 背景：当需要知道计划任务配置的执行时间，想要清楚的知道下次执行是什么时候，需要解析计划任务的Cron表达式，本次主要介绍quartz.CronExpression提供的解析Cron的方法，注：资源来源网络 1、Cron表达式定义 定义： Cron表达式被用于设置周期性被执行的指令，通常是使用特定的调度去读取并解析它，然后在特定的时间去执行某个计划任务 123456789101112131415Cron表达式是一个字符串，字符串以5或6个空格隔开，分为6或7个域，每一个域代表一个含义，Cron有如下两种语法格式：1、Seconds Minutes Hours DayofMonth Month DayofWeek Year2、Seconds Minutes Hours DayofMonth Month DayofWeek 字段 允许值 允许的特殊字符 秒 0-59 , - * / 分 0-59 , - * / 小时 0-23 , - * / 日期 1-31 , - * ? / L W C 月份 1-12 或者 JAN-DEC , - * / 星期 1-7 或者 SUN-SAT , - * ? / L C *#* 年（可选） 留空, 1970-2099 , - * / 具体实例参考第四点【Cron表达式实例】 2、引入quartz.CronExpression解析1import org.quartz.CronExpression; // jar包或者maven依赖 引入quartz.CronExpression来做解析，利用强大的quartz提供的方法来解析Cron，然后去定我们所要求的格式 注意，利用date的转换不够全面，只能解析一些简单的Cron表达式 3、解析实例12345678910111213141516171819202122232425262728public class CronUtils &#123; /** * 根据 Cron表达式和开始时间，得到下次执行时间 * * @param cron * @param startDate * @return */ public static Date getNextExecuteTime(String cron, Date startDate) &#123; try &#123; CronExpression cronExpression = new CronExpression(cron); return cronExpression.getNextValidTimeAfter(startDate == null ? new Date() : startDate); &#125; catch (ParseException e) &#123; throw new IllegalArgumentException("无效的cron表达式:" + cron, e); &#125; &#125; &#125;// 如new Date() = 2020-05-30 16:50:00 ，Cron = "0 54 0/1 * * ?",表示每小时的54分钟时会执行一次Date nextExecuteTime = CronUtils.getNextExecuteTime("0 54 0/1 * * ?", new Date());// 设置解析格式为"yyyy-MM-dd HH:mm:ss"DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");if (nextExecuteTime !=null ) &#123; String nextRunTime = dateFormat.format(nextExecuteTime);&#125;// 则得到下次运行时间： nextRunTime = "2020-05-30 16:54:00" 4、Cron表达式实例12345678910111213141516171819表达式以及含义 &quot;0 0 12 * * ?&quot; 每天中午12点触发 &quot;0 20 20 ? * *&quot; 每天20:20触发 &quot;0 20 20 * * ?&quot; 每天20:20触发 &quot;0 20 20 * * ? *&quot; 每天20:20触发 &quot;0 20 20 * * ? 2020&quot; 2020年的每天20:20触发 &quot;0 0/5 14 * * ?&quot; 在每天14点到14:55期间的每5分钟触发 &quot;0 0/5 14,18 * * ?&quot; 在每天14点到14:55期间和18点到18:55期间的每5分钟触发 &quot;0 0-5 14 * * ?&quot; 在每天每天14点到14点:05期间的每1分钟触发 &quot;0 10,44 14 ? 3 WED&quot; 每年三月的星期三的14:10和14:44触发 &quot;0 15 10 ? * MON-FRI&quot; 周一至周五的上午10:15触发 &quot;0 15 10 15 * ?&quot; 每月15日上午10:15触发 &quot;0 15 10 L * ?&quot; 每月最后一日的上午10:15触发 &quot;0 15 10 ? * 6L&quot; 每月的最后一个星期五上午10:15触发 &quot;0 6 * * *&quot; 每天早上6点 &quot;0 */2 * * *&quot; 每两个小时 &quot;0 23-7/2，8 * * * &quot; 晚上11点到早上8点之间每两个小时，早上八点 &quot;0 11 4 * 1-3 &quot; 每个月的4号和每个礼拜的礼拜一到礼拜三的早上11点 &quot;0 4 1 1 &quot; 1月1日早上4点]]></content>
+    <title>解析Cron表达式</title>
+    <url>/2020/06/08/%E8%A7%A3%E6%9E%90Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<h2 id="解析Cron表达式，转换为时间"><a href="#解析Cron表达式，转换为时间" class="headerlink" title="解析Cron表达式，转换为时间"></a>解析Cron表达式，转换为时间</h2><span id="more"></span>
+
+<blockquote>
+<p>背景：当需要知道计划任务配置的执行时间，想要清楚的知道下次执行是什么时候，需要解析计划任务的Cron表达式，本次主要介绍quartz.CronExpression提供的解析Cron的方法，注：资源来源网络</p>
+</blockquote>
+<h3 id="1、Cron表达式定义"><a href="#1、Cron表达式定义" class="headerlink" title="1、Cron表达式定义"></a>1、Cron表达式定义</h3><ul>
+<li><p>定义：</p>
+<ul>
+<li><p>Cron表达式被用于设置周期性被执行的指令，通常是使用特定的调度去读取并解析它，然后在特定的时间去执行某个计划任务</p>
+</li>
+<li><pre><code>Cron表达式是一个字符串，字符串以5或6个空格隔开，分为6或7个域，每一个域代表一个含义，Cron有如下两种语法格式：
+
+1、Seconds Minutes Hours DayofMonth Month DayofWeek Year
+2、Seconds Minutes Hours DayofMonth Month DayofWeek
+　　
+字段 允许值 允许的特殊字符 
+秒 0-59 , - * / 
+分 0-59 , - * / 
+小时 0-23 , - * / 
+日期 1-31 , - * ? / L W C 
+月份 1-12 或者 JAN-DEC , - * / 
+星期 1-7 或者 SUN-SAT , - * ? / L C *#* 
+年（可选） 留空, 1970-2099 , - * / 
+
+具体实例参考第四点【Cron表达式实例】
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 2、引入quartz.CronExpression解析</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">import org.quartz.CronExpression; // jar包或者maven依赖</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>引入quartz.CronExpression来做解析，利用强大的quartz提供的方法来解析Cron，然后去定我们所要求的格式</p>
+</li>
+<li><p>注意，利用date的转换不够全面，只能解析一些简单的Cron表达式</p>
+</li>
+</ul>
+<h3 id="3、解析实例"><a href="#3、解析实例" class="headerlink" title="3、解析实例"></a>3、解析实例</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CronUtils</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据 Cron表达式和开始时间，得到下次执行时间</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> cron</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> startDate</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Date <span class="title function_">getNextExecuteTime</span><span class="params">(String cron, Date startDate)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">CronExpression</span> <span class="variable">cronExpression</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CronExpression</span>(cron);</span><br><span class="line">            <span class="keyword">return</span> cronExpression.getNextValidTimeAfter(startDate == <span class="literal">null</span> ? <span class="keyword">new</span> <span class="title class_">Date</span>() : startDate);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ParseException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;无效的cron表达式:&quot;</span> + cron, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如new Date() = 2020-05-30 16:50:00 ，Cron = &quot;0 54 0/1 * * ?&quot;,表示每小时的54分钟时会执行一次</span></span><br><span class="line"><span class="type">Date</span> <span class="variable">nextExecuteTime</span> <span class="operator">=</span> CronUtils.getNextExecuteTime(<span class="string">&quot;0 54 0/1 * * ?&quot;</span>, <span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line"><span class="comment">// 设置解析格式为&quot;yyyy-MM-dd HH:mm:ss&quot;</span></span><br><span class="line"><span class="type">DateFormat</span> <span class="variable">dateFormat</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (nextExecuteTime !=<span class="literal">null</span> ) &#123;</span><br><span class="line">  <span class="type">String</span> <span class="variable">nextRunTime</span> <span class="operator">=</span> dateFormat.format(nextExecuteTime);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 则得到下次运行时间： nextRunTime = &quot;2020-05-30 16:54:00&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4、Cron表达式实例"><a href="#4、Cron表达式实例" class="headerlink" title="4、Cron表达式实例"></a>4、Cron表达式实例</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">表达式以及含义 </span><br><span class="line">&quot;0 0 12 * * ?&quot; 每天中午12点触发 </span><br><span class="line">&quot;0 20 20 ? * *&quot; 每天20:20触发 </span><br><span class="line">&quot;0 20 20 * * ?&quot; 每天20:20触发 </span><br><span class="line">&quot;0 20 20 * * ? *&quot; 每天20:20触发 </span><br><span class="line">&quot;0 20 20 * * ? 2020&quot; 2020年的每天20:20触发 </span><br><span class="line">&quot;0 0/5 14 * * ?&quot; 在每天14点到14:55期间的每5分钟触发 </span><br><span class="line">&quot;0 0/5 14,18 * * ?&quot; 在每天14点到14:55期间和18点到18:55期间的每5分钟触发 </span><br><span class="line">&quot;0 0-5 14 * * ?&quot; 在每天每天14点到14点:05期间的每1分钟触发 </span><br><span class="line">&quot;0 10,44 14 ? 3 WED&quot; 每年三月的星期三的14:10和14:44触发 </span><br><span class="line">&quot;0 15 10 ? * MON-FRI&quot; 周一至周五的上午10:15触发 </span><br><span class="line">&quot;0 15 10 15 * ?&quot; 每月15日上午10:15触发 </span><br><span class="line">&quot;0 15 10 L * ?&quot; 每月最后一日的上午10:15触发 </span><br><span class="line">&quot;0 15 10 ? * 6L&quot; 每月的最后一个星期五上午10:15触发 </span><br><span class="line">&quot;0 6 * * *&quot; 每天早上6点 </span><br><span class="line">&quot;0 */2 * * *&quot; 每两个小时 </span><br><span class="line">&quot;0 23-7/2，8 * * * &quot; 晚上11点到早上8点之间每两个小时，早上八点  </span><br><span class="line">&quot;0 11 4 * 1-3 &quot; 每个月的4号和每个礼拜的礼拜一到礼拜三的早上11点 </span><br><span class="line">&quot;0 4 1 1 &quot; 1月1日早上4点 </span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
         <category>Java</category>
       </categories>
       <tags>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Markdown基本语法]]></title>
-    <url>%2Fmyblog.github.io%2F2019%2F11%2F17%2FMarkdown%2F</url>
-    <content type="text"><![CDATA[转载自： https://www.mdeditor.com/ Markdown基本语法解释以及在线Markdown编辑器MdEditor Markdown是一种轻量级的「标记语言」 Markdown是一种可以使用普通文本编辑器编写的标记语言，通过简单的标记语法，它可以使普通文本内容具有一定的格式。它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面，Markdown文件的后缀名便是“.md” MdEditor是一个在线编辑Markdown文档的编辑器MdEditor扩展了Markdown的功能（如表格、脚注、内嵌HTML等等），以使让Markdown转换成更多的格式，和更丰富的展示效果，这些功能原初的Markdown尚不具备。 Markdown增强版中比较有名的有Markdown Extra、MultiMarkdown、 Maruku等。这些衍生版本要么基于工具，如Pandoc，Pandao；要么基于网站，如GitHub和Wikipedia，在语法上基本兼容，但在一些语法和渲染效果上有改动。 MdEditor源于Pandao的JavaScript开源项目，开源地址Editor.md，并在MIT开源协议的许可范围内进行了优化，以适应广大用户群体的需求。向优秀的markdown开源编辑器原作者Pandao致敬。 MdEditor的功能列表演示标题H1标题H2标题H3标题H4标题H5标题H5字符效果和横线等 删除线 删除线（开启识别HTML标签时） 斜体字 斜体字 粗体 粗体 粗斜体 粗斜体 上标：X2，下标：O2 缩写(同HTML的abbr标签) 即更长的单词或短语的缩写形式，前提是开启识别HTML标签时，已默认开启 The HTML specification is maintained by the W3C. 引用 Blockquotes 引用文本 Blockquotes 引用的行内混合 Blockquotes 引用：如果想要插入空白换行即&lt;br /&gt;标签，在插入处先键入两个以上的空格然后回车即可，普通链接。 锚点与链接 Links普通链接普通链接带标题直接链接：https://www.mdeditor.com[锚点链接][anchor-id][anchor-id]: https://www.mdeditor.com/mailto:test.test@gmail.comGFM a-tail link @pandao邮箱地址自动链接 test.test@gmail.com www@vip.qq.com @pandao 多语言代码高亮 Codes行内代码 Inline code执行命令：npm install marked 缩进风格即缩进四个空格，也做为实现类似 &lt;pre&gt; 预格式化文本 ( Preformatted Text ) 的功能。 &lt;?php echo &quot;Hello world!&quot;; ?&gt;预格式化文本： | First Header | Second Header | | ------------- | ------------- | | Content Cell | Content Cell | | Content Cell | Content Cell |JS代码123function test() &#123; console.log("Hello world!");&#125; HTML 代码 HTML codes1234567891011121314151617&lt;!DOCTYPE html&gt;&lt;html&gt; &lt;head&gt; &lt;mate charest="utf-8" /&gt; &lt;meta name="keywords" content="Editor.md, Markdown, Editor" /&gt; &lt;title&gt;Hello world!&lt;/title&gt; &lt;style type="text/css"&gt; body&#123;font-size:14px;color:#444;font-family: "Microsoft Yahei", Tahoma, "Hiragino Sans GB", Arial;background:#fff;&#125; ul&#123;list-style: none;&#125; img&#123;border:none;vertical-align: middle;&#125; &lt;/style&gt; &lt;/head&gt; &lt;body&gt; &lt;h1 class="text-xxl"&gt;Hello world!&lt;/h1&gt; &lt;p class="text-green"&gt;Plain text&lt;/p&gt; &lt;/body&gt;&lt;/html&gt; 图片 Images图片加链接 (Image + Link)： Follow your heart. 列表 Lists无序列表（减号）Unordered Lists (-) 列表一 列表二 列表三 无序列表（星号）Unordered Lists (*) 列表一 列表二 列表三 无序列表（加号和嵌套）Unordered Lists (+) 列表一 列表二 列表二-1 列表二-2 列表二-3 列表三 列表一 列表二 列表三 有序列表 Ordered Lists (-) 第一行 第二行 第三行 GFM task list GFM task list 1 GFM task list 2 GFM task list 3 GFM task list 3-1 GFM task list 3-2 GFM task list 3-3 GFM task list 4 GFM task list 4-1 GFM task list 4-2 绘制表格 Tables 项目 价格 数量 计算机 $1600 5 手机 $12 12 管线 $1 234 First Header Second Header Content Cell Content Cell Content Cell Content Cell First Header Second Header Content Cell Content Cell Content Cell Content Cell Function name Description help() Display the help window. destroy() Destroy your computer! Left-Aligned Center Aligned Right Aligned col 3 is some wordy text $1600 col 2 is centered $12 zebra stripes are neat $1 Item Value Computer $1600 Phone $12 Pipe $1 特殊符号 HTML Entities Codes&copy; &amp; &uml; &trade; &iexcl; &pound;&amp; &lt; &gt; &yen; &euro; &reg; &plusmn; &para; &sect; &brvbar; &macr; &laquo; &middot; X&sup2; Y&sup3; &frac34; &frac14; &times; &divide; &raquo; 18&ordm;C &quot; &apos; [========] Emoji表情 :smiley: Blockquotes :star: GFM task lists &amp; Emoji &amp; fontAwesome icon emoji &amp; editormd logo emoji :editormd-logo-5x: :smiley: @mentions, :smiley: #refs, links, formatting, and tags supported :editormd-logo:; list syntax required (any unordered or ordered list supported) :editormd-logo-3x:; [ ] :smiley: this is a complete item :smiley:; []this is an incomplete item test link :fa-star: @pandao; [ ]this is an incomplete item :fa-star: :fa-gear:; :smiley: this is an incomplete item test link :fa-star: :fa-gear:; :smiley: this is :fa-star: :fa-gear: an incomplete item test link; 反斜杠 Escape*literal asterisks* [========] 科学公式 TeX(KaTeX)$$E=mc^2$$ 行内的公式$$E=mc^2$$行内的公式，行内的$$E=mc^2$$公式。 $$x &gt; y$$ $$(\sqrt{3x-1}+(1+x)^2)$$ $$\sin(\alpha)^{\theta}=\sum_{i=0}^{n}(x^i + \cos(f))$$ 多行公式： 12345\displaystyle\left( \sum\_&#123;k=1&#125;^n a\_k b\_k \right)^2\leq\left( \sum\_&#123;k=1&#125;^n a\_k^2 \right)\left( \sum\_&#123;k=1&#125;^n b\_k^2 \right) 123456789\displaystyle \frac&#123;1&#125;&#123; \Bigl(\sqrt&#123;\phi \sqrt&#123;5&#125;&#125;-\phi\Bigr) e^&#123; \frac25 \pi&#125;&#125; = 1+\frac&#123;e^&#123;-2\pi&#125;&#125; &#123;1+\frac&#123;e^&#123;-4\pi&#125;&#125; &#123; 1+\frac&#123;e^&#123;-6\pi&#125;&#125; &#123;1+\frac&#123;e^&#123;-8\pi&#125;&#125; &#123;1+\cdots&#125; &#125; &#125; &#125; 123f(x) = \int_&#123;-\infty&#125;^\infty \hat f(\xi)\,e^&#123;2 \pi i \xi x&#125; \,d\xi 分页符 Page break Print Test: Ctrl + P [========] 绘制流程图 Flowchart12345678st=&gt;start: 用户登陆op=&gt;operation: 登陆操作cond=&gt;condition: 登陆成功 Yes or No?e=&gt;end: 进入后台st-&gt;op-&gt;condcond(yes)-&gt;econd(no)-&gt;op [========] 绘制序列图 Sequence Diagram1234Andrew-&gt;China: Says HelloNote right of China: China thinks\nabout itChina--&gt;Andrew: How are you?Andrew-&gt;&gt;China: I am good thanks! End]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2Fmyblog.github.io%2F2019%2F11%2F17%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
-  </entry>
-  <entry>
-    <title><![CDATA[Hexo博客Next主题添加DaoVoice在线联系]]></title>
-    <url>%2Fmyblog.github.io%2F2019%2F11%2F17%2FHexo-Daovoice%2F</url>
-    <content type="text"><![CDATA[转载自： http://www.aomanhao.top/2019/05/18/Hexo_Daovoice/ Hexo博客Next主题DaoVoice实现在线联系 注册登录DaoVoice注册地址如下:http://www.daovoice.io/ 在官网注册帐号需要邀请码，可以输入我的邀请码 b69005f1 复制粘贴代码修改的hexo的文件路劲如下: 博客/themes/next/layout/_partials/head/head.swig 末尾添加下面的代码: 复制 1&#123;% if theme.daovoice %&#125; &lt;script&gt;(function(i,s,o,g,r,a,m)&#123;i[&quot;DaoVoiceObject&quot;]=r;i[r]=i[r]||function()&#123;(i[r].q=i[r].q||[]).push(arguments)&#125;,i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset=&quot;utf-8&quot;;m.parentNode.insertBefore(a,m)&#125;)(window,document,&quot;script&quot;,(&apos;https:&apos; == document.location.protocol ? &apos;https:&apos; : &apos;http:&apos;) + &quot;//widget.daovoice.io/widget/b6dbddb6.js&quot;,&quot;daovoice&quot;) daovoice(&apos;init&apos;, &#123; app_id: &quot;用户ID&quot;&#125;);daovoice(&apos;update&apos;); &lt;/script&gt;&#123;% endif %&#125; 用户ID需要自行填写，查找的的位置在下图片中显示出来了 修改主题配置文件在Next主题的配置文件博客/themes/next/_config.yml末尾中添加用户ID: 复制 1daovoice: truedaovoice_app_id: 用户ID 修改聊天图标等设置应用设置—聊天设置，然后定制欢迎辞，设置聊天窗口样式等 部署Daovoice清理缓存，生成缓存，部署服务 复制 1hexo clean &amp;&amp; hexo g &amp;&amp; hexo s 登陆本地服务：http://localhost:4000/，可以看到Daovoice已经成功运行。 DaoVoice官网会提示，服务接入成功 本文作者： AomanHao 本文链接： http://www.aomanhao.top/2019/05/18/Hexo_Daovoice/ 版权声明： 本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！]]></content>
-      <categories>
-        <category>Next</category>
-      </categories>
-      <tags>
-        <tag>Next</tag>
       </tags>
   </entry>
 </search>

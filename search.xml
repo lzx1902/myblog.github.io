@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Python解析专利获奖数据</title>
+    <url>/myblog.github.io/2022/04/25/Python%E8%A7%A3%E6%9E%90%E4%B8%93%E5%88%A9%E8%8E%B7%E5%A5%96%E6%95%B0%E6%8D%AE/</url>
+    <content><![CDATA[<h4 id="导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件"><a href="#导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件" class="headerlink" title="导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件"></a>导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件</h4><blockquote>
+<p>未安装Pdfplumber库的要先安装，命令：pip install pdfplumber</p>
+</blockquote>
+<ul>
+<li><p>专利数据来源与国知局的文件，链接：<a href="#https://www.cnipa.gov.cn/col/col41/index.html">中国专利奖</a></p>
+</li>
+<li><p>PDF数据样式如下：<img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/20220425172920.png"></p>
+</li>
+<li><p>Python源码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pdfplumber</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read_pdf</span>(<span class="params">read_path, save_path</span>):</span><br><span class="line">    pdf_2020 = pdfplumber.<span class="built_in">open</span>(read_path)</span><br><span class="line">    result_df = pd.DataFrame()</span><br><span class="line">    tables = []</span><br><span class="line">    <span class="keyword">for</span> page <span class="keyword">in</span> pdf_2020.pages:</span><br><span class="line">        table = page.extract_table()</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> table :</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>) :</span><br><span class="line">                item[j] = item[j].replace(<span class="string">&#x27;\n&#x27;</span>, <span class="string">&#x27;&#x27;</span>).replace(<span class="string">&#x27;\r&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">            item.insert(<span class="number">5</span>, <span class="string">&#x27;22&#x27;</span>)</span><br><span class="line">            item.insert(<span class="number">6</span>, <span class="string">&#x27;专利优秀奖&#x27;</span>)</span><br><span class="line">            item.insert(<span class="number">7</span>, <span class="string">&#x27;国家级&#x27;</span>)</span><br><span class="line">            item.insert(<span class="number">8</span>, <span class="string">&#x27;2021&#x27;</span>)</span><br><span class="line">            tables.append(item)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 所有的pdf页数数据</span></span><br><span class="line">    <span class="built_in">print</span>(tables)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;--------- PDF数据提取完毕 --------&#x27;</span>)</span><br><span class="line">    <span class="comment"># df_detail = pd.DataFrame(table[1:], columns=table[0])</span></span><br><span class="line">    df_detail = pd.DataFrame(tables)</span><br><span class="line">    result_df = pd.concat([df_detail, result_df], ignore_index=<span class="literal">True</span>)</span><br><span class="line">    result_df.dropna(axis=<span class="number">1</span>, how=<span class="string">&#x27;all&#x27;</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">    result_df.columns = [<span class="string">&#x27;序号&#x27;</span>, <span class="string">&#x27;专利申请号&#x27;</span>, <span class="string">&#x27;专利名称&#x27;</span>, <span class="string">&#x27;专利权人&#x27;</span>, <span class="string">&#x27;发明人&#x27;</span>, <span class="string">&#x27;获奖届数&#x27;</span>, <span class="string">&#x27;奖项&#x27;</span>, <span class="string">&#x27;获奖级别&#x27;</span>, <span class="string">&#x27;获奖年度&#x27;</span>]</span><br><span class="line">    result_df.to_excel(excel_writer=save_path, index=<span class="literal">False</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    read_path = <span class="string">r&#x27;/Users/xxx/Downloads/第二十二届中国专利优秀奖项目名单.pdf&#x27;</span></span><br><span class="line">    save_path = <span class="string">r&#x27;/Users/xxx/Downloads/第二十二届中国专利优秀奖项目名单.xlsx&#x27;</span></span><br><span class="line">    read_pdf(read_path, save_path)</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Python</category>
+        <category>Pdfplumber</category>
+        <category>Pdf</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo博客Next主题添加DaoVoice在线联系</title>
     <url>/myblog.github.io/2019/11/17/Hexo-Daovoice/</url>
     <content><![CDATA[<p><strong>转载自：</strong> <a href="http://www.aomanhao.top/2019/05/18/Hexo_Daovoice/">http://www.aomanhao.top/2019/05/18/Hexo_Daovoice/</a></p>
@@ -43,6 +67,394 @@
       </categories>
       <tags>
         <tag>Next</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown基本语法</title>
+    <url>/myblog.github.io/2019/11/17/Markdown/</url>
+    <content><![CDATA[<p><strong>转载自：</strong> <a href="https://www.mdeditor.com/">https://www.mdeditor.com/</a></p>
+<p>Markdown基本语法解释以及在线Markdown编辑器MdEditor</p>
+<span id="more"></span>
+
+<h2 id="Markdown是一种轻量级的「标记语言」"><a href="#Markdown是一种轻量级的「标记语言」" class="headerlink" title="Markdown是一种轻量级的「标记语言」"></a>Markdown是一种轻量级的「标记语言」</h2><p><img src="https://www.mdeditor.com/images/logos/markdown.png" alt="markdown" title="markdown"></p>
+<p>Markdown是一种可以使用普通文本编辑器编写的标记语言，通过简单的标记语法，它可以使普通文本内容具有一定的格式。它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面，Markdown文件的后缀名便是“.md”</p>
+<h2 id="MdEditor是一个在线编辑Markdown文档的编辑器"><a href="#MdEditor是一个在线编辑Markdown文档的编辑器" class="headerlink" title="MdEditor是一个在线编辑Markdown文档的编辑器"></a>MdEditor是一个在线编辑Markdown文档的编辑器</h2><p><em>MdEditor扩展了Markdown的功能（如表格、脚注、内嵌HTML等等），以使让Markdown转换成更多的格式，和更丰富的展示效果，这些功能原初的Markdown尚不具备。</em></p>
+<blockquote>
+<p>Markdown增强版中比较有名的有Markdown Extra、MultiMarkdown、 Maruku等。这些衍生版本要么基于工具，如<del>Pandoc</del>，Pandao；要么基于网站，如GitHub和Wikipedia，在语法上基本兼容，但在一些语法和渲染效果上有改动。</p>
+</blockquote>
+<p>MdEditor源于Pandao的JavaScript开源项目，开源地址<a href="https://github.com/pandao/editor.md" title="Editor.md">Editor.md</a>，并在MIT开源协议的许可范围内进行了优化，以适应广大用户群体的需求。向优秀的markdown开源编辑器原作者Pandao致敬。</p>
+<p><img src="https://pandao.github.io/editor.md/images/logos/editormd-logo-180x180.png" alt="Pandao editor.md" title="Pandao editor.md"></p>
+<h2 id="MdEditor的功能列表演示"><a href="#MdEditor的功能列表演示" class="headerlink" title="MdEditor的功能列表演示"></a>MdEditor的功能列表演示</h2><h1 id="标题H1"><a href="#标题H1" class="headerlink" title="标题H1"></a>标题H1</h1><h2 id="标题H2"><a href="#标题H2" class="headerlink" title="标题H2"></a>标题H2</h2><h3 id="标题H3"><a href="#标题H3" class="headerlink" title="标题H3"></a>标题H3</h3><h4 id="标题H4"><a href="#标题H4" class="headerlink" title="标题H4"></a>标题H4</h4><h5 id="标题H5"><a href="#标题H5" class="headerlink" title="标题H5"></a>标题H5</h5><h6 id="标题H5-1"><a href="#标题H5-1" class="headerlink" title="标题H5"></a>标题H5</h6><h3 id="字符效果和横线等"><a href="#字符效果和横线等" class="headerlink" title="字符效果和横线等"></a>字符效果和横线等</h3><hr>
+<p><del>删除线</del> <s>删除线（开启识别HTML标签时）</s></p>
+<p><em>斜体字</em>      <em>斜体字</em></p>
+<p><strong>粗体</strong>  <strong>粗体</strong></p>
+<p><em><strong>粗斜体</strong></em> <em><strong>粗斜体</strong></em></p>
+<p>上标：X<sub>2</sub>，下标：O<sup>2</sup></p>
+<p><strong>缩写(同HTML的abbr标签)</strong></p>
+<blockquote>
+<p>即更长的单词或短语的缩写形式，前提是开启识别HTML标签时，已默认开启</p>
+</blockquote>
+<p>The <abbr title="Hyper Text Markup Language">HTML</abbr> specification is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.</p>
+<h3 id="引用-Blockquotes"><a href="#引用-Blockquotes" class="headerlink" title="引用 Blockquotes"></a>引用 Blockquotes</h3><blockquote>
+<p>引用文本 Blockquotes</p>
+</blockquote>
+<p>引用的行内混合 Blockquotes</p>
+<blockquote>
+<p>引用：如果想要插入空白换行<code>即&lt;br /&gt;标签</code>，在插入处先键入两个以上的空格然后回车即可，<a href="https://www.mdeditor.com/">普通链接</a>。</p>
+</blockquote>
+<h3 id="锚点与链接-Links"><a href="#锚点与链接-Links" class="headerlink" title="锚点与链接 Links"></a>锚点与链接 Links</h3><p><a href="https://www.mdeditor.com/">普通链接</a><br><a href="https://www.mdeditor.com/" title="普通链接带标题">普通链接带标题</a><br>直接链接：<a href="https://www.mdeditor.com/">https://www.mdeditor.com</a><br>[锚点链接][anchor-id]<br>[anchor-id]: <a href="https://www.mdeditor.com/">https://www.mdeditor.com/</a><br><a href="mailto:&#116;&#x65;&#x73;&#x74;&#46;&#116;&#101;&#x73;&#116;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">mailto:test.test@gmail.com</a><br>GFM a-tail link @pandao<br>邮箱地址自动链接 <a href="mailto:&#116;&#x65;&#x73;&#116;&#46;&#116;&#x65;&#x73;&#116;&#64;&#x67;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;">test.test@gmail.com</a>  <a href="mailto:&#119;&#x77;&#119;&#x40;&#118;&#x69;&#112;&#46;&#x71;&#x71;&#46;&#x63;&#x6f;&#x6d;">www@vip.qq.com</a></p>
+<blockquote>
+<p>@pandao</p>
+</blockquote>
+<h3 id="多语言代码高亮-Codes"><a href="#多语言代码高亮-Codes" class="headerlink" title="多语言代码高亮 Codes"></a>多语言代码高亮 Codes</h3><h4 id="行内代码-Inline-code"><a href="#行内代码-Inline-code" class="headerlink" title="行内代码 Inline code"></a>行内代码 Inline code</h4><p>执行命令：<code>npm install marked</code></p>
+<h4 id="缩进风格"><a href="#缩进风格" class="headerlink" title="缩进风格"></a>缩进风格</h4><p>即缩进四个空格，也做为实现类似 <code>&lt;pre&gt;</code> 预格式化文本 ( Preformatted Text ) 的功能。</p>
+<pre><code>&lt;?php
+    echo &quot;Hello world!&quot;;
+?&gt;
+</code></pre>
+<p>预格式化文本：</p>
+<pre><code>| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+</code></pre>
+<h4 id="JS代码"><a href="#JS代码" class="headerlink" title="JS代码"></a>JS代码</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello world!&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="HTML-代码-HTML-codes"><a href="#HTML-代码-HTML-codes" class="headerlink" title="HTML 代码 HTML codes"></a>HTML 代码 HTML codes</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mate</span> <span class="attr">charest</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;keywords&quot;</span> <span class="attr">content</span>=<span class="string">&quot;Editor.md, Markdown, Editor&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello world!<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">            <span class="selector-tag">body</span>&#123;<span class="attribute">font-size</span>:<span class="number">14px</span>;<span class="attribute">color</span>:<span class="number">#444</span>;<span class="attribute">font-family</span>: <span class="string">&quot;Microsoft Yahei&quot;</span>, Tahoma, <span class="string">&quot;Hiragino Sans GB&quot;</span>, Arial;<span class="attribute">background</span>:<span class="number">#fff</span>;&#125;</span></span><br><span class="line"><span class="language-css">            <span class="selector-tag">ul</span>&#123;<span class="attribute">list-style</span>: none;&#125;</span></span><br><span class="line"><span class="language-css">            <span class="selector-tag">img</span>&#123;<span class="attribute">border</span>:none;<span class="attribute">vertical-align</span>: middle;&#125;</span></span><br><span class="line"><span class="language-css">        </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;text-xxl&quot;</span>&gt;</span>Hello world!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-green&quot;</span>&gt;</span>Plain text<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="图片-Images"><a href="#图片-Images" class="headerlink" title="图片 Images"></a>图片 Images</h3><p>图片加链接 (Image + Link)：</p>
+<p><a href="https://www.mdeditor.com/images/logos/markdown.png" title="markdown"><img src="https://www.mdeditor.com/images/logos/markdown.png"></a></p>
+<blockquote>
+<p>Follow your heart.</p>
+</blockquote>
+<hr>
+<h3 id="列表-Lists"><a href="#列表-Lists" class="headerlink" title="列表 Lists"></a>列表 Lists</h3><h4 id="无序列表（减号）Unordered-Lists"><a href="#无序列表（减号）Unordered-Lists" class="headerlink" title="无序列表（减号）Unordered Lists (-)"></a>无序列表（减号）Unordered Lists (-)</h4><ul>
+<li>列表一</li>
+<li>列表二</li>
+<li>列表三</li>
+</ul>
+<h4 id="无序列表（星号）Unordered-Lists"><a href="#无序列表（星号）Unordered-Lists" class="headerlink" title="无序列表（星号）Unordered Lists (*)"></a>无序列表（星号）Unordered Lists (*)</h4><ul>
+<li>列表一</li>
+<li>列表二</li>
+<li>列表三</li>
+</ul>
+<h4 id="无序列表（加号和嵌套）Unordered-Lists"><a href="#无序列表（加号和嵌套）Unordered-Lists" class="headerlink" title="无序列表（加号和嵌套）Unordered Lists (+)"></a>无序列表（加号和嵌套）Unordered Lists (+)</h4><ul>
+<li>列表一</li>
+<li>列表二<ul>
+<li>列表二-1</li>
+<li>列表二-2</li>
+<li>列表二-3</li>
+</ul>
+</li>
+<li>列表三<ul>
+<li>列表一</li>
+<li>列表二</li>
+<li>列表三</li>
+</ul>
+</li>
+</ul>
+<h4 id="有序列表-Ordered-Lists"><a href="#有序列表-Ordered-Lists" class="headerlink" title="有序列表 Ordered Lists (-)"></a>有序列表 Ordered Lists (-)</h4><ol>
+<li>第一行</li>
+<li>第二行</li>
+<li>第三行</li>
+</ol>
+<h4 id="GFM-task-list"><a href="#GFM-task-list" class="headerlink" title="GFM task list"></a>GFM task list</h4><ul>
+<li><input checked="" disabled="" type="checkbox"> GFM task list 1</li>
+<li><input checked="" disabled="" type="checkbox"> GFM task list 2</li>
+<li><input disabled="" type="checkbox"> GFM task list 3<ul>
+<li><input disabled="" type="checkbox"> GFM task list 3-1</li>
+<li><input disabled="" type="checkbox"> GFM task list 3-2</li>
+<li><input disabled="" type="checkbox"> GFM task list 3-3</li>
+</ul>
+</li>
+<li><input disabled="" type="checkbox"> GFM task list 4<ul>
+<li><input disabled="" type="checkbox"> GFM task list 4-1</li>
+<li><input disabled="" type="checkbox"> GFM task list 4-2</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="绘制表格-Tables"><a href="#绘制表格-Tables" class="headerlink" title="绘制表格 Tables"></a>绘制表格 Tables</h3><table>
+<thead>
+<tr>
+<th>项目</th>
+<th align="right">价格</th>
+<th align="center">数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>计算机</td>
+<td align="right">$1600</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td>手机</td>
+<td align="right">$12</td>
+<td align="center">12</td>
+</tr>
+<tr>
+<td>管线</td>
+<td align="right">$1</td>
+<td align="center">234</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>First Header</th>
+<th>Second Header</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>First Header</th>
+<th>Second Header</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Function name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>help()</code></td>
+<td>Display the help window.</td>
+</tr>
+<tr>
+<td><code>destroy()</code></td>
+<td><strong>Destroy your computer!</strong></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">Left-Aligned</th>
+<th align="center">Center Aligned</th>
+<th align="right">Right Aligned</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">col 3 is</td>
+<td align="center">some wordy text</td>
+<td align="right">$1600</td>
+</tr>
+<tr>
+<td align="left">col 2 is</td>
+<td align="center">centered</td>
+<td align="right">$12</td>
+</tr>
+<tr>
+<td align="left">zebra stripes</td>
+<td align="center">are neat</td>
+<td align="right">$1</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th align="right">Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Computer</td>
+<td align="right">$1600</td>
+</tr>
+<tr>
+<td>Phone</td>
+<td align="right">$12</td>
+</tr>
+<tr>
+<td>Pipe</td>
+<td align="right">$1</td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="特殊符号-HTML-Entities-Codes"><a href="#特殊符号-HTML-Entities-Codes" class="headerlink" title="特殊符号 HTML Entities Codes"></a>特殊符号 HTML Entities Codes</h4><p>&copy; &amp;  &uml; &trade; &iexcl; &pound;<br>&amp; &lt; &gt; &yen; &euro; &reg; &plusmn; &para; &sect; &brvbar; &macr; &laquo; &middot;</p>
+<p>X&sup2; Y&sup3; &frac34; &frac14;  &times;  &divide;   &raquo;</p>
+<p>18&ordm;C  &quot;  &apos;</p>
+<p>[&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;]</p>
+<h3 id="Emoji表情-smiley"><a href="#Emoji表情-smiley" class="headerlink" title="Emoji表情 :smiley:"></a>Emoji表情 :smiley:</h3><blockquote>
+<p>Blockquotes :star:</p>
+</blockquote>
+<h4 id="GFM-task-lists-Emoji-fontAwesome-icon-emoji-editormd-logo-emoji-editormd-logo-5x"><a href="#GFM-task-lists-Emoji-fontAwesome-icon-emoji-editormd-logo-emoji-editormd-logo-5x" class="headerlink" title="GFM task lists &amp; Emoji &amp; fontAwesome icon emoji &amp; editormd logo emoji :editormd-logo-5x:"></a>GFM task lists &amp; Emoji &amp; fontAwesome icon emoji &amp; editormd logo emoji :editormd-logo-5x:</h4><ul>
+<li><input checked="" disabled="" type="checkbox"> :smiley: @mentions, :smiley: #refs, <a href="">links</a>, <strong>formatting</strong>, and <del>tags</del> supported :editormd-logo:;</li>
+<li><input checked="" disabled="" type="checkbox"> list syntax required (any unordered or ordered list supported) :editormd-logo-3x:;</li>
+<li><input checked="" disabled="" type="checkbox"> [ ] :smiley: this is a complete item :smiley:;</li>
+<li><input disabled="" type="checkbox"> []this is an incomplete item <a href="#">test link</a> :fa-star: @pandao;</li>
+<li><input disabled="" type="checkbox"> [ ]this is an incomplete item :fa-star: :fa-gear:;<ul>
+<li><input disabled="" type="checkbox"> :smiley: this is an incomplete item <a href="#">test link</a> :fa-star: :fa-gear:;</li>
+<li><input disabled="" type="checkbox"> :smiley: this is  :fa-star: :fa-gear: an incomplete item <a href="#">test link</a>;</li>
+</ul>
+</li>
+</ul>
+<h4 id="反斜杠-Escape"><a href="#反斜杠-Escape" class="headerlink" title="反斜杠 Escape"></a>反斜杠 Escape</h4><p>*literal asterisks*</p>
+<p>[&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;]</p>
+<h3 id="科学公式-TeX-KaTeX"><a href="#科学公式-TeX-KaTeX" class="headerlink" title="科学公式 TeX(KaTeX)"></a>科学公式 TeX(KaTeX)</h3><p>$$E&#x3D;mc^2$$</p>
+<p>行内的公式$$E&#x3D;mc^2$$行内的公式，行内的$$E&#x3D;mc^2$$公式。</p>
+<p>$$x &gt; y$$</p>
+<p>$$(\sqrt{3x-1}+(1+x)^2)$$</p>
+<p>$$\sin(\alpha)^{\theta}&#x3D;\sum_{i&#x3D;0}^{n}(x^i + \cos(f))$$</p>
+<p>多行公式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\displaystyle</span><br><span class="line">\left( \sum\_&#123;k=1&#125;^n a\_k b\_k \right)^2</span><br><span class="line">\leq</span><br><span class="line">\left( \sum\_&#123;k=1&#125;^n a\_k^2 \right)</span><br><span class="line">\left( \sum\_&#123;k=1&#125;^n b\_k^2 \right)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\displaystyle</span><br><span class="line">    \frac&#123;1&#125;&#123;</span><br><span class="line">        \Bigl(\sqrt&#123;\phi \sqrt&#123;5&#125;&#125;-\phi\Bigr) e^&#123;</span><br><span class="line">        \frac25 \pi&#125;&#125; = 1+\frac&#123;e^&#123;-2\pi&#125;&#125; &#123;1+\frac&#123;e^&#123;-4\pi&#125;&#125; &#123;</span><br><span class="line">        1+\frac&#123;e^&#123;-6\pi&#125;&#125;</span><br><span class="line">        &#123;1+\frac&#123;e^&#123;-8\pi&#125;&#125;</span><br><span class="line">         &#123;1+\cdots&#125; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line">f(x) = <span class="keyword">\int</span><span class="built_in">_</span>&#123;-<span class="keyword">\infty</span>&#125;<span class="built_in">^</span><span class="keyword">\infty</span></span><br><span class="line">    <span class="keyword">\hat</span> f(<span class="keyword">\xi</span>)<span class="keyword">\,</span>e<span class="built_in">^</span>&#123;2 <span class="keyword">\pi</span> i <span class="keyword">\xi</span> x&#125;</span><br><span class="line">    <span class="keyword">\,</span>d<span class="keyword">\xi</span></span><br></pre></td></tr></table></figure>
+<h3 id="分页符-Page-break"><a href="#分页符-Page-break" class="headerlink" title="分页符 Page break"></a>分页符 Page break</h3><blockquote>
+<p>Print Test: Ctrl + P</p>
+</blockquote>
+<p>[&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;]</p>
+<h3 id="绘制流程图-Flowchart"><a href="#绘制流程图-Flowchart" class="headerlink" title="绘制流程图 Flowchart"></a>绘制流程图 Flowchart</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">st=&gt;start: 用户登陆</span><br><span class="line">op=&gt;operation: 登陆操作</span><br><span class="line">cond=&gt;condition: 登陆成功 Yes or No?</span><br><span class="line">e=&gt;end: 进入后台</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br></pre></td></tr></table></figure>
+<p>[&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;]</p>
+<h3 id="绘制序列图-Sequence-Diagram"><a href="#绘制序列图-Sequence-Diagram" class="headerlink" title="绘制序列图 Sequence Diagram"></a>绘制序列图 Sequence Diagram</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Andrew-&gt;China: Says Hello</span><br><span class="line">Note right of China: China thinks\nabout it</span><br><span class="line">China--&gt;Andrew: How are you?</span><br><span class="line">Andrew-&gt;&gt;China: I am good thanks!</span><br></pre></td></tr></table></figure>
+<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3>]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Springboot加载本地jar包，并配置maven引用</title>
+    <url>/myblog.github.io/2022/01/16/Springboot%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0jar%E5%8C%85%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AEmaven%E5%BC%95%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="Springboot加载本地jar包，并配置maven引用"><a href="#Springboot加载本地jar包，并配置maven引用" class="headerlink" title="Springboot加载本地jar包，并配置maven引用"></a>Springboot加载本地jar包，并配置maven引用</h2><h3 id="在idea中放入jar包，如下图，以spire-doc为例子"><a href="#在idea中放入jar包，如下图，以spire-doc为例子" class="headerlink" title="在idea中放入jar包，如下图，以spire.doc为例子"></a>在idea中放入jar包，如下图，以spire.doc为例子</h3><img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/jar.png" style="zoom:75%;" />
+
+<h3 id="在pom文件中引用"><a href="#在pom文件中引用" class="headerlink" title="在pom文件中引用"></a>在pom文件中引用</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;cn.net.xxx&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spire-doc&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;1.0.0&lt;/version&gt;</span><br><span class="line">  &lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">  &lt;systemPath&gt;$&#123;project.basedir&#125;/src/main/resources/jar/Spire.Doc.jar&lt;/systemPath&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效"><a href="#配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效" class="headerlink" title="配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效"></a>配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效</h3><h4 id="打成jar包时"><a href="#打成jar包时" class="headerlink" title="打成jar包时"></a>打成jar包时</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 打成jar包时，jar包在BOOT-INF\lib下</span><br><span class="line">    &lt;plugins&gt;</span><br><span class="line">      &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;$&#123;spring-boot-maven-plugin.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">          &lt;!--使用-Dloader.path需要在打包的时候增加&lt;layout&gt;ZIP&lt;/layout&gt;，不指定的话-Dloader.path不生效--&gt;</span><br><span class="line">          &lt;layout&gt;ZIP&lt;/layout&gt;</span><br><span class="line">          &lt;!-- 指定该jar包启动时的主类[建议] --&gt;</span><br><span class="line">          &lt;mainClass&gt;$&#123;启动类的引用地址&#125;&lt;/mainClass&gt;</span><br><span class="line">          &lt;!-- 加载外部jar包，使用这个命令，可以让maven加载配置了scope为system的jar包 --&gt;</span><br><span class="line">          &lt;includeSystemScope&gt;true&lt;/includeSystemScope&gt;</span><br><span class="line">        &lt;/configuration&gt;</span><br><span class="line">        &lt;executions&gt;</span><br><span class="line">          &lt;execution&gt;</span><br><span class="line">            &lt;goals&gt;</span><br><span class="line">              &lt;goal&gt;repackage&lt;/goal&gt;</span><br><span class="line">            &lt;/goals&gt;</span><br><span class="line">          &lt;/execution&gt;</span><br><span class="line">        &lt;/executions&gt;</span><br><span class="line">      &lt;/plugin&gt;</span><br><span class="line">      &lt;!--测试代码时遇到错误，它会停止编译，使用此插件忽略错误--&gt;</span><br><span class="line">      &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">          &lt;testFailureIgnore&gt;true&lt;/testFailureIgnore&gt;</span><br><span class="line">        &lt;/configuration&gt;</span><br><span class="line">      &lt;/plugin&gt;</span><br><span class="line">    &lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="打成war包"><a href="#打成war包" class="headerlink" title="打成war包"></a>打成war包</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 打成war包时，war包在WEB-INF/lib下</span><br><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.4&lt;/version&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;webResources&gt;</span><br><span class="line">            &lt;resource&gt;</span><br><span class="line">                &lt;directory&gt;src/main/resources/jar/&lt;/directory&gt;</span><br><span class="line">                &lt;targetPath&gt;WEB-INF/lib/&lt;/targetPath&gt;</span><br><span class="line">                &lt;includes&gt;</span><br><span class="line">                    &lt;include&gt;**/*.jar&lt;/include&gt;</span><br><span class="line">                &lt;/includes&gt;</span><br><span class="line">            &lt;/resource&gt;</span><br><span class="line">        &lt;/webResources&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/myblog.github.io/2023/09/05/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<span id="more"></span>
+
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>入门</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>测试播放视频</title>
+    <url>/myblog.github.io/2020/06/10/video/</url>
+    <content><![CDATA[<h2 id="测试视频链接播放功能"><a href="#测试视频链接播放功能" class="headerlink" title="测试视频链接播放功能"></a>测试视频链接播放功能</h2><span id="more"></span>
+
+<blockquote>
+<p>内容描述：添加B站视频链接</p>
+</blockquote>
+<iframe style="width:98%;height: 450px;" 
+src="//player.bilibili.com/player.html?aid=883419577&bvid=BV1KK4y1b7BM&cid=200067857&page=1&high_quality=1"
+frameborder=0 
+allowfullscreen="true"  
+webkitallowfullscreen="true"
+mozallowfullscreen="true">
+</iframe>
+]]></content>
+      <categories>
+        <category>video</category>
+      </categories>
+      <tags>
+        <tag>video</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解析Cron表达式</title>
+    <url>/myblog.github.io/2020/06/08/%E8%A7%A3%E6%9E%90Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<h2 id="解析Cron表达式，转换为时间"><a href="#解析Cron表达式，转换为时间" class="headerlink" title="解析Cron表达式，转换为时间"></a>解析Cron表达式，转换为时间</h2><span id="more"></span>
+
+<blockquote>
+<p>背景：当需要知道计划任务配置的执行时间，想要清楚的知道下次执行是什么时候，需要解析计划任务的Cron表达式，本次主要介绍quartz.CronExpression提供的解析Cron的方法，注：资源来源网络</p>
+</blockquote>
+<h3 id="1、Cron表达式定义"><a href="#1、Cron表达式定义" class="headerlink" title="1、Cron表达式定义"></a>1、Cron表达式定义</h3><ul>
+<li><p>定义：</p>
+<ul>
+<li><p>Cron表达式被用于设置周期性被执行的指令，通常是使用特定的调度去读取并解析它，然后在特定的时间去执行某个计划任务</p>
+</li>
+<li><pre><code>Cron表达式是一个字符串，字符串以5或6个空格隔开，分为6或7个域，每一个域代表一个含义，Cron有如下两种语法格式：
+
+1、Seconds Minutes Hours DayofMonth Month DayofWeek Year
+2、Seconds Minutes Hours DayofMonth Month DayofWeek
+　　
+字段 允许值 允许的特殊字符 
+秒 0-59 , - * / 
+分 0-59 , - * / 
+小时 0-23 , - * / 
+日期 1-31 , - * ? / L W C 
+月份 1-12 或者 JAN-DEC , - * / 
+星期 1-7 或者 SUN-SAT , - * ? / L C *#* 
+年（可选） 留空, 1970-2099 , - * / 
+
+具体实例参考第四点【Cron表达式实例】
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 2、引入quartz.CronExpression解析</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">import org.quartz.CronExpression; // jar包或者maven依赖</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>引入quartz.CronExpression来做解析，利用强大的quartz提供的方法来解析Cron，然后去定我们所要求的格式</p>
+</li>
+<li><p>注意，利用date的转换不够全面，只能解析一些简单的Cron表达式</p>
+</li>
+</ul>
+<h3 id="3、解析实例"><a href="#3、解析实例" class="headerlink" title="3、解析实例"></a>3、解析实例</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CronUtils</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据 Cron表达式和开始时间，得到下次执行时间</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> cron</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> startDate</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Date <span class="title function_">getNextExecuteTime</span><span class="params">(String cron, Date startDate)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">CronExpression</span> <span class="variable">cronExpression</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CronExpression</span>(cron);</span><br><span class="line">            <span class="keyword">return</span> cronExpression.getNextValidTimeAfter(startDate == <span class="literal">null</span> ? <span class="keyword">new</span> <span class="title class_">Date</span>() : startDate);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ParseException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;无效的cron表达式:&quot;</span> + cron, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如new Date() = 2020-05-30 16:50:00 ，Cron = &quot;0 54 0/1 * * ?&quot;,表示每小时的54分钟时会执行一次</span></span><br><span class="line"><span class="type">Date</span> <span class="variable">nextExecuteTime</span> <span class="operator">=</span> CronUtils.getNextExecuteTime(<span class="string">&quot;0 54 0/1 * * ?&quot;</span>, <span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line"><span class="comment">// 设置解析格式为&quot;yyyy-MM-dd HH:mm:ss&quot;</span></span><br><span class="line"><span class="type">DateFormat</span> <span class="variable">dateFormat</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (nextExecuteTime !=<span class="literal">null</span> ) &#123;</span><br><span class="line">  <span class="type">String</span> <span class="variable">nextRunTime</span> <span class="operator">=</span> dateFormat.format(nextExecuteTime);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 则得到下次运行时间： nextRunTime = &quot;2020-05-30 16:54:00&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4、Cron表达式实例"><a href="#4、Cron表达式实例" class="headerlink" title="4、Cron表达式实例"></a>4、Cron表达式实例</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">表达式以及含义 </span><br><span class="line">&quot;0 0 12 * * ?&quot; 每天中午12点触发 </span><br><span class="line">&quot;0 20 20 ? * *&quot; 每天20:20触发 </span><br><span class="line">&quot;0 20 20 * * ?&quot; 每天20:20触发 </span><br><span class="line">&quot;0 20 20 * * ? *&quot; 每天20:20触发 </span><br><span class="line">&quot;0 20 20 * * ? 2020&quot; 2020年的每天20:20触发 </span><br><span class="line">&quot;0 0/5 14 * * ?&quot; 在每天14点到14:55期间的每5分钟触发 </span><br><span class="line">&quot;0 0/5 14,18 * * ?&quot; 在每天14点到14:55期间和18点到18:55期间的每5分钟触发 </span><br><span class="line">&quot;0 0-5 14 * * ?&quot; 在每天每天14点到14点:05期间的每1分钟触发 </span><br><span class="line">&quot;0 10,44 14 ? 3 WED&quot; 每年三月的星期三的14:10和14:44触发 </span><br><span class="line">&quot;0 15 10 ? * MON-FRI&quot; 周一至周五的上午10:15触发 </span><br><span class="line">&quot;0 15 10 15 * ?&quot; 每月15日上午10:15触发 </span><br><span class="line">&quot;0 15 10 L * ?&quot; 每月最后一日的上午10:15触发 </span><br><span class="line">&quot;0 15 10 ? * 6L&quot; 每月的最后一个星期五上午10:15触发 </span><br><span class="line">&quot;0 6 * * *&quot; 每天早上6点 </span><br><span class="line">&quot;0 */2 * * *&quot; 每两个小时 </span><br><span class="line">&quot;0 23-7/2，8 * * * &quot; 晚上11点到早上8点之间每两个小时，早上八点  </span><br><span class="line">&quot;0 11 4 * 1-3 &quot; 每个月的4号和每个礼拜的礼拜一到礼拜三的早上11点 </span><br><span class="line">&quot;0 4 1 1 &quot; 1月1日早上4点 </span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -1150,418 +1562,6 @@
       </categories>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Markdown基本语法</title>
-    <url>/myblog.github.io/2019/11/17/Markdown/</url>
-    <content><![CDATA[<p><strong>转载自：</strong> <a href="https://www.mdeditor.com/">https://www.mdeditor.com/</a></p>
-<p>Markdown基本语法解释以及在线Markdown编辑器MdEditor</p>
-<span id="more"></span>
-
-<h2 id="Markdown是一种轻量级的「标记语言」"><a href="#Markdown是一种轻量级的「标记语言」" class="headerlink" title="Markdown是一种轻量级的「标记语言」"></a>Markdown是一种轻量级的「标记语言」</h2><p><img src="https://www.mdeditor.com/images/logos/markdown.png" alt="markdown" title="markdown"></p>
-<p>Markdown是一种可以使用普通文本编辑器编写的标记语言，通过简单的标记语法，它可以使普通文本内容具有一定的格式。它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面，Markdown文件的后缀名便是“.md”</p>
-<h2 id="MdEditor是一个在线编辑Markdown文档的编辑器"><a href="#MdEditor是一个在线编辑Markdown文档的编辑器" class="headerlink" title="MdEditor是一个在线编辑Markdown文档的编辑器"></a>MdEditor是一个在线编辑Markdown文档的编辑器</h2><p><em>MdEditor扩展了Markdown的功能（如表格、脚注、内嵌HTML等等），以使让Markdown转换成更多的格式，和更丰富的展示效果，这些功能原初的Markdown尚不具备。</em></p>
-<blockquote>
-<p>Markdown增强版中比较有名的有Markdown Extra、MultiMarkdown、 Maruku等。这些衍生版本要么基于工具，如<del>Pandoc</del>，Pandao；要么基于网站，如GitHub和Wikipedia，在语法上基本兼容，但在一些语法和渲染效果上有改动。</p>
-</blockquote>
-<p>MdEditor源于Pandao的JavaScript开源项目，开源地址<a href="https://github.com/pandao/editor.md" title="Editor.md">Editor.md</a>，并在MIT开源协议的许可范围内进行了优化，以适应广大用户群体的需求。向优秀的markdown开源编辑器原作者Pandao致敬。</p>
-<p><img src="https://pandao.github.io/editor.md/images/logos/editormd-logo-180x180.png" alt="Pandao editor.md" title="Pandao editor.md"></p>
-<h2 id="MdEditor的功能列表演示"><a href="#MdEditor的功能列表演示" class="headerlink" title="MdEditor的功能列表演示"></a>MdEditor的功能列表演示</h2><h1 id="标题H1"><a href="#标题H1" class="headerlink" title="标题H1"></a>标题H1</h1><h2 id="标题H2"><a href="#标题H2" class="headerlink" title="标题H2"></a>标题H2</h2><h3 id="标题H3"><a href="#标题H3" class="headerlink" title="标题H3"></a>标题H3</h3><h4 id="标题H4"><a href="#标题H4" class="headerlink" title="标题H4"></a>标题H4</h4><h5 id="标题H5"><a href="#标题H5" class="headerlink" title="标题H5"></a>标题H5</h5><h6 id="标题H5-1"><a href="#标题H5-1" class="headerlink" title="标题H5"></a>标题H5</h6><h3 id="字符效果和横线等"><a href="#字符效果和横线等" class="headerlink" title="字符效果和横线等"></a>字符效果和横线等</h3><hr>
-<p><del>删除线</del> <s>删除线（开启识别HTML标签时）</s></p>
-<p><em>斜体字</em>      <em>斜体字</em></p>
-<p><strong>粗体</strong>  <strong>粗体</strong></p>
-<p><em><strong>粗斜体</strong></em> <em><strong>粗斜体</strong></em></p>
-<p>上标：X<sub>2</sub>，下标：O<sup>2</sup></p>
-<p><strong>缩写(同HTML的abbr标签)</strong></p>
-<blockquote>
-<p>即更长的单词或短语的缩写形式，前提是开启识别HTML标签时，已默认开启</p>
-</blockquote>
-<p>The <abbr title="Hyper Text Markup Language">HTML</abbr> specification is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.</p>
-<h3 id="引用-Blockquotes"><a href="#引用-Blockquotes" class="headerlink" title="引用 Blockquotes"></a>引用 Blockquotes</h3><blockquote>
-<p>引用文本 Blockquotes</p>
-</blockquote>
-<p>引用的行内混合 Blockquotes</p>
-<blockquote>
-<p>引用：如果想要插入空白换行<code>即&lt;br /&gt;标签</code>，在插入处先键入两个以上的空格然后回车即可，<a href="https://www.mdeditor.com/">普通链接</a>。</p>
-</blockquote>
-<h3 id="锚点与链接-Links"><a href="#锚点与链接-Links" class="headerlink" title="锚点与链接 Links"></a>锚点与链接 Links</h3><p><a href="https://www.mdeditor.com/">普通链接</a><br><a href="https://www.mdeditor.com/" title="普通链接带标题">普通链接带标题</a><br>直接链接：<a href="https://www.mdeditor.com/">https://www.mdeditor.com</a><br>[锚点链接][anchor-id]<br>[anchor-id]: <a href="https://www.mdeditor.com/">https://www.mdeditor.com/</a><br><a href="mailto:&#x74;&#x65;&#x73;&#x74;&#x2e;&#116;&#101;&#115;&#116;&#64;&#103;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;">mailto:test.test@gmail.com</a><br>GFM a-tail link @pandao<br>邮箱地址自动链接 <a href="mailto:&#116;&#101;&#115;&#x74;&#46;&#116;&#101;&#115;&#116;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#x6d;">test.test@gmail.com</a>  <a href="mailto:&#x77;&#119;&#x77;&#x40;&#x76;&#x69;&#x70;&#46;&#x71;&#x71;&#46;&#x63;&#111;&#109;">www@vip.qq.com</a></p>
-<blockquote>
-<p>@pandao</p>
-</blockquote>
-<h3 id="多语言代码高亮-Codes"><a href="#多语言代码高亮-Codes" class="headerlink" title="多语言代码高亮 Codes"></a>多语言代码高亮 Codes</h3><h4 id="行内代码-Inline-code"><a href="#行内代码-Inline-code" class="headerlink" title="行内代码 Inline code"></a>行内代码 Inline code</h4><p>执行命令：<code>npm install marked</code></p>
-<h4 id="缩进风格"><a href="#缩进风格" class="headerlink" title="缩进风格"></a>缩进风格</h4><p>即缩进四个空格，也做为实现类似 <code>&lt;pre&gt;</code> 预格式化文本 ( Preformatted Text ) 的功能。</p>
-<pre><code>&lt;?php
-    echo &quot;Hello world!&quot;;
-?&gt;
-</code></pre>
-<p>预格式化文本：</p>
-<pre><code>| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-</code></pre>
-<h4 id="JS代码"><a href="#JS代码" class="headerlink" title="JS代码"></a>JS代码</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello world!&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="HTML-代码-HTML-codes"><a href="#HTML-代码-HTML-codes" class="headerlink" title="HTML 代码 HTML codes"></a>HTML 代码 HTML codes</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mate</span> <span class="attr">charest</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;keywords&quot;</span> <span class="attr">content</span>=<span class="string">&quot;Editor.md, Markdown, Editor&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello world!<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">            <span class="selector-tag">body</span>&#123;<span class="attribute">font-size</span>:<span class="number">14px</span>;<span class="attribute">color</span>:<span class="number">#444</span>;<span class="attribute">font-family</span>: <span class="string">&quot;Microsoft Yahei&quot;</span>, Tahoma, <span class="string">&quot;Hiragino Sans GB&quot;</span>, Arial;<span class="attribute">background</span>:<span class="number">#fff</span>;&#125;</span></span><br><span class="line"><span class="language-css">            <span class="selector-tag">ul</span>&#123;<span class="attribute">list-style</span>: none;&#125;</span></span><br><span class="line"><span class="language-css">            <span class="selector-tag">img</span>&#123;<span class="attribute">border</span>:none;<span class="attribute">vertical-align</span>: middle;&#125;</span></span><br><span class="line"><span class="language-css">        </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;text-xxl&quot;</span>&gt;</span>Hello world!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;text-green&quot;</span>&gt;</span>Plain text<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="图片-Images"><a href="#图片-Images" class="headerlink" title="图片 Images"></a>图片 Images</h3><p>图片加链接 (Image + Link)：</p>
-<p><a href="https://www.mdeditor.com/images/logos/markdown.png" title="markdown"><img src="https://www.mdeditor.com/images/logos/markdown.png"></a></p>
-<blockquote>
-<p>Follow your heart.</p>
-</blockquote>
-<hr>
-<h3 id="列表-Lists"><a href="#列表-Lists" class="headerlink" title="列表 Lists"></a>列表 Lists</h3><h4 id="无序列表（减号）Unordered-Lists"><a href="#无序列表（减号）Unordered-Lists" class="headerlink" title="无序列表（减号）Unordered Lists (-)"></a>无序列表（减号）Unordered Lists (-)</h4><ul>
-<li>列表一</li>
-<li>列表二</li>
-<li>列表三</li>
-</ul>
-<h4 id="无序列表（星号）Unordered-Lists"><a href="#无序列表（星号）Unordered-Lists" class="headerlink" title="无序列表（星号）Unordered Lists (*)"></a>无序列表（星号）Unordered Lists (*)</h4><ul>
-<li>列表一</li>
-<li>列表二</li>
-<li>列表三</li>
-</ul>
-<h4 id="无序列表（加号和嵌套）Unordered-Lists"><a href="#无序列表（加号和嵌套）Unordered-Lists" class="headerlink" title="无序列表（加号和嵌套）Unordered Lists (+)"></a>无序列表（加号和嵌套）Unordered Lists (+)</h4><ul>
-<li>列表一</li>
-<li>列表二<ul>
-<li>列表二-1</li>
-<li>列表二-2</li>
-<li>列表二-3</li>
-</ul>
-</li>
-<li>列表三<ul>
-<li>列表一</li>
-<li>列表二</li>
-<li>列表三</li>
-</ul>
-</li>
-</ul>
-<h4 id="有序列表-Ordered-Lists"><a href="#有序列表-Ordered-Lists" class="headerlink" title="有序列表 Ordered Lists (-)"></a>有序列表 Ordered Lists (-)</h4><ol>
-<li>第一行</li>
-<li>第二行</li>
-<li>第三行</li>
-</ol>
-<h4 id="GFM-task-list"><a href="#GFM-task-list" class="headerlink" title="GFM task list"></a>GFM task list</h4><ul>
-<li><input checked="" disabled="" type="checkbox"> GFM task list 1</li>
-<li><input checked="" disabled="" type="checkbox"> GFM task list 2</li>
-<li><input disabled="" type="checkbox"> GFM task list 3<ul>
-<li><input disabled="" type="checkbox"> GFM task list 3-1</li>
-<li><input disabled="" type="checkbox"> GFM task list 3-2</li>
-<li><input disabled="" type="checkbox"> GFM task list 3-3</li>
-</ul>
-</li>
-<li><input disabled="" type="checkbox"> GFM task list 4<ul>
-<li><input disabled="" type="checkbox"> GFM task list 4-1</li>
-<li><input disabled="" type="checkbox"> GFM task list 4-2</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="绘制表格-Tables"><a href="#绘制表格-Tables" class="headerlink" title="绘制表格 Tables"></a>绘制表格 Tables</h3><table>
-<thead>
-<tr>
-<th>项目</th>
-<th align="right">价格</th>
-<th align="center">数量</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>计算机</td>
-<td align="right">$1600</td>
-<td align="center">5</td>
-</tr>
-<tr>
-<td>手机</td>
-<td align="right">$12</td>
-<td align="center">12</td>
-</tr>
-<tr>
-<td>管线</td>
-<td align="right">$1</td>
-<td align="center">234</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>First Header</th>
-<th>Second Header</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Content Cell</td>
-<td>Content Cell</td>
-</tr>
-<tr>
-<td>Content Cell</td>
-<td>Content Cell</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>First Header</th>
-<th>Second Header</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Content Cell</td>
-<td>Content Cell</td>
-</tr>
-<tr>
-<td>Content Cell</td>
-<td>Content Cell</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>Function name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>help()</code></td>
-<td>Display the help window.</td>
-</tr>
-<tr>
-<td><code>destroy()</code></td>
-<td><strong>Destroy your computer!</strong></td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th align="left">Left-Aligned</th>
-<th align="center">Center Aligned</th>
-<th align="right">Right Aligned</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">col 3 is</td>
-<td align="center">some wordy text</td>
-<td align="right">$1600</td>
-</tr>
-<tr>
-<td align="left">col 2 is</td>
-<td align="center">centered</td>
-<td align="right">$12</td>
-</tr>
-<tr>
-<td align="left">zebra stripes</td>
-<td align="center">are neat</td>
-<td align="right">$1</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>Item</th>
-<th align="right">Value</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Computer</td>
-<td align="right">$1600</td>
-</tr>
-<tr>
-<td>Phone</td>
-<td align="right">$12</td>
-</tr>
-<tr>
-<td>Pipe</td>
-<td align="right">$1</td>
-</tr>
-</tbody></table>
-<hr>
-<h4 id="特殊符号-HTML-Entities-Codes"><a href="#特殊符号-HTML-Entities-Codes" class="headerlink" title="特殊符号 HTML Entities Codes"></a>特殊符号 HTML Entities Codes</h4><p>&copy; &amp;  &uml; &trade; &iexcl; &pound;<br>&amp; &lt; &gt; &yen; &euro; &reg; &plusmn; &para; &sect; &brvbar; &macr; &laquo; &middot;</p>
-<p>X&sup2; Y&sup3; &frac34; &frac14;  &times;  &divide;   &raquo;</p>
-<p>18&ordm;C  &quot;  &apos;</p>
-<p>[&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;]</p>
-<h3 id="Emoji表情-smiley"><a href="#Emoji表情-smiley" class="headerlink" title="Emoji表情 :smiley:"></a>Emoji表情 :smiley:</h3><blockquote>
-<p>Blockquotes :star:</p>
-</blockquote>
-<h4 id="GFM-task-lists-Emoji-fontAwesome-icon-emoji-editormd-logo-emoji-editormd-logo-5x"><a href="#GFM-task-lists-Emoji-fontAwesome-icon-emoji-editormd-logo-emoji-editormd-logo-5x" class="headerlink" title="GFM task lists &amp; Emoji &amp; fontAwesome icon emoji &amp; editormd logo emoji :editormd-logo-5x:"></a>GFM task lists &amp; Emoji &amp; fontAwesome icon emoji &amp; editormd logo emoji :editormd-logo-5x:</h4><ul>
-<li><input checked="" disabled="" type="checkbox"> :smiley: @mentions, :smiley: #refs, <a href="">links</a>, <strong>formatting</strong>, and <del>tags</del> supported :editormd-logo:;</li>
-<li><input checked="" disabled="" type="checkbox"> list syntax required (any unordered or ordered list supported) :editormd-logo-3x:;</li>
-<li><input checked="" disabled="" type="checkbox"> [ ] :smiley: this is a complete item :smiley:;</li>
-<li><input disabled="" type="checkbox"> []this is an incomplete item <a href="#">test link</a> :fa-star: @pandao;</li>
-<li><input disabled="" type="checkbox"> [ ]this is an incomplete item :fa-star: :fa-gear:;<ul>
-<li><input disabled="" type="checkbox"> :smiley: this is an incomplete item <a href="#">test link</a> :fa-star: :fa-gear:;</li>
-<li><input disabled="" type="checkbox"> :smiley: this is  :fa-star: :fa-gear: an incomplete item <a href="#">test link</a>;</li>
-</ul>
-</li>
-</ul>
-<h4 id="反斜杠-Escape"><a href="#反斜杠-Escape" class="headerlink" title="反斜杠 Escape"></a>反斜杠 Escape</h4><p>*literal asterisks*</p>
-<p>[&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;]</p>
-<h3 id="科学公式-TeX-KaTeX"><a href="#科学公式-TeX-KaTeX" class="headerlink" title="科学公式 TeX(KaTeX)"></a>科学公式 TeX(KaTeX)</h3><p>$$E&#x3D;mc^2$$</p>
-<p>行内的公式$$E&#x3D;mc^2$$行内的公式，行内的$$E&#x3D;mc^2$$公式。</p>
-<p>$$x &gt; y$$</p>
-<p>$$(\sqrt{3x-1}+(1+x)^2)$$</p>
-<p>$$\sin(\alpha)^{\theta}&#x3D;\sum_{i&#x3D;0}^{n}(x^i + \cos(f))$$</p>
-<p>多行公式：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\displaystyle</span><br><span class="line">\left( \sum\_&#123;k=1&#125;^n a\_k b\_k \right)^2</span><br><span class="line">\leq</span><br><span class="line">\left( \sum\_&#123;k=1&#125;^n a\_k^2 \right)</span><br><span class="line">\left( \sum\_&#123;k=1&#125;^n b\_k^2 \right)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">\displaystyle</span><br><span class="line">    \frac&#123;1&#125;&#123;</span><br><span class="line">        \Bigl(\sqrt&#123;\phi \sqrt&#123;5&#125;&#125;-\phi\Bigr) e^&#123;</span><br><span class="line">        \frac25 \pi&#125;&#125; = 1+\frac&#123;e^&#123;-2\pi&#125;&#125; &#123;1+\frac&#123;e^&#123;-4\pi&#125;&#125; &#123;</span><br><span class="line">        1+\frac&#123;e^&#123;-6\pi&#125;&#125;</span><br><span class="line">        &#123;1+\frac&#123;e^&#123;-8\pi&#125;&#125;</span><br><span class="line">         &#123;1+\cdots&#125; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line">f(x) = <span class="keyword">\int</span><span class="built_in">_</span>&#123;-<span class="keyword">\infty</span>&#125;<span class="built_in">^</span><span class="keyword">\infty</span></span><br><span class="line">    <span class="keyword">\hat</span> f(<span class="keyword">\xi</span>)<span class="keyword">\,</span>e<span class="built_in">^</span>&#123;2 <span class="keyword">\pi</span> i <span class="keyword">\xi</span> x&#125;</span><br><span class="line">    <span class="keyword">\,</span>d<span class="keyword">\xi</span></span><br></pre></td></tr></table></figure>
-<h3 id="分页符-Page-break"><a href="#分页符-Page-break" class="headerlink" title="分页符 Page break"></a>分页符 Page break</h3><blockquote>
-<p>Print Test: Ctrl + P</p>
-</blockquote>
-<p>[&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;]</p>
-<h3 id="绘制流程图-Flowchart"><a href="#绘制流程图-Flowchart" class="headerlink" title="绘制流程图 Flowchart"></a>绘制流程图 Flowchart</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">st=&gt;start: 用户登陆</span><br><span class="line">op=&gt;operation: 登陆操作</span><br><span class="line">cond=&gt;condition: 登陆成功 Yes or No?</span><br><span class="line">e=&gt;end: 进入后台</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br></pre></td></tr></table></figure>
-<p>[&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;]</p>
-<h3 id="绘制序列图-Sequence-Diagram"><a href="#绘制序列图-Sequence-Diagram" class="headerlink" title="绘制序列图 Sequence Diagram"></a>绘制序列图 Sequence Diagram</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Andrew-&gt;China: Says Hello</span><br><span class="line">Note right of China: China thinks\nabout it</span><br><span class="line">China--&gt;Andrew: How are you?</span><br><span class="line">Andrew-&gt;&gt;China: I am good thanks!</span><br></pre></td></tr></table></figure>
-<h3 id="End"><a href="#End" class="headerlink" title="End"></a>End</h3>]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Springboot加载本地jar包，并配置maven引用</title>
-    <url>/myblog.github.io/2022/01/16/Springboot%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0jar%E5%8C%85%EF%BC%8C%E5%B9%B6%E9%85%8D%E7%BD%AEmaven%E5%BC%95%E7%94%A8/</url>
-    <content><![CDATA[<h2 id="Springboot加载本地jar包，并配置maven引用"><a href="#Springboot加载本地jar包，并配置maven引用" class="headerlink" title="Springboot加载本地jar包，并配置maven引用"></a>Springboot加载本地jar包，并配置maven引用</h2><h3 id="在idea中放入jar包，如下图，以spire-doc为例子"><a href="#在idea中放入jar包，如下图，以spire-doc为例子" class="headerlink" title="在idea中放入jar包，如下图，以spire.doc为例子"></a>在idea中放入jar包，如下图，以spire.doc为例子</h3><img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/jar.png" style="zoom:75%;" />
-
-<h3 id="在pom文件中引用"><a href="#在pom文件中引用" class="headerlink" title="在pom文件中引用"></a>在pom文件中引用</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;cn.net.xxx&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spire-doc&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;1.0.0&lt;/version&gt;</span><br><span class="line">  &lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">  &lt;systemPath&gt;$&#123;project.basedir&#125;/src/main/resources/jar/Spire.Doc.jar&lt;/systemPath&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效"><a href="#配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效" class="headerlink" title="配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效"></a>配置maven打包时，将本地jar包打进去，否则第二步的pom引用无效</h3><h4 id="打成jar包时"><a href="#打成jar包时" class="headerlink" title="打成jar包时"></a>打成jar包时</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 打成jar包时，jar包在BOOT-INF\lib下</span><br><span class="line">    &lt;plugins&gt;</span><br><span class="line">      &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;$&#123;spring-boot-maven-plugin.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">          &lt;!--使用-Dloader.path需要在打包的时候增加&lt;layout&gt;ZIP&lt;/layout&gt;，不指定的话-Dloader.path不生效--&gt;</span><br><span class="line">          &lt;layout&gt;ZIP&lt;/layout&gt;</span><br><span class="line">          &lt;!-- 指定该jar包启动时的主类[建议] --&gt;</span><br><span class="line">          &lt;mainClass&gt;$&#123;启动类的引用地址&#125;&lt;/mainClass&gt;</span><br><span class="line">          &lt;!-- 加载外部jar包，使用这个命令，可以让maven加载配置了scope为system的jar包 --&gt;</span><br><span class="line">          &lt;includeSystemScope&gt;true&lt;/includeSystemScope&gt;</span><br><span class="line">        &lt;/configuration&gt;</span><br><span class="line">        &lt;executions&gt;</span><br><span class="line">          &lt;execution&gt;</span><br><span class="line">            &lt;goals&gt;</span><br><span class="line">              &lt;goal&gt;repackage&lt;/goal&gt;</span><br><span class="line">            &lt;/goals&gt;</span><br><span class="line">          &lt;/execution&gt;</span><br><span class="line">        &lt;/executions&gt;</span><br><span class="line">      &lt;/plugin&gt;</span><br><span class="line">      &lt;!--测试代码时遇到错误，它会停止编译，使用此插件忽略错误--&gt;</span><br><span class="line">      &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">          &lt;testFailureIgnore&gt;true&lt;/testFailureIgnore&gt;</span><br><span class="line">        &lt;/configuration&gt;</span><br><span class="line">      &lt;/plugin&gt;</span><br><span class="line">    &lt;/plugins&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="打成war包"><a href="#打成war包" class="headerlink" title="打成war包"></a>打成war包</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 打成war包时，war包在WEB-INF/lib下</span><br><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.4&lt;/version&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;webResources&gt;</span><br><span class="line">            &lt;resource&gt;</span><br><span class="line">                &lt;directory&gt;src/main/resources/jar/&lt;/directory&gt;</span><br><span class="line">                &lt;targetPath&gt;WEB-INF/lib/&lt;/targetPath&gt;</span><br><span class="line">                &lt;includes&gt;</span><br><span class="line">                    &lt;include&gt;**/*.jar&lt;/include&gt;</span><br><span class="line">                &lt;/includes&gt;</span><br><span class="line">            &lt;/resource&gt;</span><br><span class="line">        &lt;/webResources&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python解析专利获奖数据</title>
-    <url>/myblog.github.io/2022/04/25/Python%E8%A7%A3%E6%9E%90%E4%B8%93%E5%88%A9%E8%8E%B7%E5%A5%96%E6%95%B0%E6%8D%AE/</url>
-    <content><![CDATA[<h4 id="导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件"><a href="#导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件" class="headerlink" title="导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件"></a>导入Pdfplumber库来读取pdf文件，利用pandas格式化，最后输出为excel文件</h4><blockquote>
-<p>未安装Pdfplumber库的要先安装，命令：pip install pdfplumber</p>
-</blockquote>
-<ul>
-<li><p>专利数据来源与国知局的文件，链接：<a href="#https://www.cnipa.gov.cn/col/col41/index.html">中国专利奖</a></p>
-</li>
-<li><p>PDF数据样式如下：<img src="https://cdn.jsdelivr.net/gh/lzx1902/PicGoCDN/image/20220425172920.png"></p>
-</li>
-<li><p>Python源码如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pdfplumber</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read_pdf</span>(<span class="params">read_path, save_path</span>):</span><br><span class="line">    pdf_2020 = pdfplumber.<span class="built_in">open</span>(read_path)</span><br><span class="line">    result_df = pd.DataFrame()</span><br><span class="line">    tables = []</span><br><span class="line">    <span class="keyword">for</span> page <span class="keyword">in</span> pdf_2020.pages:</span><br><span class="line">        table = page.extract_table()</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> table :</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>) :</span><br><span class="line">                item[j] = item[j].replace(<span class="string">&#x27;\n&#x27;</span>, <span class="string">&#x27;&#x27;</span>).replace(<span class="string">&#x27;\r&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">            item.insert(<span class="number">5</span>, <span class="string">&#x27;22&#x27;</span>)</span><br><span class="line">            item.insert(<span class="number">6</span>, <span class="string">&#x27;专利优秀奖&#x27;</span>)</span><br><span class="line">            item.insert(<span class="number">7</span>, <span class="string">&#x27;国家级&#x27;</span>)</span><br><span class="line">            item.insert(<span class="number">8</span>, <span class="string">&#x27;2021&#x27;</span>)</span><br><span class="line">            tables.append(item)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 所有的pdf页数数据</span></span><br><span class="line">    <span class="built_in">print</span>(tables)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;--------- PDF数据提取完毕 --------&#x27;</span>)</span><br><span class="line">    <span class="comment"># df_detail = pd.DataFrame(table[1:], columns=table[0])</span></span><br><span class="line">    df_detail = pd.DataFrame(tables)</span><br><span class="line">    result_df = pd.concat([df_detail, result_df], ignore_index=<span class="literal">True</span>)</span><br><span class="line">    result_df.dropna(axis=<span class="number">1</span>, how=<span class="string">&#x27;all&#x27;</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">    result_df.columns = [<span class="string">&#x27;序号&#x27;</span>, <span class="string">&#x27;专利申请号&#x27;</span>, <span class="string">&#x27;专利名称&#x27;</span>, <span class="string">&#x27;专利权人&#x27;</span>, <span class="string">&#x27;发明人&#x27;</span>, <span class="string">&#x27;获奖届数&#x27;</span>, <span class="string">&#x27;奖项&#x27;</span>, <span class="string">&#x27;获奖级别&#x27;</span>, <span class="string">&#x27;获奖年度&#x27;</span>]</span><br><span class="line">    result_df.to_excel(excel_writer=save_path, index=<span class="literal">False</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    read_path = <span class="string">r&#x27;/Users/xxx/Downloads/第二十二届中国专利优秀奖项目名单.pdf&#x27;</span></span><br><span class="line">    save_path = <span class="string">r&#x27;/Users/xxx/Downloads/第二十二届中国专利优秀奖项目名单.xlsx&#x27;</span></span><br><span class="line">    read_pdf(read_path, save_path)</span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Python</category>
-        <category>Pdfplumber</category>
-        <category>Pdf</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/myblog.github.io/2023/09/05/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<span id="more"></span>
-
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>入门</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>测试播放视频</title>
-    <url>/myblog.github.io/2020/06/10/video/</url>
-    <content><![CDATA[<h2 id="测试视频链接播放功能"><a href="#测试视频链接播放功能" class="headerlink" title="测试视频链接播放功能"></a>测试视频链接播放功能</h2><span id="more"></span>
-
-<blockquote>
-<p>内容描述：添加B站视频链接</p>
-</blockquote>
-<iframe style="width:98%;height: 450px;" 
-src="//player.bilibili.com/player.html?aid=883419577&bvid=BV1KK4y1b7BM&cid=200067857&page=1&high_quality=1"
-frameborder=0 
-allowfullscreen="true"  
-webkitallowfullscreen="true"
-mozallowfullscreen="true">
-</iframe>
-]]></content>
-      <categories>
-        <category>video</category>
-      </categories>
-      <tags>
-        <tag>video</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>解析Cron表达式</title>
-    <url>/myblog.github.io/2020/06/08/%E8%A7%A3%E6%9E%90Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
-    <content><![CDATA[<h2 id="解析Cron表达式，转换为时间"><a href="#解析Cron表达式，转换为时间" class="headerlink" title="解析Cron表达式，转换为时间"></a>解析Cron表达式，转换为时间</h2><span id="more"></span>
-
-<blockquote>
-<p>背景：当需要知道计划任务配置的执行时间，想要清楚的知道下次执行是什么时候，需要解析计划任务的Cron表达式，本次主要介绍quartz.CronExpression提供的解析Cron的方法，注：资源来源网络</p>
-</blockquote>
-<h3 id="1、Cron表达式定义"><a href="#1、Cron表达式定义" class="headerlink" title="1、Cron表达式定义"></a>1、Cron表达式定义</h3><ul>
-<li><p>定义：</p>
-<ul>
-<li><p>Cron表达式被用于设置周期性被执行的指令，通常是使用特定的调度去读取并解析它，然后在特定的时间去执行某个计划任务</p>
-</li>
-<li><pre><code>Cron表达式是一个字符串，字符串以5或6个空格隔开，分为6或7个域，每一个域代表一个含义，Cron有如下两种语法格式：
-
-1、Seconds Minutes Hours DayofMonth Month DayofWeek Year
-2、Seconds Minutes Hours DayofMonth Month DayofWeek
-　　
-字段 允许值 允许的特殊字符 
-秒 0-59 , - * / 
-分 0-59 , - * / 
-小时 0-23 , - * / 
-日期 1-31 , - * ? / L W C 
-月份 1-12 或者 JAN-DEC , - * / 
-星期 1-7 或者 SUN-SAT , - * ? / L C *#* 
-年（可选） 留空, 1970-2099 , - * / 
-
-具体实例参考第四点【Cron表达式实例】
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 2、引入quartz.CronExpression解析</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">import org.quartz.CronExpression; // jar包或者maven依赖</span><br></pre></td></tr></table></figure>
-</code></pre>
-</li>
-</ul>
-</li>
-<li><p>引入quartz.CronExpression来做解析，利用强大的quartz提供的方法来解析Cron，然后去定我们所要求的格式</p>
-</li>
-<li><p>注意，利用date的转换不够全面，只能解析一些简单的Cron表达式</p>
-</li>
-</ul>
-<h3 id="3、解析实例"><a href="#3、解析实例" class="headerlink" title="3、解析实例"></a>3、解析实例</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CronUtils</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据 Cron表达式和开始时间，得到下次执行时间</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> cron</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> startDate</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Date <span class="title function_">getNextExecuteTime</span><span class="params">(String cron, Date startDate)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">CronExpression</span> <span class="variable">cronExpression</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CronExpression</span>(cron);</span><br><span class="line">            <span class="keyword">return</span> cronExpression.getNextValidTimeAfter(startDate == <span class="literal">null</span> ? <span class="keyword">new</span> <span class="title class_">Date</span>() : startDate);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ParseException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;无效的cron表达式:&quot;</span> + cron, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如new Date() = 2020-05-30 16:50:00 ，Cron = &quot;0 54 0/1 * * ?&quot;,表示每小时的54分钟时会执行一次</span></span><br><span class="line"><span class="type">Date</span> <span class="variable">nextExecuteTime</span> <span class="operator">=</span> CronUtils.getNextExecuteTime(<span class="string">&quot;0 54 0/1 * * ?&quot;</span>, <span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line"><span class="comment">// 设置解析格式为&quot;yyyy-MM-dd HH:mm:ss&quot;</span></span><br><span class="line"><span class="type">DateFormat</span> <span class="variable">dateFormat</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (nextExecuteTime !=<span class="literal">null</span> ) &#123;</span><br><span class="line">  <span class="type">String</span> <span class="variable">nextRunTime</span> <span class="operator">=</span> dateFormat.format(nextExecuteTime);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 则得到下次运行时间： nextRunTime = &quot;2020-05-30 16:54:00&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="4、Cron表达式实例"><a href="#4、Cron表达式实例" class="headerlink" title="4、Cron表达式实例"></a>4、Cron表达式实例</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">表达式以及含义 </span><br><span class="line">&quot;0 0 12 * * ?&quot; 每天中午12点触发 </span><br><span class="line">&quot;0 20 20 ? * *&quot; 每天20:20触发 </span><br><span class="line">&quot;0 20 20 * * ?&quot; 每天20:20触发 </span><br><span class="line">&quot;0 20 20 * * ? *&quot; 每天20:20触发 </span><br><span class="line">&quot;0 20 20 * * ? 2020&quot; 2020年的每天20:20触发 </span><br><span class="line">&quot;0 0/5 14 * * ?&quot; 在每天14点到14:55期间的每5分钟触发 </span><br><span class="line">&quot;0 0/5 14,18 * * ?&quot; 在每天14点到14:55期间和18点到18:55期间的每5分钟触发 </span><br><span class="line">&quot;0 0-5 14 * * ?&quot; 在每天每天14点到14点:05期间的每1分钟触发 </span><br><span class="line">&quot;0 10,44 14 ? 3 WED&quot; 每年三月的星期三的14:10和14:44触发 </span><br><span class="line">&quot;0 15 10 ? * MON-FRI&quot; 周一至周五的上午10:15触发 </span><br><span class="line">&quot;0 15 10 15 * ?&quot; 每月15日上午10:15触发 </span><br><span class="line">&quot;0 15 10 L * ?&quot; 每月最后一日的上午10:15触发 </span><br><span class="line">&quot;0 15 10 ? * 6L&quot; 每月的最后一个星期五上午10:15触发 </span><br><span class="line">&quot;0 6 * * *&quot; 每天早上6点 </span><br><span class="line">&quot;0 */2 * * *&quot; 每两个小时 </span><br><span class="line">&quot;0 23-7/2，8 * * * &quot; 晚上11点到早上8点之间每两个小时，早上八点  </span><br><span class="line">&quot;0 11 4 * 1-3 &quot; 每个月的4号和每个礼拜的礼拜一到礼拜三的早上11点 </span><br><span class="line">&quot;0 4 1 1 &quot; 1月1日早上4点 </span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
       </tags>
   </entry>
 </search>
